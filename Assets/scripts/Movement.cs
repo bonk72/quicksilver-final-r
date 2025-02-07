@@ -22,15 +22,11 @@ public class Movement : MonoBehaviour
     private bool isDashing;
     private bool canDash = true;
 
-    // Start is called before the first frame update
     void Start()
     {
-
-
         activeMoveSpeed = moveSpeed;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isDashing) {
@@ -40,46 +36,15 @@ public class Movement : MonoBehaviour
         float movex = Input.GetAxisRaw("Horizontal");
         float movey = Input.GetAxisRaw("Vertical");
 
-
         moveInput = new Vector2(movex, movey).normalized;
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButton(0)) {
             weapon.Fire();
         }
         if (Input.GetKeyDown(KeyCode.Space) && canDash) {
             StartCoroutine(Dash());
         }
-
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    if (dashCooldownTime <= 0 && dashCounter <= 0)
-        //    {
-        //        activeMoveSpeed = dashSpeed;
-        //        dashCounter = dashLength;
-
-
-            //    }
-            //}
-            //if (dashCounter > 0)   
-            //{
-            //    dashCounter -= Time.deltaTime;
-
-            //    if (dashCounter <= dashLength / 2)
-            //    {
-            //        coll.enabled = true;
-            //    }
-            //    if (dashCounter <= 0)
-            //    {
-            //        activeMoveSpeed = moveSpeed;
-            //        dashCooldownTime = dashCooldown;
-            //    }
-            //}
-            //if (dashCooldownTime > 0)
-            //{
-            //    coll.enabled = true;
-            //   dashCooldownTime -= Time.deltaTime;
-            //}
     }
 
     private void FixedUpdate()
@@ -94,17 +59,26 @@ public class Movement : MonoBehaviour
         float aimangle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
         rb2d.rotation = aimangle;
     }
+
     private IEnumerator Dash() {
+        coll.enabled = false;
         canDash = false;
         isDashing = true;
-        rb2d.velocity = new Vector2(moveInput.x * dashSpeed, moveInput.y * dashSpeed);
+
+        // Calculate dash direction towards mouse
+        Vector2 dashDirection = (mousePosition - rb2d.position).normalized;
+        rb2d.velocity = dashDirection * dashSpeed;
+
         yield return new WaitForSeconds(dashLength);
+        
         isDashing = false;
+        coll.enabled = true;
 
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
 
+    public void ResetDash(){
+        canDash = true;
+    }
 }
-
-
