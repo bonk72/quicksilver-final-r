@@ -42,7 +42,7 @@ public class Movement : MonoBehaviour
         if (Input.GetMouseButton(0)) {
             weapon.Fire();
         }
-        if (Input.GetKeyDown(KeyCode.Space) && canDash) {
+        if (Input.GetMouseButtonDown(1) && canDash) {
             StartCoroutine(Dash());
         }
     }
