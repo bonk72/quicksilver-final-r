@@ -7,6 +7,8 @@ public class execute : MonoBehaviour
 {
     // Start is called before the first frame update
     public EnemyHealth enemy;
+    public float executeThreshold;
+    public floatinghealthbar healthbar;
     
 
     void Start()
@@ -22,12 +24,18 @@ public class execute : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.tag == "execute")
         {
-            if (enemy.currentHealth <= enemy.maxHealth * .3)
+            if (enemy.currentHealth <= enemy.maxHealth * executeThreshold)
             {
                 Movement dashreset =  other.gameObject.GetComponentInParent<Movement>();
+                PlayerTime time =  other.gameObject.GetComponentInParent<PlayerTime>();
                 dashreset.ResetDash();
-                
+                time.AddTime(enemy.timeToAdd);
                 enemy.execute();
+            }
+            else{
+                enemy.currentHealth -= enemy.maxHealth * (executeThreshold/ 2);
+                healthbar.UpdateHealthBar(enemy.currentHealth, enemy.maxHealth, executeThreshold);
+
             }
 
         }

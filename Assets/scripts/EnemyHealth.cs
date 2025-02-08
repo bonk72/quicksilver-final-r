@@ -7,13 +7,17 @@ public class EnemyHealth : MonoBehaviour
     public float maxHealth = 100f;
     public float currentHealth;
     public floatinghealthbar healthbar;
+    private float threshold;
+    public float timeToAdd;
+    
     
 
     void Start()
     {
+        threshold = GetComponentInChildren<execute>().executeThreshold;
         currentHealth = maxHealth;
         healthbar = GetComponentInChildren<floatinghealthbar>();
-        healthbar.UpdateHealthBar(currentHealth, maxHealth);
+        healthbar.UpdateHealthBar(currentHealth, maxHealth, threshold);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -32,7 +36,7 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        healthbar.UpdateHealthBar(currentHealth, maxHealth);
+        healthbar.UpdateHealthBar(currentHealth, maxHealth, threshold);
 
         
         if (currentHealth <= 0)

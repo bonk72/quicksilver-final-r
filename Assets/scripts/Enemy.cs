@@ -9,10 +9,17 @@ public class Enemy : MonoBehaviour
     public float detectionRadius = 10f;  // How far enemy can see player
     public float stoppingDistance = 2f;   // How close enemy gets to player
     public LayerMask wallLayer;
+    public float timeDamage = 5f;  // How much time is deducted from player on collision
+
+    // Stun variables
+    public float stunDuration = 0.5f;
+    private bool isStunned = false;
 
     private Transform player;
     private Rigidbody2D rb;
     private Vector2 moveDirection;
+
+
 
     void Start()
     {
@@ -22,7 +29,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if (player == null) return;
+        if (player == null || isStunned) return;
 
         // Calculate distance to player
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
@@ -68,8 +75,48 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Apply movement
-        rb.velocity = moveDirection * moveSpeed;
+        if (!isStunned)
+        {
+            // Apply movement
+            rb.velocity = moveDirection * moveSpeed;
+        }
+        else
+        {
+            // Stop movement while stunned
+            rb.velocity = Vector2.zero;
+        }
+    }
+
+    // Public method to stun the enemy
+    public void Stun()
+    {
+        if (!isStunned)
+        {
+            StartCoroutine(StunCoroutine());
+        }
+    }
+
+    private IEnumerator StunCoroutine()
+    {
+        isStunned = true;
+
+        
+        rb.velocity = Vector2.zero;
+
+
+        
+        yield return new WaitForSeconds(stunDuration);
+        
+        isStunned = false;
+ 
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            StartCoroutine(StunCoroutine());
+        }
     }
 
     void OnDrawGizmos()

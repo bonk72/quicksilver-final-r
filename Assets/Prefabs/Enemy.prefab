@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 1061500325422261264}
   m_Layer: 8
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -279,13 +279,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b91f757d8cfa64f9983694de84dc52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 7
   wallDetectionRange: 3
-  detectionRadius: 10
-  stoppingDistance: 2
+  detectionRadius: 15
+  stoppingDistance: 0
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
+  timeDamage: 10
+  stunDuration: 0.7
 --- !u!61 &8985416275253545274
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -343,7 +345,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -373,6 +375,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   healthbar: {fileID: 8702077756776200247}
+  timeToAdd: 5
 --- !u!1 &4520431182427248596
 GameObject:
   m_ObjectHideFlags: 0
@@ -566,7 +569,7 @@ GameObject:
   - component: {fileID: 6715851451074800161}
   - component: {fileID: 3719707713879052968}
   m_Layer: 7
-  m_Name: GameObject
+  m_Name: ExecuteDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -645,6 +648,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 1061500325422261264}
+  executeThreshold: 0.3
+  healthbar: {fileID: 8702077756776200247}
 --- !u!1 &8203383572684021431
 GameObject:
   m_ObjectHideFlags: 0
