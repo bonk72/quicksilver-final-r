@@ -98,11 +98,11 @@ public class PlayerTime : MonoBehaviour
             weaponComponent.enabled = false;
         }
         // Disable collider
-        Collider2D collider = GetComponent<Collider2D>();
-        if (collider != null)
-        {
-            collider.enabled = false;
-        }
+        //Collider2D collider = GetComponent<Collider2D>();
+        //if (collider != null)
+        //{
+        //    collider.enabled = false;
+        //}
         // Optional: Add death animation or particle effect here
         
         // Optional: Add game over screen or restart mechanism here
