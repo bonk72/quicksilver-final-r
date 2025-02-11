@@ -266,6 +266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 317264325}
   - component: {fileID: 317264324}
+  - component: {fileID: 317264326}
   m_Layer: 0
   m_Name: RoomManager
   m_TagString: Untagged
@@ -280,7 +281,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 317264323}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7a9e7eacf8766842a4c01ebd40b093d, type: 3}
   m_Name: 
@@ -308,6 +309,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &317264326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317264323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff48a383059dad42ab0a56b3e030cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRooms: 10
+  minRooms: 8
+  possibleRoomPrefabs:
+  - {fileID: 1993581344449621484, guid: 7dffedd69782c8f4fa1b49d2de0a1d73, type: 3}
+  verticalHallwayPrefabs:
+  - {fileID: 1993581344449621484, guid: 0fb0c74ba1c3c3144b6b8847899f8e14, type: 3}
+  startingRoomPrefab: {fileID: 1993581344449621484, guid: 7dffedd69782c8f4fa1b49d2de0a1d73, type: 3}
+  bossRoomPrefab: {fileID: 1993581344449621484, guid: 603b14758fe2fec4eb465578531cc0af, type: 3}
 --- !u!1 &383278525
 GameObject:
   m_ObjectHideFlags: 0

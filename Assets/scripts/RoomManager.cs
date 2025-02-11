@@ -46,8 +46,8 @@ public class RoomManager : MonoBehaviour
 
     private void GenerateDungeon()
     {
-        roomGrid = new bool[10, 12];
-        roomTypes = new RoomType[10, 12];
+        roomGrid = new bool[10, 15]; // Increased height for boss room
+        roomTypes = new RoomType[10, 15];
         consecutiveNormalRooms = 0;
         
         // Place starting room at (0,0) in grid coordinates
@@ -255,31 +255,54 @@ public class RoomManager : MonoBehaviour
 
         if (!foundRoom) return;
 
-        // Try multiple positions for the boss room
-        Vector2Int[] possiblePositions = new Vector2Int[]
+        // Try to place boss room at increasing heights until successful
+        for (int heightOffset = 3; heightOffset <= 5; heightOffset++)
         {
-            new Vector2Int(bestX, highestY + 3),      // Directly above
-            new Vector2Int(bestX - 1, highestY + 3),  // Above and left
-            new Vector2Int(bestX + 1, highestY + 3),  // Above and right
-        };
-
-        foreach (Vector2Int bossPos in possiblePositions)
-        {
-            if (IsValidBossPosition(bossPos))
+            // Try multiple positions at each height
+            Vector2Int[] possiblePositions = new Vector2Int[]
             {
-                bossRoomPos = bossPos;
-                roomGrid[bossPos.x, bossPos.y] = true;
-                roomTypes[bossPos.x, bossPos.y] = RoomType.Boss;
-                
-                Vector2Int worldPos = GetPositionFromGridIndex(bossPos);
-                float xOffset = (bossRoomWidth - roomWidth) / 2f;
-                float yOffset = (bossRoomHeight - roomHeight) / 2f;
-                Vector3 adjustedPos = new Vector3(worldPos.x + xOffset, worldPos.y + yOffset, 0);
-                
-                GameObject bossRoom = Instantiate(bossRoomPrefab, adjustedPos, Quaternion.identity);
-                roomObjects.Add(bossRoom);
-                return;
+                new Vector2Int(bestX, highestY + heightOffset),      // Directly above
+                new Vector2Int(bestX - 1, highestY + heightOffset),  // Above and left
+                new Vector2Int(bestX + 1, highestY + heightOffset),  // Above and right
+                new Vector2Int(bestX - 2, highestY + heightOffset),  // Further left
+                new Vector2Int(bestX + 2, highestY + heightOffset)   // Further right
+            };
+
+            foreach (Vector2Int bossPos in possiblePositions)
+            {
+                if (IsValidBossPosition(bossPos))
+                {
+                    bossRoomPos = bossPos;
+                    roomGrid[bossPos.x, bossPos.y] = true;
+                    roomTypes[bossPos.x, bossPos.y] = RoomType.Boss;
+                    
+                    Vector2Int worldPos = GetPositionFromGridIndex(bossPos);
+                    float xOffset = (bossRoomWidth - roomWidth) / 2f;
+                    float yOffset = (bossRoomHeight - roomHeight) / 2f;
+                    Vector3 adjustedPos = new Vector3(worldPos.x + xOffset, worldPos.y + yOffset, 0);
+                    
+                    GameObject bossRoom = Instantiate(bossRoomPrefab, adjustedPos, Quaternion.identity);
+                    roomObjects.Add(bossRoom);
+                    return;
+                }
             }
+        }
+
+        // If no position worked, force place at highest possible position
+        Vector2Int forcedPos = new Vector2Int(bestX, roomGrid.GetLength(1) - 3);
+        if (IsInGrid(forcedPos))
+        {
+            bossRoomPos = forcedPos;
+            roomGrid[forcedPos.x, forcedPos.y] = true;
+            roomTypes[forcedPos.x, forcedPos.y] = RoomType.Boss;
+            
+            Vector2Int worldPos = GetPositionFromGridIndex(forcedPos);
+            float xOffset = (bossRoomWidth - roomWidth) / 2f;
+            float yOffset = (bossRoomHeight - roomHeight) / 2f;
+            Vector3 adjustedPos = new Vector3(worldPos.x + xOffset, worldPos.y + yOffset, 0);
+            
+            GameObject bossRoom = Instantiate(bossRoomPrefab, adjustedPos, Quaternion.identity);
+            roomObjects.Add(bossRoom);
         }
     }
 
@@ -287,14 +310,14 @@ public class RoomManager : MonoBehaviour
     {
         if (!IsInGrid(pos)) return false;
 
-        // Check a larger area around the boss room position due to its size
+        // Check a larger area around and below the boss room
         for (int x = pos.x - 2; x <= pos.x + 2; x++)
         {
-            for (int y = pos.y - 2; y <= pos.y + 2; y++)
+            for (int y = pos.y - 2; y <= pos.y; y++) // Only check up to current position
             {
                 if (IsInGrid(new Vector2Int(x, y)))
                 {
-                    // Don't allow any rooms in the surrounding area
+                    // Don't allow any rooms in the checking area
                     if (roomGrid[x, y])
                     {
                         return false;
@@ -303,9 +326,14 @@ public class RoomManager : MonoBehaviour
             }
         }
 
-        // Also ensure we're not too close to the grid edges
-        if (pos.x < 2 || pos.x >= roomGrid.GetLength(0) - 2 ||
-            pos.y < 2 || pos.y >= roomGrid.GetLength(1) - 2)
+        // Ensure we're not too close to horizontal edges
+        if (pos.x < 2 || pos.x >= roomGrid.GetLength(0) - 2)
+        {
+            return false;
+        }
+
+        // For vertical position, only ensure we're not at the very top
+        if (pos.y >= roomGrid.GetLength(1) - 2)
         {
             return false;
         }
