@@ -162,8 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb38a4f84f60ff45819b3265af76e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 15
-  lifetime: 0.4
+  damage: 30
+  lifetime: 0.3
 --- !u!96 &4697008399379268141
 TrailRenderer:
   serializedVersion: 3
@@ -205,7 +205,7 @@ TrailRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Time: 0.2
   m_PreviewTimeScale: 1
   m_Parameters:

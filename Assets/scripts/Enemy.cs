@@ -10,16 +10,17 @@ public class Enemy : MonoBehaviour
     public float stoppingDistance = 2f;   // How close enemy gets to player
     public LayerMask wallLayer;
     public float timeDamage = 5f;  // How much time is deducted from player on collision
+    public float detectionDelay = 0.5f; // Delay before starting to chase player
 
     // Stun variables
     public float stunDuration = 0.5f;
     private bool isStunned = false;
+    private bool isWaitingToChase = false;
 
     private Transform player;
     private Rigidbody2D rb;
     private Vector2 moveDirection;
-
-
+    private bool hasDetectedPlayer = false;
 
     void Start()
     {
@@ -34,36 +35,18 @@ public class Enemy : MonoBehaviour
         // Calculate distance to player
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        // Only move if player is within detection radius and further than stopping distance
+        // Check if player is within detection radius
         if (distanceToPlayer <= detectionRadius && distanceToPlayer > stoppingDistance)
         {
-            // Get direction to player
-            Vector2 directionToPlayer = ((Vector2)player.position - rb.position).normalized;
-            
-            // Check for walls
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, wallDetectionRange, wallLayer);
-            
-            if (hit.collider != null)
+            if (!hasDetectedPlayer && !isWaitingToChase)
             {
-                // Wall detected, try to find alternative path
-                Vector2 rightDirection = Quaternion.Euler(0, 0, 45) * directionToPlayer;
-                Vector2 leftDirection = Quaternion.Euler(0, 0, -45) * directionToPlayer;
-                
-                // Check both directions
-                RaycastHit2D rightHit = Physics2D.Raycast(transform.position, rightDirection, wallDetectionRange, wallLayer);
-                RaycastHit2D leftHit = Physics2D.Raycast(transform.position, leftDirection, wallDetectionRange, wallLayer);
-                
-                // Choose direction with no wall
-                if (!rightHit.collider)
-                    moveDirection = rightDirection;
-                else if (!leftHit.collider)
-                    moveDirection = leftDirection;
-                else
-                    moveDirection = Vector2.zero; // Both directions blocked
+                // First time detecting player
+                StartCoroutine(DetectionDelayCoroutine());
             }
-            else
+            else if (hasDetectedPlayer)
             {
-                moveDirection = directionToPlayer;
+                // Already detected and delay is over, proceed with chase
+                ChasePlayer();
             }
         }
         else
@@ -73,21 +56,60 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private IEnumerator DetectionDelayCoroutine()
+    {
+        isWaitingToChase = true;
+        yield return new WaitForSeconds(detectionDelay);
+        hasDetectedPlayer = true;
+        isWaitingToChase = false;
+    }
+
+    private void ChasePlayer()
+    {
+        // Get direction to player
+        Vector2 directionToPlayer = ((Vector2)player.position - rb.position).normalized;
+        
+        // Check for walls
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, wallDetectionRange, wallLayer);
+        
+        if (hit.collider != null)
+        {
+            // Wall detected, try to find alternative path
+            Vector2 rightDirection = Quaternion.Euler(0, 0, 45) * directionToPlayer;
+            Vector2 leftDirection = Quaternion.Euler(0, 0, -45) * directionToPlayer;
+            
+            // Check both directions
+            RaycastHit2D rightHit = Physics2D.Raycast(transform.position, rightDirection, wallDetectionRange, wallLayer);
+            RaycastHit2D leftHit = Physics2D.Raycast(transform.position, leftDirection, wallDetectionRange, wallLayer);
+            
+            // Choose direction with no wall
+            if (!rightHit.collider)
+                moveDirection = rightDirection;
+            else if (!leftHit.collider)
+                moveDirection = leftDirection;
+            else
+                moveDirection = Vector2.zero; // Both directions blocked
+        }
+        else
+        {
+            moveDirection = directionToPlayer;
+        }
+    }
+
     void FixedUpdate()
     {
-        if (!isStunned)
+        if (!isStunned && hasDetectedPlayer && !isWaitingToChase)
         {
             // Apply movement
             rb.velocity = moveDirection * moveSpeed;
         }
         else
         {
-            // Stop movement while stunned
+            // Stop movement while stunned or during detection delay
             rb.velocity = Vector2.zero;
         }
     }
 
-    // Public method to stun the enemy
     public void Stun()
     {
         if (!isStunned)
@@ -99,16 +121,9 @@ public class Enemy : MonoBehaviour
     private IEnumerator StunCoroutine()
     {
         isStunned = true;
-
-        
         rb.velocity = Vector2.zero;
-
-
-        
         yield return new WaitForSeconds(stunDuration);
-        
         isStunned = false;
- 
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
