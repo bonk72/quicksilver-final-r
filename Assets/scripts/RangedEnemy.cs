@@ -8,11 +8,11 @@ public class RangedEnemy : MonoBehaviour
     public float wallDetectionRange = 1f;
     public float detectionRadius = 10f;  // How far enemy can see player
     public float stoppingDistance = 5f;   // Optimal shooting distance
-    public float runAwayDistance = 3f;    // Distance at which enemy runs away
     public float detectionDelay = 0.5f;   // Delay before starting to chase player
     public LayerMask wallLayer;
     public GameObject projectilePrefab;   // Projectile to shoot
     public float shootingCooldown = 2f;   // Time between shots
+    public float projectileSpeed = 10f;   // Speed of the projectile
 
     // Stun variables
     public float stunDuration = 0.5f;
@@ -48,13 +48,7 @@ public class RangedEnemy : MonoBehaviour
             }
             else if (hasDetectedPlayer)
             {
-                // Already detected and delay is over
-                if (distanceToPlayer <= runAwayDistance)
-                {
-                    // Run away if player is too close
-                    RunAwayFromPlayer();
-                }
-                else if (distanceToPlayer <= stoppingDistance)
+                if (distanceToPlayer <= stoppingDistance)
                 {
                     // At optimal range - stop and shoot
                     moveDirection = Vector2.zero;
@@ -85,12 +79,6 @@ public class RangedEnemy : MonoBehaviour
         isWaitingToChase = false;
     }
 
-    private void RunAwayFromPlayer()
-    {
-        Vector2 directionFromPlayer = ((Vector2)transform.position - (Vector2)player.position).normalized;
-        moveDirection = directionFromPlayer;
-    }
-
     private IEnumerator ShootAtPlayer()
     {
         canShoot = false;
@@ -98,12 +86,16 @@ public class RangedEnemy : MonoBehaviour
         // Calculate direction to player
         Vector2 directionToPlayer = ((Vector2)player.position - (Vector2)transform.position).normalized;
         
-        // Instantiate and setup projectile
-        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        // Calculate rotation for the projectile to face the player, adjusted by -90 degrees
+        float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg - 90f;
+        Quaternion projectileRotation = Quaternion.Euler(0, 0, angle);
+
+        // Instantiate projectile with rotation towards player
+        GameObject projectile = Instantiate(projectilePrefab, transform.position, projectileRotation);
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
         if (projectileRb != null)
         {
-            projectileRb.velocity = directionToPlayer * 10f; // Adjust projectile speed as needed
+            projectileRb.velocity = directionToPlayer * projectileSpeed;
         }
 
         yield return new WaitForSeconds(shootingCooldown);
@@ -181,10 +173,6 @@ public class RangedEnemy : MonoBehaviour
         // Visualize stopping distance
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, stoppingDistance);
-
-        // Visualize run away distance
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, runAwayDistance);
 
         // Visualize wall detection rays
         if (player != null)

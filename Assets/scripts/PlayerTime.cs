@@ -68,6 +68,14 @@ public class PlayerTime : MonoBehaviour
 
             }
         }
+        if (collision.gameObject.CompareTag("enemyProjectile") && !isDead)
+        {
+            bullet bul = collision.gameObject.GetComponent<bullet>();
+            if (bul != null)
+            {
+                TakeDamage(bul.damage);
+            }
+        }
     }
 
     public void TakeDamage(float damage)

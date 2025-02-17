@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 1061500325422261264}
   - component: {fileID: 2977531969146811867}
   m_Layer: 8
-  m_Name: Ranged Enemy
+  m_Name: Enemy
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b91f757d8cfa64f9983694de84dc52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 9
   wallDetectionRange: 3
   detectionRadius: 20
   stoppingDistance: 0
@@ -377,7 +377,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   healthbar: {fileID: 8702077756776200247}
-  timeToAdd: 5
+  timeToAdd: 3
 --- !u!96 &2977531969146811867
 TrailRenderer:
   serializedVersion: 3

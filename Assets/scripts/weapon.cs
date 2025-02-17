@@ -17,4 +17,8 @@ public class weapon : MonoBehaviour
             nextFireTime = Time.time + fireRate;
         }
     }
+    public void ResetFire(){
+        nextFireTime = 0f;
+
+    }
 }

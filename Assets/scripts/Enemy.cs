@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     public float stunDuration = 0.5f;
     private bool isStunned = false;
     private bool isWaitingToChase = false;
+    private RigidbodyConstraints2D originalConstraints;
 
     private Transform player;
     private Rigidbody2D rb;
@@ -25,6 +26,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        originalConstraints = rb.constraints;
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
@@ -122,7 +124,14 @@ public class Enemy : MonoBehaviour
     {
         isStunned = true;
         rb.velocity = Vector2.zero;
+        
+        // Freeze position during stun
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        
         yield return new WaitForSeconds(stunDuration);
+        
+        // Restore original constraints
+        rb.constraints = originalConstraints;
         isStunned = false;
     }
 

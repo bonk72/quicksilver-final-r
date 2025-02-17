@@ -27,8 +27,11 @@ public class execute : MonoBehaviour
             if (enemy.currentHealth <= enemy.maxHealth * executeThreshold)
             {
                 Movement dashreset =  other.gameObject.GetComponentInParent<Movement>();
+                weapon weaponScript = other.transform.parent.GetComponentInChildren<weapon>();
+
                 PlayerTime time =  other.gameObject.GetComponentInParent<PlayerTime>();
                 dashreset.ResetDash();
+                weaponScript.ResetFire();
                 time.AddTime(enemy.timeToAdd);
                 enemy.execute();
             }

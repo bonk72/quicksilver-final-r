@@ -280,7 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b91f757d8cfa64f9983694de84dc52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
+  moveSpeed: 13
   wallDetectionRange: 3
   detectionRadius: 20
   stoppingDistance: 0
@@ -374,10 +374,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e945dcc02b5e5c1418c8a74eecad6520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 60
+  maxHealth: 70
   currentHealth: 0
   healthbar: {fileID: 8702077756776200247}
-  timeToAdd: 5
+  timeToAdd: 3
 --- !u!96 &8541724225371492620
 TrailRenderer:
   serializedVersion: 3

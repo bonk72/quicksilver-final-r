@@ -8,6 +8,7 @@ TagManager:
   - execute
   - enemy
   - cameramove
+  - enemyProjectile
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - player
   - unmovable
   - enemy
-  - 
-  - 
+  - enemyProjectile
+  - playerProjectile
   - 
   - 
   - 
