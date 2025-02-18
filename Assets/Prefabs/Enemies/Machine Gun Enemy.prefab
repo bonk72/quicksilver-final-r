@@ -208,7 +208,7 @@ Transform:
   m_GameObject: {fileID: 3915225212442025883}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -24.79, y: 10.43, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -492,8 +492,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1449580188017570035, guid: 4978859e57d63ce439c554528dd75b2e, type: 3}
   shootingCooldown: 0.2
   projectileSpeed: 55
-  minSpreadAngle: -15
-  maxSpreadAngle: 15
+  minSpreadAngle: -10
+  maxSpreadAngle: 10
   projectileInvisibleTime: 0.03
   stunDuration: 0.5
 --- !u!1 &4520431182427248596

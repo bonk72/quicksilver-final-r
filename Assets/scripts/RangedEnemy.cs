@@ -89,30 +89,25 @@ public class RangedEnemy : MonoBehaviour
         // Calculate direction to player
         Vector2 directionToPlayer = ((Vector2)player.position - (Vector2)transform.position).normalized;
         
-        // Calculate base rotation for the projectile to face the player, adjusted by -90 degrees
-        float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg - 90f;
-        
-        // Add random spread angle
+        // Add random spread
         float spreadAngle = Random.Range(minSpreadAngle, maxSpreadAngle);
-        angle += spreadAngle;
+        Vector2 spreadDirection = Quaternion.Euler(0, 0, spreadAngle) * directionToPlayer;
         
-        // Create rotation with spread
-        Quaternion projectileRotation = Quaternion.Euler(0, 0, angle);
-        
-        // Calculate new direction with spread
-        directionToPlayer = Quaternion.Euler(0, 0, spreadAngle) * directionToPlayer;
+        // Calculate rotation to face the direction of travel
+        float angle = Mathf.Atan2(spreadDirection.y, spreadDirection.x) * Mathf.Rad2Deg;
+        Quaternion projectileRotation = Quaternion.Euler(0, 0, angle - 90);
 
-        // Instantiate projectile with rotation towards player
+        // Instantiate projectile
         GameObject projectile = Instantiate(projectilePrefab, transform.position, projectileRotation);
         
-        // Get components
-        Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
+        // Get components and initialize bullet
+        bullet bulletScript = projectile.GetComponent<bullet>();
         SpriteRenderer projectileSprite = projectile.GetComponent<SpriteRenderer>();
         
-        // Set velocity
-        if (projectileRb != null)
+        // Initialize bullet with spread direction
+        if (bulletScript != null)
         {
-            projectileRb.velocity = directionToPlayer * projectileSpeed;
+            bulletScript.Initialize(spreadDirection, projectileSpeed);
         }
         
         // Make projectile temporarily invisible

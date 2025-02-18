@@ -1,42 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class bullet : MonoBehaviour
 {
-    public int damage;
-    public float lifetime = 3f; // How long the bullet exists before self-destructing
-    private float startTime;
-    private int originalDamage;
-    public bool falloffDamage;
+    private Vector2 direction;
+    private float speed;
+    private bool isEnemyBullet;
+    public int damage = 1; // Added damage property
+    public bool isImpermeable;
+    public float lifetime = 5f; // How long the bullet lives before being destroyed
+    private float timeAlive = 0f;
 
-
-    void Start()
+    public void Initialize(Vector2 dir, float spd)
     {
-        startTime = Time.time;
-        originalDamage = damage;
-        // Destroy the bullet after lifetime seconds
-        Destroy(gameObject, lifetime);
+        direction = dir;
+        speed = spd;
+        timeAlive = 0f;
     }
 
     void Update()
     {
-        if (falloffDamage){
-            // Calculate how long the bullet has existed
-            float elapsedTime = Time.time - startTime;
-            // Calculate damage reduction based on time (linear falloff)
-            float damageMultiplier = 1f - (elapsedTime / lifetime);
-            // Update current damage
-            damage = Mathf.RoundToInt(originalDamage * damageMultiplier);
+        // Move the bullet using Transform in local space
+        transform.position += (Vector3)(direction * speed * Time.deltaTime);
 
+        // Update lifetime and destroy if exceeded
+        timeAlive += Time.deltaTime;
+        if (timeAlive >= lifetime)
+        {
+            Destroy(gameObject);
         }
-        
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-
-        Destroy(gameObject);
+        if(!isImpermeable && !collision.CompareTag("bullet")){
+            Destroy(gameObject);
+        }
     }
-
+   
 }

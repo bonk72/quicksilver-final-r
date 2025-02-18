@@ -31,7 +31,7 @@ public class execute : MonoBehaviour
 
                 PlayerTime time =  other.gameObject.GetComponentInParent<PlayerTime>();
                 dashreset.ResetDash();
-                weaponScript.ResetFire();
+                //weaponScript.ResetFire();
                 time.AddTime(enemy.timeToAdd);
                 enemy.execute();
             }

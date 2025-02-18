@@ -20,7 +20,7 @@ public class EnemyHealth : MonoBehaviour
         healthbar.UpdateHealthBar(currentHealth, maxHealth, threshold);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("bullet"))
         {
@@ -29,7 +29,6 @@ public class EnemyHealth : MonoBehaviour
             {
                 TakeDamage(bulletScript.damage);
             }
-            Destroy(collision.gameObject);
         }
     }
 

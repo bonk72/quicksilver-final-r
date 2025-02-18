@@ -19,8 +19,7 @@ public class StraightRoomManager : MonoBehaviour
     private int hallwayHeight = 28;
     private int bossRoomWidth = 35;
     private int bossRoomHeight = 33;
-    private int finalRoomWidth = 34;
-    private int finalRoomHeight = 28;
+
     private List<GameObject> roomObjects = new List<GameObject>();
     private bool[,] roomGrid;
     private RoomType[,] roomTypes;
@@ -47,16 +46,17 @@ public class StraightRoomManager : MonoBehaviour
             Debug.LogError("Please assign all required room prefabs in the inspector!");
             return;
         }
+        GenerateDungeon();
 
 
     }
     void Update()
     {
-        if (Input.GetKeyDown("space") && !DungeonGenerated){
-            DungeonGenerated = true;
-            GenerateDungeon();
+        //if (Input.GetKeyDown("space") && !DungeonGenerated){
+        //    DungeonGenerated = true;
             
-        }
+            
+        //}
     }
 
     private void GenerateDungeon()

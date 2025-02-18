@@ -358,6 +358,7 @@ MonoBehaviour:
   startingRoomPrefab: {fileID: 1993581344449621484, guid: 40fa6591521cbff4aae2102fd5b206ea, type: 3}
   bossRoomPrefab: {fileID: 1993581344449621484, guid: 603b14758fe2fec4eb465578531cc0af, type: 3}
   finalRoomPrefab: {fileID: 1993581344449621484, guid: e098a2e5d2ae8004bb570301ba409080, type: 3}
+  DungeonGenerated: 0
 --- !u!1 &383278525
 GameObject:
   m_ObjectHideFlags: 0
@@ -868,7 +869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0290a7397817207409f096371953989a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTime: 60
+  maxTime: 100
   currentTime: 0
   timeDecreaseRate: 1
   invulnerabilityDuration: 0.5
@@ -1290,7 +1291,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1449580188017570035, guid: 72e00d475773d6d4ab66819552fe378f, type: 3}
   firePoint: {fileID: 383278526}
-  fireForce: 50
+  bulletSpeed: 60
   fireRate: 0.25
 --- !u!212 &1770496492
 SpriteRenderer:

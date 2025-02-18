@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerTime : MonoBehaviour
 {
@@ -82,7 +83,12 @@ public class PlayerTime : MonoBehaviour
                     enemy.Stun();
                 }
             }
-            else if (collision.gameObject.CompareTag("enemyProjectile"))
+
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("enemyProjectile"))
             {
                 bullet bul = collision.gameObject.GetComponent<bullet>();
                 if (bul != null)
@@ -90,7 +96,6 @@ public class PlayerTime : MonoBehaviour
                     TakeDamage(bul.damage, false);
                 }
             }
-        }
     }
 
     public void TakeDamage(float damage, bool contact)
@@ -136,6 +141,7 @@ public class PlayerTime : MonoBehaviour
         // Optional: Add death animation or particle effect here
         
         // Optional: Add game over screen or restart mechanism here
+        SceneManager.LoadScene("Menu");
         Debug.Log("Player has died!");
     }
 
