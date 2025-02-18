@@ -2626,7 +2626,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 227971596059219625, guid: 7c3f69296a47d6a408206a24aa532d5b, type: 3}
       propertyPath: enemyPrefabs.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 227971596059219625, guid: 7c3f69296a47d6a408206a24aa532d5b, type: 3}
       propertyPath: spawnPoints.Array.data[0]
@@ -2652,6 +2652,10 @@ PrefabInstance:
       propertyPath: enemyPrefabs.Array.data[1]
       value: 
       objectReference: {fileID: 3915225212442025883, guid: a5a924da455a24e4c9e4809a06476bc8, type: 3}
+    - target: {fileID: 227971596059219625, guid: 7c3f69296a47d6a408206a24aa532d5b, type: 3}
+      propertyPath: enemyPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 3915225212442025883, guid: 54d62dd964bceef428cfbd5750693cd7, type: 3}
     - target: {fileID: 2359085146740470486, guid: 7c3f69296a47d6a408206a24aa532d5b, type: 3}
       propertyPath: m_LocalScale.x
       value: 2

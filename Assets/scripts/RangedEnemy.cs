@@ -13,6 +13,9 @@ public class RangedEnemy : MonoBehaviour
     public GameObject projectilePrefab;   // Projectile to shoot
     public float shootingCooldown = 2f;   // Time between shots
     public float projectileSpeed = 10f;   // Speed of the projectile
+    public float minSpreadAngle = -5f;    // Minimum projectile spread angle
+    public float maxSpreadAngle = 5f;     // Maximum projectile spread angle
+    public float projectileInvisibleTime = 0.05f; // Duration projectile is invisible when spawned
 
     // Stun variables
     public float stunDuration = 0.5f;
@@ -86,16 +89,36 @@ public class RangedEnemy : MonoBehaviour
         // Calculate direction to player
         Vector2 directionToPlayer = ((Vector2)player.position - (Vector2)transform.position).normalized;
         
-        // Calculate rotation for the projectile to face the player, adjusted by -90 degrees
+        // Calculate base rotation for the projectile to face the player, adjusted by -90 degrees
         float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg - 90f;
+        
+        // Add random spread angle
+        float spreadAngle = Random.Range(minSpreadAngle, maxSpreadAngle);
+        angle += spreadAngle;
+        
+        // Create rotation with spread
         Quaternion projectileRotation = Quaternion.Euler(0, 0, angle);
+        
+        // Calculate new direction with spread
+        directionToPlayer = Quaternion.Euler(0, 0, spreadAngle) * directionToPlayer;
 
         // Instantiate projectile with rotation towards player
         GameObject projectile = Instantiate(projectilePrefab, transform.position, projectileRotation);
+        
+        // Get components
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
+        SpriteRenderer projectileSprite = projectile.GetComponent<SpriteRenderer>();
+        
+        // Set velocity
         if (projectileRb != null)
         {
             projectileRb.velocity = directionToPlayer * projectileSpeed;
+        }
+        
+        // Make projectile temporarily invisible
+        if (projectileSprite != null)
+        {
+            StartCoroutine(TemporaryInvisibility(projectileSprite));
         }
 
         yield return new WaitForSeconds(shootingCooldown);
@@ -162,6 +185,15 @@ public class RangedEnemy : MonoBehaviour
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(stunDuration);
         isStunned = false;
+    }
+
+    private IEnumerator TemporaryInvisibility(SpriteRenderer sprite)
+    {
+        sprite.enabled = false;
+        yield return new WaitForSeconds(projectileInvisibleTime);
+        if(sprite != null){
+            sprite.enabled = true;
+        }
     }
 
     void OnDrawGizmos()

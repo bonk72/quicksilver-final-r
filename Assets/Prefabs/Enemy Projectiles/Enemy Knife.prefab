@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4986058670677415761}
   - component: {fileID: 4697008399379268141}
   m_Layer: 9
-  m_Name: Player Knife
+  m_Name: Enemy Knife
   m_TagString: enemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

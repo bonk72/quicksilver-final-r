@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StraightRoomManager : MonoBehaviour
@@ -10,6 +11,7 @@ public class StraightRoomManager : MonoBehaviour
     public List<GameObject> verticalHallwayPrefabs = new List<GameObject>();
     public GameObject startingRoomPrefab;
     public GameObject bossRoomPrefab;
+    public GameObject finalRoomPrefab;
 
     private int roomWidth = 34;
     private int roomHeight = 28;
@@ -17,12 +19,15 @@ public class StraightRoomManager : MonoBehaviour
     private int hallwayHeight = 28;
     private int bossRoomWidth = 35;
     private int bossRoomHeight = 33;
+    private int finalRoomWidth = 34;
+    private int finalRoomHeight = 28;
     private List<GameObject> roomObjects = new List<GameObject>();
     private bool[,] roomGrid;
     private RoomType[,] roomTypes;
     private Vector2Int startRoomPos;
     private Vector2Int? bossRoomPos;
     private int consecutiveNormalRooms = 0;
+    public bool DungeonGenerated = false;
 
     private enum RoomType
     {
@@ -30,23 +35,33 @@ public class StraightRoomManager : MonoBehaviour
         Normal,
         Hallway,
         Boss,
-        Start
+        Start,
+        Final
     }
 
     private void Start()
     {
-        if (startingRoomPrefab == null || possibleRoomPrefabs.Count == 0 || bossRoomPrefab == null)
+        if (startingRoomPrefab == null || possibleRoomPrefabs.Count == 0 ||
+            bossRoomPrefab == null || finalRoomPrefab == null)
         {
             Debug.LogError("Please assign all required room prefabs in the inspector!");
             return;
         }
 
-        GenerateDungeon();
+
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown("space") && !DungeonGenerated){
+            DungeonGenerated = true;
+            GenerateDungeon();
+            
+        }
     }
 
     private void GenerateDungeon()
     {
-        roomGrid = new bool[3, 15]; // Narrower grid since we only build straight up
+        roomGrid = new bool[3, 15];
         roomTypes = new RoomType[3, 15];
         consecutiveNormalRooms = 0;
         
@@ -86,7 +101,37 @@ public class StraightRoomManager : MonoBehaviour
             attempts++;
         }
 
+        PlaceFinalRoom();
         PlaceBossRoom();
+    }
+
+    private void PlaceFinalRoom()
+    {
+        // Find the highest room
+        int highestY = 0;
+        for (int y = roomGrid.GetLength(1) - 1; y >= 0; y--)
+        {
+            if (roomGrid[startRoomPos.x, y])
+            {
+                highestY = y;
+                break;
+            }
+        }
+
+        // Place final room above the highest room
+        Vector2Int finalPos = new Vector2Int(startRoomPos.x, highestY + 1);
+        
+        if (IsValidPosition(finalPos))
+        {
+            roomGrid[finalPos.x, finalPos.y] = true;
+            roomTypes[finalPos.x, finalPos.y] = RoomType.Final;
+            
+            Vector2Int worldPos = GetPositionFromGridIndex(finalPos);
+            Vector3 position = new Vector3(worldPos.x, worldPos.y, 0);
+            
+            GameObject finalRoom = Instantiate(finalRoomPrefab, position, Quaternion.identity);
+            roomObjects.Add(finalRoom);
+        }
     }
 
     private bool CanPlaceHallway(Vector2Int pos)
@@ -142,23 +187,41 @@ public class StraightRoomManager : MonoBehaviour
             }
         }
 
-        // Place boss room above the highest room
-        Vector2Int bossPos = new Vector2Int(startRoomPos.x, highestY + 3);
-        
-        if (IsValidBossPosition(bossPos))
+        // Try multiple positions for boss room until one works
+        for (int offset = 3; offset <= 5; offset++)
         {
-            bossRoomPos = bossPos;
-            roomGrid[bossPos.x, bossPos.y] = true;
-            roomTypes[bossPos.x, bossPos.y] = RoomType.Boss;
+            Vector2Int bossPos = new Vector2Int(startRoomPos.x, highestY + offset);
             
-            Vector2Int worldPos = GetPositionFromGridIndex(bossPos);
-            float xOffset = (bossRoomWidth - roomWidth) / 2f;
-            float yOffset = (bossRoomHeight - roomHeight) / 2f;
-            Vector3 adjustedPos = new Vector3(worldPos.x + xOffset, worldPos.y + yOffset, 0);
-            
-            GameObject bossRoom = Instantiate(bossRoomPrefab, adjustedPos, Quaternion.identity);
-            roomObjects.Add(bossRoom);
+            if (IsValidBossPosition(bossPos))
+            {
+                bossRoomPos = bossPos;
+                roomGrid[bossPos.x, bossPos.y] = true;
+                roomTypes[bossPos.x, bossPos.y] = RoomType.Boss;
+                
+                Vector2Int worldPos = GetPositionFromGridIndex(bossPos);
+                float xOffset = (bossRoomWidth - roomWidth) / 2f;
+                float yOffset = (bossRoomHeight - roomHeight) / 2f;
+                Vector3 adjustedPos = new Vector3(worldPos.x + xOffset, worldPos.y + yOffset, 0);
+                
+                GameObject bossRoom = Instantiate(bossRoomPrefab, adjustedPos, Quaternion.identity);
+                roomObjects.Add(bossRoom);
+                return;
+            }
         }
+
+        // If no position worked, force place at a safe distance
+        Vector2Int forcedPos = new Vector2Int(startRoomPos.x, highestY + 3);
+        bossRoomPos = forcedPos;
+        roomGrid[forcedPos.x, forcedPos.y] = true;
+        roomTypes[forcedPos.x, forcedPos.y] = RoomType.Boss;
+        
+        Vector2Int forcedWorldPos = GetPositionFromGridIndex(forcedPos);
+        float forcedXOffset = (bossRoomWidth - roomWidth) / 2f;
+        float forcedYOffset = (bossRoomHeight - roomHeight) / 2f;
+        Vector3 forcedAdjustedPos = new Vector3(forcedWorldPos.x + forcedXOffset, forcedWorldPos.y + forcedYOffset, 0);
+        
+        GameObject forcedBossRoom = Instantiate(bossRoomPrefab, forcedAdjustedPos, Quaternion.identity);
+        roomObjects.Add(forcedBossRoom);
     }
 
     private bool IsValidBossPosition(Vector2Int pos)
@@ -221,7 +284,7 @@ public class StraightRoomManager : MonoBehaviour
         int gridX = gridIndex.x;
         int gridY = gridIndex.y;
         return new Vector2Int(
-            roomWidth * (gridX - 1), // Center horizontally based on narrower grid
+            roomWidth * (gridX - 1),
             roomHeight * gridY
         );
     }
@@ -245,6 +308,7 @@ public class StraightRoomManager : MonoBehaviour
                     {
                         case RoomType.Normal:
                         case RoomType.Start:
+                        case RoomType.Final:
                             Gizmos.DrawWireCube(new Vector3(position.x, position.y), 
                                               new Vector3(roomWidth, roomHeight, 1));
                             break;

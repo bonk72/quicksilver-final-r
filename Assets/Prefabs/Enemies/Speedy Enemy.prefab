@@ -187,13 +187,13 @@ GameObject:
   m_Component:
   - component: {fileID: 8233480619156063912}
   - component: {fileID: 789934342307549595}
+  - component: {fileID: 3940493593859693424}
   - component: {fileID: 8985416275253545274}
   - component: {fileID: 1221117252929396958}
   - component: {fileID: 1061500325422261264}
-  - component: {fileID: 2977531969146811867}
-  - component: {fileID: 3988708808875425149}
+  - component: {fileID: 8541724225371492620}
   m_Layer: 8
-  m_Name: Ranged Enemy
+  m_Name: Speedy Enemy
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -258,7 +258,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.78079414, a: 1}
+  m_Color: {r: 1, g: 0.8467263, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -268,6 +268,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3940493593859693424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915225212442025883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b91f757d8cfa64f9983694de84dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 13
+  wallDetectionRange: 3
+  detectionRadius: 40
+  stoppingDistance: 0
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  timeDamage: 2
+  detectionDelay: 0.5
+  stunDuration: 0.3
 --- !u!61 &8985416275253545274
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -311,7 +333,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.05, y: 1.05}
   m_EdgeRadius: 0
 --- !u!50 &1221117252929396958
 Rigidbody2D:
@@ -356,7 +378,7 @@ MonoBehaviour:
   currentHealth: 0
   healthbar: {fileID: 8702077756776200247}
   timeToAdd: 2
---- !u!96 &2977531969146811867
+--- !u!96 &8541724225371492620
 TrailRenderer:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -407,8 +429,8 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.003921509
-        value: 0.8888893
+        time: 0
+        value: 0.59259224
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -429,25 +451,25 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0.78431374, a: 0.5019608}
-      key1: {r: 1, g: 0, b: 0.78431374, a: 0}
-      key2: {r: 0, g: 0, b: 0, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 1, g: 0.84705883, b: 0, a: 0.49803922}
+      key1: {r: 1, g: 0.84705883, b: 0, a: 0}
+      key2: {r: 1, g: 1, b: 1, a: 0}
+      key3: {r: 1, g: 1, b: 1, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 65535
-      ctime2: 0
-      ctime3: 0
+      ctime2: 65535
+      ctime3: 65535
       ctime4: 0
       ctime5: 0
       ctime6: 0
       ctime7: 0
       atime0: 0
       atime1: 65535
-      atime2: 65535
+      atime2: 0
       atime3: 0
       atime4: 0
       atime5: 0
@@ -469,30 +491,6 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!114 &3988708808875425149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3915225212442025883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51844d1395ab2f4439e45e7c3e3c7881, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 8
-  wallDetectionRange: 1
-  detectionRadius: 20
-  stoppingDistance: 10
-  detectionDelay: 0.5
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  projectilePrefab: {fileID: 1449580188017570035, guid: c85736f445a208d4cafebe8c760ab0f1, type: 3}
-  shootingCooldown: 1
-  projectileSpeed: 55
-  stunDuration: 0.5
 --- !u!1 &4520431182427248596
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,7 +748,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 0.95}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &3719707713879052968
 MonoBehaviour:

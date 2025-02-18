@@ -10,15 +10,28 @@ public class PlayerTime : MonoBehaviour
     public float timeDecreaseRate = 1f; // How much time decreases per second
 
     private bool isDead = false;
+    private bool isInvulnerable = false;
+    public float invulnerabilityDuration = 1f; // Duration of invulnerability after taking damage
 
     private Rigidbody2D rb;
-
-
+    private CircleCollider2D coll;
     public TMP_Text text;
+
+    private IEnumerator TemporaryInvulnerability()
+    {
+        isInvulnerable = true;
+
+        
+        yield return new WaitForSeconds(invulnerabilityDuration);
+        
+        isInvulnerable = false;
+
+    }
 
 
     void Start()
     {
+        coll = GetComponent<CircleCollider2D>();
         
         currentTime = maxTime;
         text.text = currentTime.ToString();
@@ -55,38 +68,47 @@ public class PlayerTime : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("enemy") && !isDead)
+        if (!isDead && !isInvulnerable)
         {
-            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            if (enemy != null)
+            if (collision.gameObject.CompareTag("enemy"))
             {
-                // Apply time damage
-                TakeDamage(enemy.timeDamage);
+                Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+                if (enemy != null)
+                {
+                    // Apply time damage
+                    TakeDamage(enemy.timeDamage, true);
 
-                // Stun the enemy
-                enemy.Stun();
-
+                    // Stun the enemy
+                    enemy.Stun();
+                }
             }
-        }
-        if (collision.gameObject.CompareTag("enemyProjectile") && !isDead)
-        {
-            bullet bul = collision.gameObject.GetComponent<bullet>();
-            if (bul != null)
+            else if (collision.gameObject.CompareTag("enemyProjectile"))
             {
-                TakeDamage(bul.damage);
+                bullet bul = collision.gameObject.GetComponent<bullet>();
+                if (bul != null)
+                {
+                    TakeDamage(bul.damage, false);
+                }
             }
         }
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, bool contact)
     {
-        currentTime -= damage;
-        text.text = currentTime.ToString();
-        currentTime = Mathf.Max(currentTime, 0); // Prevent negative time
-        
-        if (currentTime <= 0)
+        if (!isInvulnerable && !isDead)
         {
-            Die();
+            currentTime -= damage;
+            text.text = currentTime.ToString();
+            currentTime = Mathf.Max(currentTime, 0); // Prevent negative time
+            
+            if (currentTime <= 0)
+            {
+                Die();
+            }
+            else if(contact)
+            {
+                StartCoroutine(TemporaryInvulnerability());
+            }
         }
     }
 

@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 965652946}
+  cam: {fileID: 1488608165}
   moveSpeed: 100
 --- !u!4 &126363576
 Transform:
@@ -311,7 +312,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 317264325}
-  - component: {fileID: 317264324}
   - component: {fileID: 317264326}
   m_Layer: 0
   m_Name: RoomManager
@@ -320,26 +320,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &317264324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 317264323}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7a9e7eacf8766842a4c01ebd40b093d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxRooms: 12
-  minRooms: 10
-  possibleRoomPrefabs:
-  - {fileID: 1993581344449621484, guid: 7dffedd69782c8f4fa1b49d2de0a1d73, type: 3}
-  verticalHallwayPrefabs:
-  - {fileID: 1993581344449621484, guid: 0fb0c74ba1c3c3144b6b8847899f8e14, type: 3}
-  startingRoomPrefab: {fileID: 1993581344449621484, guid: 7dffedd69782c8f4fa1b49d2de0a1d73, type: 3}
-  bossRoomPrefab: {fileID: 1993581344449621484, guid: 603b14758fe2fec4eb465578531cc0af, type: 3}
 --- !u!4 &317264325
 Transform:
   m_ObjectHideFlags: 0
@@ -377,6 +357,7 @@ MonoBehaviour:
   - {fileID: 1993581344449621484, guid: 0fb0c74ba1c3c3144b6b8847899f8e14, type: 3}
   startingRoomPrefab: {fileID: 1993581344449621484, guid: 40fa6591521cbff4aae2102fd5b206ea, type: 3}
   bossRoomPrefab: {fileID: 1993581344449621484, guid: 603b14758fe2fec4eb465578531cc0af, type: 3}
+  finalRoomPrefab: {fileID: 1993581344449621484, guid: e098a2e5d2ae8004bb570301ba409080, type: 3}
 --- !u!1 &383278525
 GameObject:
   m_ObjectHideFlags: 0
@@ -740,7 +721,7 @@ MonoBehaviour:
   weapon: {fileID: 1770496491}
   dashSpeed: 100
   dashLength: 0.1
-  dashCooldown: 1
+  dashCooldown: 0.5
   bounceForce: 60
   bounceLength: 0.05
   time: {fileID: 965652954}
@@ -887,9 +868,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0290a7397817207409f096371953989a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTime: 100
+  maxTime: 60
   currentTime: 0
   timeDecreaseRate: 1
+  invulnerabilityDuration: 0.5
   text: {fileID: 204674429}
 --- !u!96 &965652955
 TrailRenderer:
@@ -1017,6 +999,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newRoom: 0
+  finalRoom: 0
 --- !u!1 &1421069373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1258,7 +1241,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.53
 --- !u!1 &1770496489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1307,8 +1290,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1449580188017570035, guid: 72e00d475773d6d4ab66819552fe378f, type: 3}
   firePoint: {fileID: 383278526}
-  fireForce: 70
-  fireRate: 2
+  fireForce: 50
+  fireRate: 0.25
 --- !u!212 &1770496492
 SpriteRenderer:
   m_ObjectHideFlags: 0

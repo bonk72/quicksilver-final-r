@@ -5,6 +5,7 @@ using UnityEngine;
 public class roomSwitch : MonoBehaviour
 {
     public bool newRoom;
+    public bool finalRoom;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +20,9 @@ public class roomSwitch : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("cameramove")){
             newRoom = true;
-
+        }
+        if (other.CompareTag("finalRoom")){
+            finalRoom = true;
         }
     }
 }
