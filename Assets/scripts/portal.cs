@@ -19,7 +19,7 @@ public class portal : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Player")){  
-            collision.gameObject.transform.position = new Vector3(0, collision.gameObject.transform.position.y + 70f, 0);
+            collision.gameObject.transform.position = new Vector3(0, collision.gameObject.transform.position.y + 98f, 0);
         }
     }
 }

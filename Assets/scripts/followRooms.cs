@@ -12,7 +12,7 @@ public class followRooms : MonoBehaviour
     private bool isMoving = false;
     private bool isHandlingRoomChange = false;
     private const float MOVE_DISTANCE = 28f;
-    private const float BIG_DISTANCE = 86.5f;
+    private const float BIG_DISTANCE = 114.5f;
 
     void Update()
     {
