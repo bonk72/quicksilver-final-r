@@ -347,14 +347,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aff48a383059dad42ab0a56b3e030cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRooms: 10
-  minRooms: 8
+  maxRooms: 12
+  minRooms: 10
   possibleRoomPrefabs:
   - {fileID: 1993581344449621484, guid: 7dffedd69782c8f4fa1b49d2de0a1d73, type: 3}
   - {fileID: 1993581344449621484, guid: 6fc1a9dc09189984ba4f5ad072c9d34a, type: 3}
   - {fileID: 1993581344449621484, guid: 4e60a7ee4147acf4ba0e223753625641, type: 3}
+  - {fileID: 1993581344449621484, guid: f7043f75cd9b660489c5eef0abf2ec01, type: 3}
   verticalHallwayPrefabs:
   - {fileID: 1993581344449621484, guid: 0fb0c74ba1c3c3144b6b8847899f8e14, type: 3}
+  - {fileID: 1993581344449621484, guid: 80a3af66dfd5cda468b8e457dbfa546c, type: 3}
   startingRoomPrefab: {fileID: 1993581344449621484, guid: 40fa6591521cbff4aae2102fd5b206ea, type: 3}
   bossRoomPrefab: {fileID: 1993581344449621484, guid: 603b14758fe2fec4eb465578531cc0af, type: 3}
   finalRoomPrefab: {fileID: 1993581344449621484, guid: e098a2e5d2ae8004bb570301ba409080, type: 3}

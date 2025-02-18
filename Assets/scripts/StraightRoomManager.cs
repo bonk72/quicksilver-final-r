@@ -61,21 +61,21 @@ public class StraightRoomManager : MonoBehaviour
 
     private void GenerateDungeon()
     {
-        roomGrid = new bool[3, 15];
-        roomTypes = new RoomType[3, 15];
+        roomGrid = new bool[3, 20]; // Increased height to ensure space for boss and final rooms
+        roomTypes = new RoomType[3, 20];
         consecutiveNormalRooms = 0;
         
         // Place starting room at (0,0) in grid coordinates
         startRoomPos = new Vector2Int(1, 0);
         PlaceRoom(startRoomPos, startingRoomPrefab, RoomType.Start);
 
-        // Generate minimum number of rooms first
-        int roomsToGenerate = Random.Range(minRooms, maxRooms + 1);
+        // Generate normal rooms (not counting boss room)
+        int normalRoomsToGenerate = Random.Range(minRooms, maxRooms + 1);
         int attempts = 0;
         int maxAttempts = 1000;
-        int roomsGenerated = 1;
+        int normalRoomsGenerated = 1; // Starting room counts as first normal room
 
-        while (roomsGenerated < roomsToGenerate && attempts < maxAttempts)
+        while (normalRoomsGenerated < normalRoomsToGenerate && attempts < maxAttempts)
         {
             Vector2Int? nextPos = GetNextPosition();
             if (nextPos.HasValue)
@@ -87,14 +87,14 @@ public class StraightRoomManager : MonoBehaviour
                 {
                     GameObject hallwayPrefab = verticalHallwayPrefabs[Random.Range(0, verticalHallwayPrefabs.Count)];
                     PlaceRoom(nextPos.Value, hallwayPrefab, RoomType.Hallway);
-                    roomsGenerated++;
+                    normalRoomsGenerated++;
                     consecutiveNormalRooms = 0;
                 }
                 else
                 {
                     GameObject randomRoomPrefab = possibleRoomPrefabs[Random.Range(0, possibleRoomPrefabs.Count)];
                     PlaceRoom(nextPos.Value, randomRoomPrefab, RoomType.Normal);
-                    roomsGenerated++;
+                    normalRoomsGenerated++;
                     consecutiveNormalRooms++;
                 }
             }
@@ -187,41 +187,27 @@ public class StraightRoomManager : MonoBehaviour
             }
         }
 
-        // Try multiple positions for boss room until one works
-        for (int offset = 3; offset <= 5; offset++)
+        // Place boss room at a fixed distance above the highest room
+        Vector2Int bossPos = new Vector2Int(startRoomPos.x, highestY + 4);
+        
+        // Ensure we're not too close to the grid edge
+        if (bossPos.y >= roomGrid.GetLength(1) - 2)
         {
-            Vector2Int bossPos = new Vector2Int(startRoomPos.x, highestY + offset);
-            
-            if (IsValidBossPosition(bossPos))
-            {
-                bossRoomPos = bossPos;
-                roomGrid[bossPos.x, bossPos.y] = true;
-                roomTypes[bossPos.x, bossPos.y] = RoomType.Boss;
-                
-                Vector2Int worldPos = GetPositionFromGridIndex(bossPos);
-                float xOffset = (bossRoomWidth - roomWidth) / 2f;
-                float yOffset = (bossRoomHeight - roomHeight) / 2f;
-                Vector3 adjustedPos = new Vector3(worldPos.x + xOffset, worldPos.y + yOffset, 0);
-                
-                GameObject bossRoom = Instantiate(bossRoomPrefab, adjustedPos, Quaternion.identity);
-                roomObjects.Add(bossRoom);
-                return;
-            }
+            bossPos.y = roomGrid.GetLength(1) - 3;
         }
-
-        // If no position worked, force place at a safe distance
-        Vector2Int forcedPos = new Vector2Int(startRoomPos.x, highestY + 3);
-        bossRoomPos = forcedPos;
-        roomGrid[forcedPos.x, forcedPos.y] = true;
-        roomTypes[forcedPos.x, forcedPos.y] = RoomType.Boss;
         
-        Vector2Int forcedWorldPos = GetPositionFromGridIndex(forcedPos);
-        float forcedXOffset = (bossRoomWidth - roomWidth) / 2f;
-        float forcedYOffset = (bossRoomHeight - roomHeight) / 2f;
-        Vector3 forcedAdjustedPos = new Vector3(forcedWorldPos.x + forcedXOffset, forcedWorldPos.y + forcedYOffset, 0);
+        // Place the boss room
+        bossRoomPos = bossPos;
+        roomGrid[bossPos.x, bossPos.y] = true;
+        roomTypes[bossPos.x, bossPos.y] = RoomType.Boss;
         
-        GameObject forcedBossRoom = Instantiate(bossRoomPrefab, forcedAdjustedPos, Quaternion.identity);
-        roomObjects.Add(forcedBossRoom);
+        Vector2Int worldPos = GetPositionFromGridIndex(bossPos);
+        float xOffset = (bossRoomWidth - roomWidth) / 2f;
+        float yOffset = (bossRoomHeight - roomHeight) / 2f;
+        Vector3 adjustedPos = new Vector3(worldPos.x + xOffset, worldPos.y + yOffset, 0);
+        
+        GameObject bossRoom = Instantiate(bossRoomPrefab, adjustedPos, Quaternion.identity);
+        roomObjects.Add(bossRoom);
     }
 
     private bool IsValidBossPosition(Vector2Int pos)
