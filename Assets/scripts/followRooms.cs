@@ -32,13 +32,44 @@ public class followRooms : MonoBehaviour
     {
         isHandlingRoomChange = true;
         
-        // Start the movement
-        yield return StartCoroutine(MoveUpward(dist));
+        // Get player's vertical movement
+        float verticalMovement = player.GetComponentInParent<Rigidbody2D>().velocity.y;
+        
+        // Start the movement based on direction for normal rooms
+        if (dist == MOVE_DISTANCE && verticalMovement < 0)
+        {
+            yield return StartCoroutine(MoveDownward(dist));
+        }
+        else
+        {
+            yield return StartCoroutine(MoveUpward(dist));
+        }
         
         // Only reset newRoom after movement is complete
         player.GetComponent<roomSwitch>().newRoom = false;
         player.GetComponent<roomSwitch>().finalRoom = false;
         isHandlingRoomChange = false;
+    }
+
+    private IEnumerator MoveDownward(float dist)
+    {
+        isMoving = true;
+        Vector3 startPosition = transform.position;
+        Vector3 targetPosition = startPosition + (Vector3.down * dist);
+        float elapsedTime = 0f;
+        float duration = dist / (moveSpeed * (dist / 28));
+
+        while (elapsedTime < duration)
+        {
+            float t = elapsedTime / duration;
+            transform.position = Vector3.Lerp(startPosition, targetPosition, t);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure we reach exactly the target position
+        transform.position = targetPosition;
+        isMoving = false;
     }
     private IEnumerator MoveUpward(float dist)
     {

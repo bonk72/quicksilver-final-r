@@ -10,6 +10,11 @@ public class bullet : MonoBehaviour
     public float lifetime = 5f; // How long the bullet lives before being destroyed
     private float timeAlive = 0f;
 
+    public int price;
+    public float fireSpeed;
+    public float fireRate;
+    public int index;
+
     public void Initialize(Vector2 dir, float spd)
     {
         direction = dir;

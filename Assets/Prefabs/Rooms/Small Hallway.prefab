@@ -1588,6 +1588,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1183720556733093581}
     m_Modifications:
     - target: {fileID: 227971596059219625, guid: 7c3f69296a47d6a408206a24aa532d5b, type: 3}
+      propertyPath: delColliders
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 227971596059219625, guid: 7c3f69296a47d6a408206a24aa532d5b, type: 3}
       propertyPath: spawnPoints.Array.size
       value: 2
       objectReference: {fileID: 0}

@@ -6,6 +6,11 @@ public class roomSwitch : MonoBehaviour
 {
     public bool newRoom;
     public bool finalRoom;
+    public bool disable =  true;
+
+
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,4 +30,6 @@ public class roomSwitch : MonoBehaviour
             finalRoom = true;
         }
     }
+
 }
+

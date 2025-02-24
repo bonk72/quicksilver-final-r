@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System;
 
 public class PlayerTime : MonoBehaviour
 {
-    public float maxTime = 60f; // Starting time in seconds
+    public static float maxTime = 100f; // Starting time in seconds
     public float currentTime;
     public float timeDecreaseRate = 1f; // How much time decreases per second
 
     private bool isDead = false;
     private bool isInvulnerable = false;
+
     public float invulnerabilityDuration = 1f; // Duration of invulnerability after taking damage
 
     private Rigidbody2D rb;
@@ -55,10 +57,11 @@ public class PlayerTime : MonoBehaviour
 
     private IEnumerator TimeDecrease()
     {
+        string sceneName = SceneManager.GetActiveScene().name;
         while (currentTime > 0)
         {
             yield return new WaitForSeconds(1f);
-            if (!isDead)
+            if (!isDead && sceneName == "Main")
             {
                 currentTime -= timeDecreaseRate;
                 text.text = currentTime.ToString();
@@ -141,8 +144,8 @@ public class PlayerTime : MonoBehaviour
         // Optional: Add death animation or particle effect here
         
         // Optional: Add game over screen or restart mechanism here
-        SceneManager.LoadScene("Menu");
-        Debug.Log("Player has died!");
+        SceneManager.LoadScene("Starting Area");
+        //Debug.Log("Player has died!");
     }
 
     // Optional: Method to add time (could be used for pickups or rewards)

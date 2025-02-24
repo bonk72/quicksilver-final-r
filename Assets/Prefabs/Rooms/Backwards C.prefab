@@ -2458,6 +2458,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1183720556733093581}
     m_Modifications:
     - target: {fileID: 227971596059219625, guid: 7c3f69296a47d6a408206a24aa532d5b, type: 3}
+      propertyPath: delColliders
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 227971596059219625, guid: 7c3f69296a47d6a408206a24aa532d5b, type: 3}
       propertyPath: numberOfEnemiesToSpawn
       value: 2
       objectReference: {fileID: 0}
@@ -2507,7 +2511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2359085146740470486, guid: 7c3f69296a47d6a408206a24aa532d5b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 12.02
       objectReference: {fileID: 0}
     - target: {fileID: 2359085146740470486, guid: 7c3f69296a47d6a408206a24aa532d5b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2555,7 +2559,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4785572541151897775, guid: 7c3f69296a47d6a408206a24aa532d5b, type: 3}
       propertyPath: m_Offset.x
-      value: 0
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 4785572541151897775, guid: 7c3f69296a47d6a408206a24aa532d5b, type: 3}
       propertyPath: m_Offset.y

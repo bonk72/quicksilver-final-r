@@ -10,6 +10,7 @@ TagManager:
   - cameramove
   - enemyProjectile
   - finalRoom
+  - Shop
   layers:
   - Default
   - TransparentFX

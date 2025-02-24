@@ -18,6 +18,6 @@ public class Starting : MonoBehaviour
         
     }
     public void StartLevel(){
-        SceneManager.LoadScene("main");
+        SceneManager.LoadScene("Starting Area");
     }
 }

@@ -13,6 +13,11 @@ public class EnemySpawner : MonoBehaviour
     public bool hasSpawned { get; private set; } = false;
     private List<GameObject> spawnedEnemies = new List<GameObject>();
     public bool allEnemiesDefeated { get; private set; } = false;
+    public bool delColliders;
+
+    public GameObject rewardPrefab; // The prefab to spawn after enemies are defeated
+    public int minRewardSpawnCount = 3; // Number of rewards to spawn
+    public int maxRewardsSpawnCount;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -20,7 +25,10 @@ public class EnemySpawner : MonoBehaviour
         if (other.CompareTag("Player") && !hasSpawned)
         {
             SpawnEnemies();
-            GetComponent<Collider2D>().enabled = false;
+            if (delColliders){
+                GetComponent<Collider2D>().enabled = false;                
+            }
+
             hasSpawned = true;
             StartCoroutine(CheckEnemiesStatus());
             // Disable the collider after spawning
@@ -57,9 +65,31 @@ public class EnemySpawner : MonoBehaviour
             if (spawnedEnemies.Count == 0 && hasSpawned)
             {
                 allEnemiesDefeated = true;
+                StartCoroutine(SpawnRewardsSequentially()); // Start sequential spawning
             }
 
             yield return new WaitForSeconds(0.5f); // Check every half second
+        }
+    }
+
+    public float spawnDelay = 0.2f; // Delay between each reward spawn
+
+    private IEnumerator SpawnRewardsSequentially()
+    {
+        int rewardSpawnCount = Random.Range(minRewardSpawnCount, maxRewardsSpawnCount);
+        if (rewardPrefab == null || rewardSpawnCount <= 0) yield break;
+
+        for (int i = 0; i < rewardSpawnCount; i++)
+        {
+            // Create a random position around the enemy spawner
+            Vector2 randomOffset = Random.insideUnitCircle * 3f; // 3 units radius for better spread
+            Vector3 spawnPosition = transform.position + new Vector3(randomOffset.x, randomOffset.y, 0);
+
+            // Instantiate the reward
+            Instantiate(rewardPrefab, spawnPosition, Quaternion.identity);
+
+            // Wait before spawning the next reward
+            yield return new WaitForSeconds(spawnDelay);
         }
     }
 }

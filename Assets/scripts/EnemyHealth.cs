@@ -9,6 +9,7 @@ public class EnemyHealth : MonoBehaviour
     public floatinghealthbar healthbar;
     private float threshold;
     public float timeToAdd;
+    public int goldToAdd;
     
     
 

@@ -51,6 +51,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  delColliders: 0
+  rewardPrefab: {fileID: 7579476838156917122, guid: 2211dc4e8a3428b4081300b41104ef37, type: 3}
+  minRewardSpawnCount: 8
+  maxRewardsSpawnCount: 12
+  spawnDelay: 0.05
 --- !u!61 &4785572541151897775
 BoxCollider2D:
   m_ObjectHideFlags: 0

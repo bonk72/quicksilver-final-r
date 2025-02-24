@@ -21,7 +21,7 @@ public class Movement : MonoBehaviour
     public float dashLength, dashCooldown = 1f;
     private float temp;
 
-    private bool isDashing;
+    public bool isDashing;
     private bool canDash = true;
     private bool dashR = false;
 
