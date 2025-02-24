@@ -134,9 +134,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb38a4f84f60ff45819b3265af76e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 40
-  isImpermeable: 0
+  damage: 20
+  isImpermeable: 1
   lifetime: 3
+  price: 0
+  fireSpeed: 0
+  fireRate: 0
+  index: 0
 --- !u!96 &4697008399379268141
 TrailRenderer:
   serializedVersion: 3
@@ -183,7 +187,7 @@ TrailRenderer:
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 2
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -210,7 +214,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0, a: 0.19607843}
+      key0: {r: 0.70817375, g: 0, b: 1, a: 0.19607843}
       key1: {r: 1, g: 1, b: 1, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}

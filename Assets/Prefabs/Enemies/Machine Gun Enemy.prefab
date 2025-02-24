@@ -356,6 +356,7 @@ MonoBehaviour:
   currentHealth: 0
   healthbar: {fileID: 8702077756776200247}
   timeToAdd: 2
+  goldToAdd: 0
 --- !u!96 &2977531969146811867
 TrailRenderer:
   serializedVersion: 3
@@ -484,14 +485,14 @@ MonoBehaviour:
   moveSpeed: 12
   wallDetectionRange: 1
   detectionRadius: 40
-  stoppingDistance: 8
+  stoppingDistance: 12
   detectionDelay: 0.5
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
   projectilePrefab: {fileID: 1449580188017570035, guid: 4978859e57d63ce439c554528dd75b2e, type: 3}
   shootingCooldown: 0.3
-  projectileSpeed: 20
+  projectileSpeed: 10
   minSpreadAngle: -10
   maxSpreadAngle: 10
   projectileInvisibleTime: 0.03
