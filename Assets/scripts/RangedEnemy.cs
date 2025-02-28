@@ -18,10 +18,22 @@ public class RangedEnemy : MonoBehaviour
     public float projectileInvisibleTime = 0.05f; // Duration projectile is invisible when spawned
     
     // Strafing variables
-    public float strafingSpeed = 2f;      // Slower speed when strafing
-    private float strafingDirectionChangeTime = 2f; // How often to change strafe direction
+    public float minStrafingSpeed = 1.5f;      // Minimum strafing speed
+    public float maxStrafingSpeed = 3f;        // Maximum strafing speed
+    private float currentStrafingSpeed;        // Current strafing speed
+    public float minStrafingDirectionChangeTime = 1f; // Minimum time before changing direction
+    public float maxStrafingDirectionChangeTime = 3f; // Maximum time before changing direction
+    private float currentStrafingDirectionChangeTime; // Current direction change time
     private float strafingTimer = 0f;
     private int strafingDirection = 1;    // 1 for right, -1 for left
+    private float strafeAngleVariation = 15f; // Variation in strafe angle (degrees)
+    private float currentStrafeAngle;     // Current strafe angle
+    
+    // Strafing pause variables
+    public float pauseChance = 0.2f;      // Chance to pause during strafing (0-1)
+    public float minPauseDuration = 0.2f; // Minimum pause duration
+    public float maxPauseDuration = 0.8f; // Maximum pause duration
+    private bool isPausing = false;
 
     // Stun variables
     public float stunDuration = 0.5f;
@@ -38,6 +50,24 @@ public class RangedEnemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        
+        // Initialize random strafing parameters
+        InitializeStrafingParameters();
+    }
+    
+    private void InitializeStrafingParameters()
+    {
+        // Random initial direction
+        strafingDirection = Random.value < 0.5f ? 1 : -1;
+        
+        // Random initial speed
+        currentStrafingSpeed = Random.Range(minStrafingSpeed, maxStrafingSpeed);
+        
+        // Random initial direction change time
+        currentStrafingDirectionChangeTime = Random.Range(minStrafingDirectionChangeTime, maxStrafingDirectionChangeTime);
+        
+        // Random initial strafe angle
+        currentStrafeAngle = 90f + Random.Range(-strafeAngleVariation, strafeAngleVariation);
     }
 
     void Update()
@@ -60,7 +90,17 @@ public class RangedEnemy : MonoBehaviour
                 if (distanceToPlayer <= optimalAttackRange)
                 {
                     // At optimal range - strafe and shoot
-                    Strafe();
+                    if (!isPausing)
+                    {
+                        Strafe();
+                        
+                        // Random chance to pause
+                        if (Random.value < pauseChance * Time.deltaTime)
+                        {
+                            StartCoroutine(PauseStrafing());
+                        }
+                    }
+                    
                     if (canShoot)
                     {
                         StartCoroutine(ShootAtPlayer());
@@ -71,6 +111,7 @@ public class RangedEnemy : MonoBehaviour
                     // Chase player to get in range
                     ChasePlayer();
                     strafingTimer = 0f; // Reset strafing timer when not strafing
+                    isPausing = false;  // Cancel any pause when not in range
                 }
             }
         }
@@ -79,7 +120,18 @@ public class RangedEnemy : MonoBehaviour
             // Player out of detection range
             moveDirection = Vector2.zero;
             strafingTimer = 0f; // Reset strafing timer when not strafing
+            isPausing = false;  // Cancel any pause when not in range
         }
+    }
+    
+    private IEnumerator PauseStrafing()
+    {
+        isPausing = true;
+        moveDirection = Vector2.zero;
+        
+        yield return new WaitForSeconds(Random.Range(minPauseDuration, maxPauseDuration));
+        
+        isPausing = false;
     }
 
     private void Strafe()
@@ -87,18 +139,41 @@ public class RangedEnemy : MonoBehaviour
         // Update strafing timer
         strafingTimer += Time.deltaTime;
         
-        // Change strafing direction periodically
-        if (strafingTimer >= strafingDirectionChangeTime)
+        // Change strafing direction and parameters periodically
+        if (strafingTimer >= currentStrafingDirectionChangeTime)
         {
-            strafingDirection *= -1; // Flip direction
+            // Flip direction
+            strafingDirection *= -1;
+            
+            // Randomize parameters
+            currentStrafingSpeed = Random.Range(minStrafingSpeed, maxStrafingSpeed);
+            currentStrafingDirectionChangeTime = Random.Range(minStrafingDirectionChangeTime, maxStrafingDirectionChangeTime);
+            currentStrafeAngle = 90f + Random.Range(-strafeAngleVariation, strafeAngleVariation);
+            
             strafingTimer = 0f;
         }
         
         // Get direction to player
         Vector2 directionToPlayer = ((Vector2)player.position - rb.position).normalized;
         
-        // Calculate perpendicular direction for strafing (90 degrees to player direction)
-        Vector2 strafeDirection = new Vector2(-directionToPlayer.y, directionToPlayer.x) * strafingDirection;
+        // Calculate strafe direction with variable angle
+        Vector2 strafeDirection;
+        if (currentStrafeAngle == 90f)
+        {
+            // Standard perpendicular strafe
+            strafeDirection = new Vector2(-directionToPlayer.y, directionToPlayer.x) * strafingDirection;
+        }
+        else
+        {
+            // Angled strafe
+            float angleInRadians = currentStrafeAngle * Mathf.Deg2Rad * strafingDirection;
+            float cos = Mathf.Cos(angleInRadians);
+            float sin = Mathf.Sin(angleInRadians);
+            strafeDirection = new Vector2(
+                directionToPlayer.x * cos - directionToPlayer.y * sin,
+                directionToPlayer.x * sin + directionToPlayer.y * cos
+            ).normalized;
+        }
         
         // Check if strafing would hit a wall
         RaycastHit2D strafeHit = Physics2D.Raycast(transform.position, strafeDirection, wallDetectionRange, wallLayer);
@@ -207,7 +282,7 @@ public class RangedEnemy : MonoBehaviour
         {
             // Apply movement with appropriate speed
             float currentSpeed = (moveDirection.sqrMagnitude > 0 && Vector2.Distance(transform.position, player.position) <= optimalAttackRange) 
-                ? strafingSpeed 
+                ? currentStrafingSpeed 
                 : moveSpeed;
             
             rb.velocity = moveDirection * currentSpeed;
@@ -255,7 +330,7 @@ public class RangedEnemy : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, optimalAttackRange);
 
         // Visualize wall detection rays
-        if (player != null)
+        if (player != null && Application.isPlaying)
         {
             Gizmos.color = Color.white;
             Vector2 directionToPlayer = ((Vector2)player.position - (Vector2)transform.position).normalized;
@@ -272,7 +347,26 @@ public class RangedEnemy : MonoBehaviour
             if (Vector2.Distance(transform.position, player.position) <= optimalAttackRange)
             {
                 Gizmos.color = Color.blue;
-                Vector2 strafeDirection = new Vector2(-directionToPlayer.y, directionToPlayer.x) * strafingDirection;
+                
+                // Calculate strafe direction with variable angle
+                Vector2 strafeDirection;
+                if (currentStrafeAngle == 90f)
+                {
+                    // Standard perpendicular strafe
+                    strafeDirection = new Vector2(-directionToPlayer.y, directionToPlayer.x) * strafingDirection;
+                }
+                else
+                {
+                    // Angled strafe
+                    float angleInRadians = currentStrafeAngle * Mathf.Deg2Rad * strafingDirection;
+                    float cos = Mathf.Cos(angleInRadians);
+                    float sin = Mathf.Sin(angleInRadians);
+                    strafeDirection = new Vector2(
+                        directionToPlayer.x * cos - directionToPlayer.y * sin,
+                        directionToPlayer.x * sin + directionToPlayer.y * cos
+                    ).normalized;
+                }
+                
                 Gizmos.DrawLine(transform.position, (Vector2)transform.position + strafeDirection * wallDetectionRange);
             }
         }

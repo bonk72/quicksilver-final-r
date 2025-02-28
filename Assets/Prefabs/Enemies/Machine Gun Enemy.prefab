@@ -483,7 +483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 12
-  wallDetectionRange: 1
+  wallDetectionRange: 3
   detectionRadius: 40
   optimalAttackRange: 10
   detectionDelay: 0.5
@@ -496,7 +496,13 @@ MonoBehaviour:
   minSpreadAngle: -20
   maxSpreadAngle: 10
   projectileInvisibleTime: 0.03
-  strafingSpeed: 5
+  minStrafingSpeed: 3
+  maxStrafingSpeed: 4.5
+  minStrafingDirectionChangeTime: 1
+  maxStrafingDirectionChangeTime: 3
+  pauseChance: 0
+  minPauseDuration: 0
+  maxPauseDuration: 0
   stunDuration: 0.5
 --- !u!1 &4520431182427248596
 GameObject:

@@ -483,20 +483,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 8
-  wallDetectionRange: 1
+  wallDetectionRange: 3
   detectionRadius: 40
-  optimalAttackRange: 5
+  optimalAttackRange: 12
   detectionDelay: 0.5
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
   projectilePrefab: {fileID: 1449580188017570035, guid: c85736f445a208d4cafebe8c760ab0f1, type: 3}
   shootingCooldown: 1
-  projectileSpeed: 25
+  projectileSpeed: 35
   minSpreadAngle: 0
   maxSpreadAngle: 0
   projectileInvisibleTime: 0.02
-  strafingSpeed: 2
+  minStrafingSpeed: 2.5
+  maxStrafingSpeed: 4
+  minStrafingDirectionChangeTime: 1
+  maxStrafingDirectionChangeTime: 2
+  pauseChance: 0
+  minPauseDuration: 0
+  maxPauseDuration: 0
   stunDuration: 0.5
 --- !u!1 &4520431182427248596
 GameObject:
