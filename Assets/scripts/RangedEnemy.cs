@@ -7,7 +7,7 @@ public class RangedEnemy : MonoBehaviour
     public float moveSpeed = 5f;
     public float wallDetectionRange = 1f;
     public float detectionRadius = 10f;  // How far enemy can see player
-    public float stoppingDistance = 5f;   // Optimal shooting distance
+    public float optimalAttackRange = 5f;   // Renamed from stoppingDistance - Optimal shooting distance
     public float detectionDelay = 0.5f;   // Delay before starting to chase player
     public LayerMask wallLayer;
     public GameObject projectilePrefab;   // Projectile to shoot
@@ -16,6 +16,12 @@ public class RangedEnemy : MonoBehaviour
     public float minSpreadAngle = -5f;    // Minimum projectile spread angle
     public float maxSpreadAngle = 5f;     // Maximum projectile spread angle
     public float projectileInvisibleTime = 0.05f; // Duration projectile is invisible when spawned
+    
+    // Strafing variables
+    public float strafingSpeed = 2f;      // Slower speed when strafing
+    private float strafingDirectionChangeTime = 2f; // How often to change strafe direction
+    private float strafingTimer = 0f;
+    private int strafingDirection = 1;    // 1 for right, -1 for left
 
     // Stun variables
     public float stunDuration = 0.5f;
@@ -51,10 +57,10 @@ public class RangedEnemy : MonoBehaviour
             }
             else if (hasDetectedPlayer)
             {
-                if (distanceToPlayer <= stoppingDistance)
+                if (distanceToPlayer <= optimalAttackRange)
                 {
-                    // At optimal range - stop and shoot
-                    moveDirection = Vector2.zero;
+                    // At optimal range - strafe and shoot
+                    Strafe();
                     if (canShoot)
                     {
                         StartCoroutine(ShootAtPlayer());
@@ -64,6 +70,7 @@ public class RangedEnemy : MonoBehaviour
                 {
                     // Chase player to get in range
                     ChasePlayer();
+                    strafingTimer = 0f; // Reset strafing timer when not strafing
                 }
             }
         }
@@ -71,7 +78,49 @@ public class RangedEnemy : MonoBehaviour
         {
             // Player out of detection range
             moveDirection = Vector2.zero;
+            strafingTimer = 0f; // Reset strafing timer when not strafing
         }
+    }
+
+    private void Strafe()
+    {
+        // Update strafing timer
+        strafingTimer += Time.deltaTime;
+        
+        // Change strafing direction periodically
+        if (strafingTimer >= strafingDirectionChangeTime)
+        {
+            strafingDirection *= -1; // Flip direction
+            strafingTimer = 0f;
+        }
+        
+        // Get direction to player
+        Vector2 directionToPlayer = ((Vector2)player.position - rb.position).normalized;
+        
+        // Calculate perpendicular direction for strafing (90 degrees to player direction)
+        Vector2 strafeDirection = new Vector2(-directionToPlayer.y, directionToPlayer.x) * strafingDirection;
+        
+        // Check if strafing would hit a wall
+        RaycastHit2D strafeHit = Physics2D.Raycast(transform.position, strafeDirection, wallDetectionRange, wallLayer);
+        
+        if (strafeHit.collider != null)
+        {
+            // Wall detected in strafe direction, reverse direction
+            strafingDirection *= -1;
+            strafeDirection *= -1;
+            
+            // Double check the other direction
+            strafeHit = Physics2D.Raycast(transform.position, strafeDirection, wallDetectionRange, wallLayer);
+            if (strafeHit.collider != null)
+            {
+                // Both directions blocked, don't move
+                moveDirection = Vector2.zero;
+                return;
+            }
+        }
+        
+        // Set movement direction to strafe
+        moveDirection = strafeDirection;
     }
 
     private IEnumerator DetectionDelayCoroutine()
@@ -156,8 +205,12 @@ public class RangedEnemy : MonoBehaviour
     {
         if (!isStunned && hasDetectedPlayer && !isWaitingToChase)
         {
-            // Apply movement
-            rb.velocity = moveDirection * moveSpeed;
+            // Apply movement with appropriate speed
+            float currentSpeed = (moveDirection.sqrMagnitude > 0 && Vector2.Distance(transform.position, player.position) <= optimalAttackRange) 
+                ? strafingSpeed 
+                : moveSpeed;
+            
+            rb.velocity = moveDirection * currentSpeed;
         }
         else
         {
@@ -197,9 +250,9 @@ public class RangedEnemy : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
 
-        // Visualize stopping distance
+        // Visualize optimal attack range
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, stoppingDistance);
+        Gizmos.DrawWireSphere(transform.position, optimalAttackRange);
 
         // Visualize wall detection rays
         if (player != null)
@@ -214,6 +267,14 @@ public class RangedEnemy : MonoBehaviour
             
             Gizmos.DrawLine(transform.position, (Vector2)transform.position + rightDirection * wallDetectionRange);
             Gizmos.DrawLine(transform.position, (Vector2)transform.position + leftDirection * wallDetectionRange);
+            
+            // Draw strafe direction if in range
+            if (Vector2.Distance(transform.position, player.position) <= optimalAttackRange)
+            {
+                Gizmos.color = Color.blue;
+                Vector2 strafeDirection = new Vector2(-directionToPlayer.y, directionToPlayer.x) * strafingDirection;
+                Gizmos.DrawLine(transform.position, (Vector2)transform.position + strafeDirection * wallDetectionRange);
+            }
         }
     }
 }

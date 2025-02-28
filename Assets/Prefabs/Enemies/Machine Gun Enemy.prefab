@@ -352,7 +352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e945dcc02b5e5c1418c8a74eecad6520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 70
+  maxHealth: 60
   currentHealth: 0
   healthbar: {fileID: 8702077756776200247}
   timeToAdd: 2
@@ -485,17 +485,18 @@ MonoBehaviour:
   moveSpeed: 12
   wallDetectionRange: 1
   detectionRadius: 40
-  stoppingDistance: 12
+  optimalAttackRange: 10
   detectionDelay: 0.5
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
   projectilePrefab: {fileID: 1449580188017570035, guid: 4978859e57d63ce439c554528dd75b2e, type: 3}
-  shootingCooldown: 0.3
-  projectileSpeed: 10
-  minSpreadAngle: -10
+  shootingCooldown: 0.7
+  projectileSpeed: 17
+  minSpreadAngle: -20
   maxSpreadAngle: 10
   projectileInvisibleTime: 0.03
+  strafingSpeed: 5
   stunDuration: 0.5
 --- !u!1 &4520431182427248596
 GameObject:

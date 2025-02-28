@@ -374,10 +374,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e945dcc02b5e5c1418c8a74eecad6520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 50
   currentHealth: 0
   healthbar: {fileID: 8702077756776200247}
   timeToAdd: 2
+  goldToAdd: 0
 --- !u!96 &2977531969146811867
 TrailRenderer:
   serializedVersion: 3
