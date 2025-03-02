@@ -47,11 +47,27 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die()
     {
+        // Check if this GameObject has a dropOnDeath component
+        dropOnDeath dropComponent = GetComponent<dropOnDeath>();
+        if (dropComponent != null)
+        {
+            // Call DropDeath before destroying the GameObject
+            dropComponent.DropDeath();
+        }
+        
         // Add any death effects or score updates here
         Destroy(gameObject);
     }
+    
     public void execute(){
+        // Check if this GameObject has a dropOnDeath component
+        dropOnDeath dropComponent = GetComponent<dropOnDeath>();
+        if (dropComponent != null)
+        {
+            // Call DropDeath before destroying the GameObject
+            dropComponent.DropDeath();
+        }
+        
         Destroy(gameObject);
-
     }
 }

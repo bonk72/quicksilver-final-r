@@ -7,6 +7,7 @@ public class roomSwitch : MonoBehaviour
     public bool newRoom;
     public bool finalRoom;
     public bool disable =  true;
+    public bool reset;
 
 
     
@@ -28,6 +29,10 @@ public class roomSwitch : MonoBehaviour
         }
         if (other.CompareTag("finalRoom")){
             finalRoom = true;
+        }
+        if(other.CompareTag("newDungeon")){
+            transform.position = new Vector3 (0, 0, 0);
+            reset = true;
         }
     }
 

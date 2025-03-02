@@ -17,6 +17,11 @@ public class RangedEnemy : MonoBehaviour
     public float maxSpreadAngle = 5f;     // Maximum projectile spread angle
     public float projectileInvisibleTime = 0.05f; // Duration projectile is invisible when spawned
     
+    // Burst fire variables
+    public bool shootsInBursts = false;   // Whether enemy shoots in bursts (like a shotgun)
+    public int burstProjectileCount = 3;  // Number of projectiles in a burst
+    public float burstAngleSpread = 30f;  // Total angle spread for burst projectiles
+    
     // Strafing variables
     public float minStrafingSpeed = 1.5f;      // Minimum strafing speed
     public float maxStrafingSpeed = 3f;        // Maximum strafing speed
@@ -29,15 +34,10 @@ public class RangedEnemy : MonoBehaviour
     private float strafeAngleVariation = 15f; // Variation in strafe angle (degrees)
     private float currentStrafeAngle;     // Current strafe angle
     
-    // Strafing pause variables
-    public float pauseChance = 0.2f;      // Chance to pause during strafing (0-1)
-    public float minPauseDuration = 0.2f; // Minimum pause duration
-    public float maxPauseDuration = 0.8f; // Maximum pause duration
-    private bool isPausing = false;
+
+
 
     // Stun variables
-    public float stunDuration = 0.5f;
-    private bool isStunned = false;
     private bool isWaitingToChase = false;
     private bool canShoot = true;
 
@@ -72,7 +72,7 @@ public class RangedEnemy : MonoBehaviour
 
     void Update()
     {
-        if (player == null || isStunned) return;
+        if (player == null ) return;
 
         // Calculate distance to player
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
@@ -90,16 +90,10 @@ public class RangedEnemy : MonoBehaviour
                 if (distanceToPlayer <= optimalAttackRange)
                 {
                     // At optimal range - strafe and shoot
-                    if (!isPausing)
-                    {
-                        Strafe();
+                    
+                    Strafe();
                         
-                        // Random chance to pause
-                        if (Random.value < pauseChance * Time.deltaTime)
-                        {
-                            StartCoroutine(PauseStrafing());
-                        }
-                    }
+
                     
                     if (canShoot)
                     {
@@ -111,7 +105,7 @@ public class RangedEnemy : MonoBehaviour
                     // Chase player to get in range
                     ChasePlayer();
                     strafingTimer = 0f; // Reset strafing timer when not strafing
-                    isPausing = false;  // Cancel any pause when not in range
+
                 }
             }
         }
@@ -120,19 +114,10 @@ public class RangedEnemy : MonoBehaviour
             // Player out of detection range
             moveDirection = Vector2.zero;
             strafingTimer = 0f; // Reset strafing timer when not strafing
-            isPausing = false;  // Cancel any pause when not in range
+
         }
     }
     
-    private IEnumerator PauseStrafing()
-    {
-        isPausing = true;
-        moveDirection = Vector2.zero;
-        
-        yield return new WaitForSeconds(Random.Range(minPauseDuration, maxPauseDuration));
-        
-        isPausing = false;
-    }
 
     private void Strafe()
     {
@@ -210,15 +195,58 @@ public class RangedEnemy : MonoBehaviour
     {
         canShoot = false;
 
-        // Calculate direction to player
+        // Calculate base direction to player
         Vector2 directionToPlayer = ((Vector2)player.position - (Vector2)transform.position).normalized;
         
+        if (shootsInBursts)
+        {
+            // Burst fire mode (shotgun-like)
+            ShootBurst(directionToPlayer);
+        }
+        else
+        {
+            // Single projectile mode with random spread
+            ShootSingleProjectile(directionToPlayer);
+        }
+
+        yield return new WaitForSeconds(shootingCooldown);
+        canShoot = true;
+    }
+    
+    private void ShootSingleProjectile(Vector2 directionToPlayer)
+    {
         // Add random spread
         float spreadAngle = Random.Range(minSpreadAngle, maxSpreadAngle);
         Vector2 spreadDirection = Quaternion.Euler(0, 0, spreadAngle) * directionToPlayer;
         
+        // Create and initialize projectile
+        CreateProjectile(spreadDirection);
+    }
+    
+    private void ShootBurst(Vector2 directionToPlayer)
+    {
+        // Calculate the angle between each projectile
+        float angleStep = burstProjectileCount > 1 ? burstAngleSpread / (burstProjectileCount - 1) : 0;
+        float startAngle = -burstAngleSpread / 2;
+        
+        // Create projectiles in a spread pattern
+        for (int i = 0; i < burstProjectileCount; i++)
+        {
+            // Calculate angle for this projectile
+            float currentAngle = startAngle + (angleStep * i);
+            
+            // Apply the angle to the direction
+            Vector2 spreadDirection = Quaternion.Euler(0, 0, currentAngle) * directionToPlayer;
+            
+            // Create and initialize projectile
+            CreateProjectile(spreadDirection);
+        }
+    }
+    
+    private void CreateProjectile(Vector2 direction)
+    {
         // Calculate rotation to face the direction of travel
-        float angle = Mathf.Atan2(spreadDirection.y, spreadDirection.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion projectileRotation = Quaternion.Euler(0, 0, angle - 90);
 
         // Instantiate projectile
@@ -228,10 +256,10 @@ public class RangedEnemy : MonoBehaviour
         bullet bulletScript = projectile.GetComponent<bullet>();
         SpriteRenderer projectileSprite = projectile.GetComponent<SpriteRenderer>();
         
-        // Initialize bullet with spread direction
+        // Initialize bullet with direction
         if (bulletScript != null)
         {
-            bulletScript.Initialize(spreadDirection, projectileSpeed);
+            bulletScript.Initialize(direction, projectileSpeed);
         }
         
         // Make projectile temporarily invisible
@@ -239,9 +267,6 @@ public class RangedEnemy : MonoBehaviour
         {
             StartCoroutine(TemporaryInvisibility(projectileSprite));
         }
-
-        yield return new WaitForSeconds(shootingCooldown);
-        canShoot = true;
     }
 
     private void ChasePlayer()
@@ -278,7 +303,7 @@ public class RangedEnemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isStunned && hasDetectedPlayer && !isWaitingToChase)
+        if (hasDetectedPlayer && !isWaitingToChase)
         {
             // Apply movement with appropriate speed
             float currentSpeed = (moveDirection.sqrMagnitude > 0 && Vector2.Distance(transform.position, player.position) <= optimalAttackRange) 
@@ -294,21 +319,9 @@ public class RangedEnemy : MonoBehaviour
         }
     }
 
-    public void Stun()
-    {
-        if (!isStunned)
-        {
-            StartCoroutine(StunCoroutine());
-        }
-    }
+    
 
-    private IEnumerator StunCoroutine()
-    {
-        isStunned = true;
-        rb.velocity = Vector2.zero;
-        yield return new WaitForSeconds(stunDuration);
-        isStunned = false;
-    }
+    
 
     private IEnumerator TemporaryInvisibility(SpriteRenderer sprite)
     {

@@ -11,6 +11,8 @@ TagManager:
   - enemyProjectile
   - finalRoom
   - Shop
+  - collectible
+  - newDungeon
   layers:
   - Default
   - TransparentFX

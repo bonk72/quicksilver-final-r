@@ -26,6 +26,10 @@ public class followRooms : MonoBehaviour
 
             StartCoroutine(HandleRoomChange(BIG_DISTANCE));
         }
+        if (player.GetComponent<roomSwitch>().reset && !isHandlingRoomChange){
+            cam.m_Lens.OrthographicSize = 14;
+            StartCoroutine(Reset());
+        }
     }
 
     private IEnumerator HandleRoomChange(float dist)
@@ -48,6 +52,19 @@ public class followRooms : MonoBehaviour
         // Only reset newRoom after movement is complete
         player.GetComponent<roomSwitch>().newRoom = false;
         player.GetComponent<roomSwitch>().finalRoom = false;
+        isHandlingRoomChange = false;
+    }
+    private IEnumerator Reset(){
+        isHandlingRoomChange = true;
+        
+        // Immediately set position to (0, 0) while keeping the same z value
+        transform.position = new Vector3(0, 0, 0);
+        
+        // Wait for a frame to ensure everything updates properly
+        yield return null;
+        
+        // Reset the flag in roomSwitch
+        player.GetComponent<roomSwitch>().reset = false;
         isHandlingRoomChange = false;
     }
 

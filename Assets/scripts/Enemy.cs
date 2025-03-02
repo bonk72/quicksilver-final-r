@@ -8,6 +8,9 @@ public class Enemy : MonoBehaviour
     public float wallDetectionRange = 1f;
     public float detectionRadius = 10f;  // How far enemy can see player
     public float optimalAttackRange = 2f;   // Renamed from stoppingDistance - How close enemy gets to player
+    private float extendedAttackRange;   // Temporarily increased attack range when player enters
+    private bool isUsingExtendedRange = false; // Flag to track if using extended range
+    private float attackRangeExtensionMultiplier = 1.5f; // How much to extend the attack range by
     public LayerMask wallLayer;
     public float timeDamage = 5f;  // How much time is deducted from player on collision
     public float detectionDelay = 0.5f; // Delay before starting to chase player
@@ -23,12 +26,6 @@ public class Enemy : MonoBehaviour
     private int strafingDirection = 1;    // 1 for right, -1 for left
     private float strafeAngleVariation = 20f; // Variation in strafe angle (degrees) - different from RangedEnemy
     private float currentStrafeAngle;     // Current strafe angle
-    
-    // Strafing pause variables - different from RangedEnemy
-    public float pauseChance = 0.15f;     // Chance to pause during strafing (0-1)
-    public float minPauseDuration = 0.1f; // Minimum pause duration
-    public float maxPauseDuration = 0.5f; // Maximum pause duration
-    private bool isPausing = false;
     
     // Occasional forward movement during strafing (unique to Enemy)
     public float forwardMoveChance = 0.1f;  // Chance to move forward during strafing
@@ -47,7 +44,6 @@ public class Enemy : MonoBehaviour
 
     // Stun variables
     public float stunDuration = 0.5f;
-    public float postDashStunDuration = 0.3f; // Shorter stun after dash
     private bool isStunned = false;
     private bool isWaitingToChase = false;
     private RigidbodyConstraints2D originalConstraints;
@@ -62,6 +58,9 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         originalConstraints = rb.constraints;
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        
+        // Initialize attack ranges
+        extendedAttackRange = optimalAttackRange * attackRangeExtensionMultiplier;
         
         // Initialize random strafing parameters
         InitializeStrafingParameters();
@@ -102,19 +101,28 @@ public class Enemy : MonoBehaviour
             }
             else if (hasDetectedPlayer)
             {
-                if (distanceToPlayer <= optimalAttackRange)
+                // Check if player is entering the optimal attack range
+                if (distanceToPlayer <= optimalAttackRange && !isUsingExtendedRange)
+                {
+                    // Player has entered the optimal range, extend the attack range
+                    isUsingExtendedRange = true;
+                }
+                // Check if player is exiting the extended range
+                else if (distanceToPlayer > extendedAttackRange && isUsingExtendedRange)
+                {
+                    // Player has exited the extended range, reset back to normal
+                    isUsingExtendedRange = false;
+                }
+                
+                // Use the appropriate attack range based on state
+                float currentAttackRange = isUsingExtendedRange ? extendedAttackRange : optimalAttackRange;
+                
+                if (distanceToPlayer <= currentAttackRange)
                 {
                     // At optimal range - strafe and occasionally dash
-                    if (!isPausing && !isMovingForward)
+                    if (!isMovingForward)
                     {
                         Strafe();
-                        
-                        // Random chance to pause
-                        if (Random.value < pauseChance * Time.deltaTime)
-                        {
-                            StartCoroutine(PauseStrafing());
-                        }
-                        
                         // Random chance to move forward briefly (unique to Enemy)
                         if (Random.value < forwardMoveChance * Time.deltaTime)
                         {
@@ -139,7 +147,6 @@ public class Enemy : MonoBehaviour
                     ChasePlayer();
                     strafingTimer = 0f; // Reset strafing timer when not strafing
                     dashTimer = 0f;     // Reset dash timer when not in range
-                    isPausing = false;  // Cancel any pause when not in range
                     isMovingForward = false; // Cancel any forward movement when not in range
                 }
             }
@@ -150,20 +157,10 @@ public class Enemy : MonoBehaviour
             moveDirection = Vector2.zero;
             strafingTimer = 0f; // Reset strafing timer when not strafing
             dashTimer = 0f;     // Reset dash timer when not in range
-            isPausing = false;  // Cancel any pause when not in range
             isMovingForward = false; // Cancel any forward movement when not in range
         }
     }
     
-    private IEnumerator PauseStrafing()
-    {
-        isPausing = true;
-        moveDirection = Vector2.zero;
-        
-        yield return new WaitForSeconds(Random.Range(minPauseDuration, maxPauseDuration));
-        
-        isPausing = false;
-    }
     
     private IEnumerator MoveForwardBriefly()
     {
@@ -275,30 +272,23 @@ public class Enemy : MonoBehaviour
         // Wait for dash duration
         yield return new WaitForSeconds(dashDuration);
         
-        // End dash and apply self-stun
+        // End dash and apply self-stun using the normal stun mechanic
         isDashing = false;
-        StartCoroutine(PostDashStun());
+        Stun();
+        
+        // Set a new random dash cooldown and reset after stun
+        StartCoroutine(ResetDashCooldown());
     }
 
-    private IEnumerator PostDashStun()
+    private IEnumerator ResetDashCooldown()
     {
-        isStunned = true;
-        rb.velocity = Vector2.zero;
-        
-        // Freeze position during stun
-        rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        
-        yield return new WaitForSeconds(postDashStunDuration);
-        
-        // Restore original constraints
-        rb.constraints = originalConstraints;
-        isStunned = false;
-        
         // Set a new random dash cooldown
         currentDashCooldown = Random.Range(minDashCooldown, maxDashCooldown);
         
-        // Reset dash cooldown
-        yield return new WaitForSeconds(currentDashCooldown - postDashStunDuration);
+        // Wait for stun to finish plus the cooldown time
+        yield return new WaitForSeconds(currentDashCooldown);
+        
+        // Reset dash ability
         canDash = true;
     }
 
@@ -351,7 +341,10 @@ public class Enemy : MonoBehaviour
             // Apply movement with appropriate speed
             float currentSpeed;
             
-            if (Vector2.Distance(transform.position, player.position) <= optimalAttackRange)
+            // Use the appropriate attack range based on state
+            float currentAttackRange = isUsingExtendedRange ? extendedAttackRange : optimalAttackRange;
+            
+            if (Vector2.Distance(transform.position, player.position) <= currentAttackRange)
             {
                 // In optimal range
                 if (isMovingForward)
@@ -418,9 +411,16 @@ public class Enemy : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
 
-        // Visualize optimal attack range
+        // Visualize attack ranges
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, optimalAttackRange);
+        
+        // Visualize extended attack range if in use
+        if (Application.isPlaying && isUsingExtendedRange)
+        {
+            Gizmos.color = new Color(0.5f, 1f, 0.5f, 0.5f); // Light green with transparency
+            Gizmos.DrawWireSphere(transform.position, extendedAttackRange);
+        }
 
         // Visualize wall detection rays
         if (player != null && Application.isPlaying)
@@ -437,7 +437,8 @@ public class Enemy : MonoBehaviour
             Gizmos.DrawLine(transform.position, (Vector2)transform.position + leftDirection * wallDetectionRange);
             
             // Draw strafe direction if in range
-            if (Vector2.Distance(transform.position, player.position) <= optimalAttackRange)
+            float currentAttackRange = isUsingExtendedRange ? extendedAttackRange : optimalAttackRange;
+            if (Vector2.Distance(transform.position, player.position) <= currentAttackRange)
             {
                 Gizmos.color = Color.blue;
                 

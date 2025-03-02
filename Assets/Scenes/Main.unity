@@ -437,6 +437,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 204674427}
   m_CullTransparentMesh: 1
+--- !u!1 &316658487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 316658489}
+  - component: {fileID: 316658488}
+  m_Layer: 0
+  m_Name: 2nd Dungeon Stage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &316658488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316658487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff48a383059dad42ab0a56b3e030cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRooms: 12
+  minRooms: 10
+  possibleRoomPrefabs:
+  - {fileID: 1993581344449621484, guid: c9966ff6154e7c241a3808fea089bc2c, type: 3}
+  - {fileID: 1993581344449621484, guid: 21a0c4fb12aa04243a8a47a7d93caebf, type: 3}
+  - {fileID: 1993581344449621484, guid: 4e60a7ee4147acf4ba0e223753625641, type: 3}
+  verticalHallwayPrefabs:
+  - {fileID: 1993581344449621484, guid: 918850573a148f4489933492f8224d08, type: 3}
+  startingRoomPrefab: {fileID: 1993581344449621484, guid: 3d6bb3e8184c32e43ad30e1c092d420f, type: 3}
+  bossRoomPrefab: {fileID: 1993581344449621484, guid: 603b14758fe2fec4eb465578531cc0af, type: 3}
+  finalRoomPrefab: {fileID: 1993581344449621484, guid: e098a2e5d2ae8004bb570301ba409080, type: 3}
+  DungeonGenerated: 0
+--- !u!4 &316658489
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316658487}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &317264323
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,7 +504,7 @@ GameObject:
   - component: {fileID: 317264325}
   - component: {fileID: 317264326}
   m_Layer: 0
-  m_Name: RoomManager
+  m_Name: 1st Dungeon Stage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1213,6 +1269,7 @@ MonoBehaviour:
   newRoom: 0
   finalRoom: 0
   disable: 0
+  reset: 0
 --- !u!114 &965652957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1447,6 +1504,57 @@ Transform:
   - {fileID: 662139935}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1507960928
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1507960929}
+  - component: {fileID: 1507960930}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: GameController
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1507960929
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507960928}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1507960930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507960928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c94083b2411ab242a90488f7bea838b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  straightRoomManagers:
+  - {fileID: 317264326}
+  - {fileID: 316658488}
+  useKeyForTesting: 1
+  testEventKey: 103
+  deleteEventKey: 104
+  generatenew: 0
 --- !u!1 &1715868327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1694,5 +1802,7 @@ SceneRoots:
   - {fileID: 1421069377}
   - {fileID: 1910951873}
   - {fileID: 317264325}
+  - {fileID: 316658489}
+  - {fileID: 1507960929}
   - {fileID: 126363576}
   - {fileID: 1205845358}

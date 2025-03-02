@@ -187,15 +187,13 @@ GameObject:
   m_Component:
   - component: {fileID: 8233480619156063912}
   - component: {fileID: 789934342307549595}
+  - component: {fileID: 3940493593859693424}
   - component: {fileID: 8985416275253545274}
   - component: {fileID: 1221117252929396958}
   - component: {fileID: 1061500325422261264}
   - component: {fileID: 8541724225371492620}
-  - component: {fileID: 5103779246288291167}
-  - component: {fileID: -1038828984163937066}
-  - component: {fileID: 6316502556458690698}
   m_Layer: 8
-  m_Name: Boss 1
+  m_Name: Dashy Enemy
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -210,8 +208,8 @@ Transform:
   m_GameObject: {fileID: 3915225212442025883}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -24.79, y: 10.43, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 437340273582994687}
@@ -259,8 +257,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: 5d62559096b51d046a5eaba8bf06a228, type: 3}
-  m_Color: {r: 0, g: 0.09729433, b: 1, a: 1}
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 0.24957943, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -270,6 +268,38 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3940493593859693424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915225212442025883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b91f757d8cfa64f9983694de84dc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 10
+  wallDetectionRange: 3
+  detectionRadius: 40
+  optimalAttackRange: 9
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  timeDamage: 8
+  detectionDelay: 0.5
+  minStrafingSpeed: 4
+  maxStrafingSpeed: 7
+  minStrafingDirectionChangeTime: 0.5
+  maxStrafingDirectionChangeTime: 1.5
+  forwardMoveChance: 0.1
+  forwardMoveDuration: 0.3
+  dashSpeed: 140
+  dashDuration: 0.1
+  minDashCooldown: 0.3
+  maxDashCooldown: 0.5
+  stunDuration: 0.3
 --- !u!61 &8985416275253545274
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -323,7 +353,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3915225212442025883}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -354,10 +384,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e945dcc02b5e5c1418c8a74eecad6520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 600
+  maxHealth: 60
   currentHealth: 0
   healthbar: {fileID: 8702077756776200247}
-  timeToAdd: 30
+  timeToAdd: 2
   goldToAdd: 0
 --- !u!96 &8541724225371492620
 TrailRenderer:
@@ -401,17 +431,17 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Time: 0.3
+  m_Time: 0.2
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 4.5
+    widthMultiplier: 1
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.007843018
-        value: 1
+        time: 0
+        value: 0.59259224
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -432,8 +462,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.84705883, b: 0, a: 0.49803922}
-      key1: {r: 1, g: 0.84705883, b: 0, a: 0}
+      key0: {r: 0.2509804, g: 1, b: 0, a: 0.49803922}
+      key1: {r: 0.2509804, g: 1, b: 0, a: 0}
       key2: {r: 1, g: 1, b: 1, a: 0}
       key3: {r: 1, g: 1, b: 1, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -472,70 +502,6 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!114 &5103779246288291167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3915225212442025883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51844d1395ab2f4439e45e7c3e3c7881, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  wallDetectionRange: 1
-  detectionRadius: 40
-  optimalAttackRange: 40
-  detectionDelay: 0.5
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  projectilePrefab: {fileID: 1449580188017570035, guid: 9596a045ca8c5594681521b0fdf24be0, type: 3}
-  shootingCooldown: 1
-  projectileSpeed: 40
-  minSpreadAngle: 0
-  maxSpreadAngle: 0
-  projectileInvisibleTime: 0.05
-  shootsInBursts: 0
-  burstProjectileCount: 3
-  burstAngleSpread: 30
-  minStrafingSpeed: 0
-  maxStrafingSpeed: 0
-  minStrafingDirectionChangeTime: 0
-  maxStrafingDirectionChangeTime: 0
---- !u!114 &-1038828984163937066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3915225212442025883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 580678e14473468489b91f4ef1bd380e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  centerPoint: {fileID: 0}
-  dashRadius: 5
-  dashInterval: 2
-  dashSpeed: 200
-  dashDistance: 20
---- !u!114 &6316502556458690698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3915225212442025883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d94128ac108bbd4799b4f23cc56b41b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 1625776464343324925, guid: 7853dabb4e2dbc24586570452bd6c5df, type: 3}
-  location: {fileID: 0}
 --- !u!1 &4520431182427248596
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,7 +774,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 1061500325422261264}
-  executeThreshold: 0.1
+  executeThreshold: 0.5
   healthbar: {fileID: 8702077756776200247}
 --- !u!1 &8203383572684021431
 GameObject:

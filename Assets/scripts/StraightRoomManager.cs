@@ -40,15 +40,13 @@ public class StraightRoomManager : MonoBehaviour
 
     private void Start()
     {
+        // Validate prefabs but don't generate dungeon automatically
         if (startingRoomPrefab == null || possibleRoomPrefabs.Count == 0 ||
             bossRoomPrefab == null || finalRoomPrefab == null)
         {
             Debug.LogError("Please assign all required room prefabs in the inspector!");
             return;
         }
-        GenerateDungeon();
-
-
     }
     void Update()
     {
@@ -311,5 +309,87 @@ public class StraightRoomManager : MonoBehaviour
                 }
             }
         }
+    }
+    
+    // Public method to generate the dungeon when called from GameManager
+    public void GenerateDungeonOnDemand()
+    {
+        // Clear any existing dungeon first
+        DeleteDungeon();
+        
+        // Generate a new dungeon
+        GenerateDungeon();
+        DungeonGenerated = true;
+    }
+    
+    // Public method to delete the dungeon
+    public void DeleteDungeon()
+    {
+        // Tag for gold collectibles that should not be destroyed
+
+        
+        // First, destroy all room objects and their children (except gold collectibles)
+        foreach (GameObject room in roomObjects)
+        {
+            if (room != null)
+            {
+                // Get all child objects before destroying the parent
+                Transform[] allChildren = room.GetComponentsInChildren<Transform>(true);
+                
+                // Create a list to hold objects that should be detached (gold collectibles)
+                List<GameObject> objectsToDetach = new List<GameObject>();
+                
+                // Find all gold collectibles and detach them from the room hierarchy
+                foreach (Transform child in allChildren)
+                {
+                    if (child.CompareTag("collectible"))
+                    {
+                        // Detach from parent so it doesn't get destroyed with the room
+                        objectsToDetach.Add(child.gameObject);
+                    }
+                }
+                
+                // Detach gold collectibles from their parents
+                foreach (GameObject obj in objectsToDetach)
+                {
+                    obj.transform.SetParent(null);
+                }
+                
+                // Now destroy the room and all its remaining children
+                Destroy(room);
+            }
+        }
+        
+        // Find and destroy any enemies or other objects that might have been spawned
+        // but are not direct children of room objects
+        GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("enemy");
+        foreach (GameObject enemy in allEnemies)
+        {
+            // Skip if it's already destroyed
+            if (enemy == null) continue;
+            
+            // Destroy the enemy
+            Destroy(enemy);
+        }
+        
+        
+        // Clear the list
+        roomObjects.Clear();
+        
+        // Reset the grid
+        if (roomGrid != null)
+        {
+            for (int x = 0; x < roomGrid.GetLength(0); x++)
+            {
+                for (int y = 0; y < roomGrid.GetLength(1); y++)
+                {
+                    roomGrid[x, y] = false;
+                    roomTypes[x, y] = RoomType.None;
+                }
+            }
+        }
+        
+        DungeonGenerated = false;
+        Debug.Log("Dungeon deleted, gold collectibles preserved");
     }
 }
