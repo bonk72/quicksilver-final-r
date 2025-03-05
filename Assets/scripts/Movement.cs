@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class Movement : MonoBehaviour
 {
-    public float moveSpeed;
+    public static float moveSpeed = 10f;
     public Rigidbody2D rb2d;
     private Vector2 moveInput;
     public CircleCollider2D coll;
@@ -30,6 +30,8 @@ public class Movement : MonoBehaviour
     public float bounceLength = 0.2f;
     private bool isBouncing = false;
 
+    // Boolean to disable rotation (e.g., when in shop)
+    public bool canRotate = true;
 
     public PlayerTime time;
     void Start()
@@ -67,9 +69,13 @@ public class Movement : MonoBehaviour
         }
         rb2d.velocity = new Vector2(moveInput.x * moveSpeed, moveInput.y * moveSpeed);
 
-        Vector2 aimDirection = mousePosition - rb2d.position;
-        float aimangle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
-        rb2d.rotation = aimangle;
+        // Only rotate if canRotate is true
+        if (canRotate)
+        {
+            Vector2 aimDirection = mousePosition - rb2d.position;
+            float aimangle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
+            rb2d.rotation = aimangle;
+        }
     }
 
     private IEnumerator Dash() {
@@ -121,5 +127,9 @@ public class Movement : MonoBehaviour
 
     public void ResetDash(){
         dashR = true;
+    }
+    public void increaseMaxTime(float amount){
+        moveSpeed += amount;
+
     }
 }

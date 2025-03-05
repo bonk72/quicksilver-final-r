@@ -188,11 +188,11 @@ GameObject:
   - component: {fileID: 8233480619156063912}
   - component: {fileID: 789934342307549595}
   - component: {fileID: 8985416275253545274}
-  - component: {fileID: 1221117252929396958}
   - component: {fileID: 1061500325422261264}
   - component: {fileID: 2977531969146811867}
   - component: {fileID: 3988708808875425149}
   - component: {fileID: 4525505788621230204}
+  - component: {fileID: 4226646672282077527}
   m_Layer: 8
   m_Name: Wizard Enemy
   m_TagString: enemy
@@ -314,33 +314,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.05, y: 1.05}
   m_EdgeRadius: 0
---- !u!50 &1221117252929396958
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3915225212442025883}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 100
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 1
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!114 &1061500325422261264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,11 +459,11 @@ MonoBehaviour:
   moveSpeed: 8
   wallDetectionRange: 0
   detectionRadius: 40
-  optimalAttackRange: 20
+  optimalAttackRange: 40
   detectionDelay: 0.5
   wallLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
   projectilePrefab: {fileID: 1449580188017570035, guid: 6b6a52164ffdbd14aab558b589b9c3d2, type: 3}
   shootingCooldown: 2
   projectileSpeed: 60
@@ -504,6 +477,10 @@ MonoBehaviour:
   maxStrafingSpeed: 0
   minStrafingDirectionChangeTime: 0
   maxStrafingDirectionChangeTime: 0
+  dashOnHit: 0
+  dashOnHitSpeed: 12
+  dashOnHitDistance: 3
+  dashOnHitDuration: 0.2
 --- !u!114 &4525505788621230204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -517,10 +494,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerPoint: {fileID: 0}
-  dashRadius: 10
-  dashInterval: 2
+  dashRadius: 7
+  dashInterval: 4
   dashSpeed: 100
-  dashDistance: 10
+  dashDistance: 8
+--- !u!50 &4226646672282077527
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915225212442025883}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &4520431182427248596
 GameObject:
   m_ObjectHideFlags: 0

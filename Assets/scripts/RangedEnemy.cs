@@ -34,9 +34,16 @@ public class RangedEnemy : MonoBehaviour
     private float strafeAngleVariation = 15f; // Variation in strafe angle (degrees)
     private float currentStrafeAngle;     // Current strafe angle
     
-
-
-
+    // Dash on hit variables
+    public bool dashOnHit = false;        // Toggle for dash on hit feature
+    public float dashOnHitSpeed = 12f;    // Speed of dash when hit
+    public float dashOnHitDistance = 3f;  // Distance to dash when hit
+    public float dashOnHitDuration = 0.2f; // Duration of dash when hit
+    public float dashOnHitCooldown = 1.5f; // Cooldown between dashes on hit
+    private bool isDashingOnHit = false;  // Whether currently dashing from being hit
+    private bool canDashOnHit = true;     // Whether dash on hit is off cooldown
+    private Vector2 dashDirection;        // Direction of current dash
+    
     // Stun variables
     private bool isWaitingToChase = false;
     private bool canShoot = true;
@@ -45,14 +52,31 @@ public class RangedEnemy : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveDirection;
     private bool hasDetectedPlayer = false;
+    private EnemyHealth healthComponent;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        healthComponent = GetComponent<EnemyHealth>();
+        
+        // Register for damage events if dashOnHit is enabled
+        if (dashOnHit && healthComponent != null)
+        {
+            healthComponent.OnDamageTaken += OnDamageTaken;
+        }
         
         // Initialize random strafing parameters
         InitializeStrafingParameters();
+    }
+    
+    private void OnDestroy()
+    {
+        // Unregister from damage events to prevent memory leaks
+        if (healthComponent != null)
+        {
+            healthComponent.OnDamageTaken -= OnDamageTaken;
+        }
     }
     
     private void InitializeStrafingParameters()
@@ -72,7 +96,7 @@ public class RangedEnemy : MonoBehaviour
 
     void Update()
     {
-        if (player == null ) return;
+        if (player == null || isDashingOnHit) return;
 
         // Calculate distance to player
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
@@ -118,6 +142,94 @@ public class RangedEnemy : MonoBehaviour
         }
     }
     
+    // Called by EnemyHealth when damage is taken
+    public void OnDamageTaken(int damage)
+    {
+        if (dashOnHit && !isDashingOnHit && canDashOnHit)
+        {
+            StartCoroutine(DashInRandomDirection());
+            StartCoroutine(DashOnHitCooldown());
+        }
+    }
+    
+    private IEnumerator DashOnHitCooldown()
+    {
+        canDashOnHit = false;
+        
+        // Visual indicator for cooldown (optional)
+        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        Color originalColor = sprite.color;
+        if (sprite != null)
+        {
+            // Slightly darken the sprite during cooldown
+            sprite.color = new Color(originalColor.r * 0.8f, originalColor.g * 0.8f, originalColor.b * 0.8f, originalColor.a);
+        }
+        
+        yield return new WaitForSeconds(dashOnHitCooldown);
+        
+        // Restore original color
+        if (sprite != null)
+        {
+            sprite.color = originalColor;
+        }
+        
+        canDashOnHit = true;
+    }
+    
+    private IEnumerator DashInRandomDirection()
+    {
+        isDashingOnHit = true;
+        
+        // Generate a completely random direction
+        float randomAngle = Random.Range(0f, 360f);
+        dashDirection = new Vector2(
+            Mathf.Cos(randomAngle * Mathf.Deg2Rad),
+            Mathf.Sin(randomAngle * Mathf.Deg2Rad)
+        ).normalized;
+        
+        // Try up to 8 different directions if walls are in the way
+        int maxAttempts = 8;
+        bool foundValidDirection = false;
+        
+        for (int i = 0; i < maxAttempts; i++)
+        {
+            // Check for walls in dash path
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, dashDirection, dashOnHitDistance, wallLayer);
+            
+            if (hit.collider == null)
+            {
+                // No wall in this direction, we can use it
+                foundValidDirection = true;
+                break;
+            }
+            
+            // Try another random direction
+            randomAngle = Random.Range(0f, 360f);
+            dashDirection = new Vector2(
+                Mathf.Cos(randomAngle * Mathf.Deg2Rad),
+                Mathf.Sin(randomAngle * Mathf.Deg2Rad)
+            ).normalized;
+        }
+        
+        if (!foundValidDirection)
+        {
+            // If all directions have walls, use a very short dash in the last tried direction
+            float shortDistance = 0.5f;
+            rb.velocity = dashDirection * dashOnHitSpeed;
+            yield return new WaitForSeconds(shortDistance / dashOnHitSpeed);
+            isDashingOnHit = false;
+            yield break;
+        }
+        
+        // Apply dash velocity
+        rb.velocity = dashDirection * dashOnHitSpeed;
+        
+        // Wait for dash duration
+        yield return new WaitForSeconds(dashOnHitDuration);
+        
+        // End dash
+        isDashingOnHit = false;
+    }
 
     private void Strafe()
     {
@@ -303,6 +415,12 @@ public class RangedEnemy : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (isDashingOnHit)
+        {
+            // Velocity is controlled by dash coroutine
+            return;
+        }
+        
         if (hasDetectedPlayer && !isWaitingToChase)
         {
             // Apply movement with appropriate speed
@@ -318,10 +436,6 @@ public class RangedEnemy : MonoBehaviour
             rb.velocity = Vector2.zero;
         }
     }
-
-    
-
-    
 
     private IEnumerator TemporaryInvisibility(SpriteRenderer sprite)
     {
@@ -381,6 +495,25 @@ public class RangedEnemy : MonoBehaviour
                 }
                 
                 Gizmos.DrawLine(transform.position, (Vector2)transform.position + strafeDirection * wallDetectionRange);
+                
+                // Draw dash on hit directions if enabled
+                if (dashOnHit)
+                {
+                    // Use different colors based on cooldown state
+                    Gizmos.color = canDashOnHit ? Color.red : Color.gray;
+                    
+                    // Draw multiple possible dash directions
+                    for (int i = 0; i < 8; i++)
+                    {
+                        float angle = i * 45f; // 8 directions, 45 degrees apart
+                        Vector2 dashDir = new Vector2(
+                            Mathf.Cos(angle * Mathf.Deg2Rad),
+                            Mathf.Sin(angle * Mathf.Deg2Rad)
+                        ).normalized;
+                        
+                        Gizmos.DrawLine(transform.position, (Vector2)transform.position + dashDir * dashOnHitDistance);
+                    }
+                }
             }
         }
     }

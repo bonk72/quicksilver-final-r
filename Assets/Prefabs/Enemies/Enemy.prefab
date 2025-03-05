@@ -287,7 +287,7 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
-  timeDamage: 2
+  timeDamage: 10
   detectionDelay: 0.5
   minStrafingSpeed: 3
   maxStrafingSpeed: 5
@@ -300,7 +300,6 @@ MonoBehaviour:
   minDashCooldown: 0.5
   maxDashCooldown: 1
   stunDuration: 0.5
-  postDashStunDuration: 0.5
 --- !u!61 &8985416275253545274
 BoxCollider2D:
   m_ObjectHideFlags: 0

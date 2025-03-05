@@ -101,9 +101,14 @@ public class GameManager : MonoBehaviour
                 // 4F0000 (Dark Red)
                 color = new Color(0.31f, 0f, 0f);
                 break;
+            case 2: 
+                // 0A0071 (Dark blue
+                color = new Color(0.039f, 0f, 0.443f);
+                break;
+            
             // Add more cases here for additional colors
-            // case 2: color = new Color(...); break;
             // case 3: color = new Color(...); break;
+            // case 4: color = new Color(...); break;
             
             default:
                 // Default to black if index is out of range

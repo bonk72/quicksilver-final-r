@@ -191,9 +191,10 @@ GameObject:
   - component: {fileID: 8985416275253545274}
   - component: {fileID: 1221117252929396958}
   - component: {fileID: 1061500325422261264}
-  - component: {fileID: 8541724225371492620}
+  - component: {fileID: 2977531969146811867}
+  - component: {fileID: 4112054005463165535}
   m_Layer: 8
-  m_Name: Speedy Enemy
+  m_Name: Boss 2
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -209,7 +210,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 437340273582994687}
@@ -257,8 +258,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.8467263, b: 0, a: 1}
+  m_Sprite: {fileID: -2413806693520163455, guid: 5d62559096b51d046a5eaba8bf06a228, type: 3}
+  m_Color: {r: 1, g: 0.14044955, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -280,26 +281,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b91f757d8cfa64f9983694de84dc52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 13
+  moveSpeed: 9
   wallDetectionRange: 3
   detectionRadius: 40
   optimalAttackRange: 5
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
-  timeDamage: 5
+  timeDamage: 15
   detectionDelay: 0.5
-  minStrafingSpeed: 4
-  maxStrafingSpeed: 7
-  minStrafingDirectionChangeTime: 0.5
-  maxStrafingDirectionChangeTime: 1.5
+  minStrafingSpeed: 0
+  maxStrafingSpeed: 0
+  minStrafingDirectionChangeTime: 0
+  maxStrafingDirectionChangeTime: 0
   forwardMoveChance: 0.1
-  forwardMoveDuration: 0.3
+  forwardMoveDuration: 0.2
   dashSpeed: 80
   dashDuration: 0.1
-  minDashCooldown: 0.5
-  maxDashCooldown: 1.5
-  stunDuration: 1.5
+  minDashCooldown: 0.3
+  maxDashCooldown: 0.5
+  stunDuration: 0.2
 --- !u!61 &8985416275253545274
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -384,12 +385,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e945dcc02b5e5c1418c8a74eecad6520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 60
+  maxHealth: 800
   currentHealth: 0
   healthbar: {fileID: 8702077756776200247}
   timeToAdd: 2
   goldToAdd: 0
---- !u!96 &8541724225371492620
+--- !u!96 &2977531969146811867
 TrailRenderer:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -440,8 +441,8 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.59259224
+        time: 0.003921509
+        value: 0.8888893
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -462,25 +463,25 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.84705883, b: 0, a: 0.49803922}
-      key1: {r: 1, g: 0.84705883, b: 0, a: 0}
-      key2: {r: 1, g: 1, b: 1, a: 0}
-      key3: {r: 1, g: 1, b: 1, a: 0}
+      key0: {r: 1, g: 0.14117648, b: 0, a: 0.5019608}
+      key1: {r: 1, g: 0.14117648, b: 0, a: 0}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 65535
-      ctime2: 65535
-      ctime3: 65535
+      ctime2: 0
+      ctime3: 0
       ctime4: 0
       ctime5: 0
       ctime6: 0
       ctime7: 0
       atime0: 0
       atime1: 65535
-      atime2: 0
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
@@ -502,6 +503,24 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &4112054005463165535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915225212442025883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d94128ac108bbd4799b4f23cc56b41b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 1625776464343324925, guid: 7853dabb4e2dbc24586570452bd6c5df, type: 3}
+  location: {fileID: 0}
+  dropAmount: 1
+  scatterDrops: 0
+  scatterRadius: 1.5
+  spawnDelay: 0.1
 --- !u!1 &4520431182427248596
 GameObject:
   m_ObjectHideFlags: 0
@@ -774,7 +793,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 1061500325422261264}
-  executeThreshold: 0.5
+  executeThreshold: 0.2
   healthbar: {fileID: 8702077756776200247}
 --- !u!1 &8203383572684021431
 GameObject:

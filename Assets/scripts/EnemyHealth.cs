@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -11,8 +12,9 @@ public class EnemyHealth : MonoBehaviour
     public float timeToAdd;
     public int goldToAdd;
     
+    // Event that will be triggered when damage is taken
+    public event Action<int> OnDamageTaken;
     
-
     void Start()
     {
         threshold = GetComponentInChildren<execute>().executeThreshold;
@@ -38,6 +40,8 @@ public class EnemyHealth : MonoBehaviour
         currentHealth -= damage;
         healthbar.UpdateHealthBar(currentHealth, maxHealth, threshold);
 
+        // Trigger the OnDamageTaken event
+        OnDamageTaken?.Invoke(damage);
         
         if (currentHealth <= 0)
         {

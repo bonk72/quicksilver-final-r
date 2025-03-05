@@ -453,7 +453,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &316658488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,8 +475,8 @@ MonoBehaviour:
   verticalHallwayPrefabs:
   - {fileID: 1993581344449621484, guid: 918850573a148f4489933492f8224d08, type: 3}
   startingRoomPrefab: {fileID: 1993581344449621484, guid: 3d6bb3e8184c32e43ad30e1c092d420f, type: 3}
-  bossRoomPrefab: {fileID: 1993581344449621484, guid: a2466935b1ebe5c4cb65315530e2a170, type: 3}
-  finalRoomPrefab: {fileID: 1993581344449621484, guid: ac9ef394f7cc3494dacc6c450c887dd4, type: 3}
+  bossRoomPrefab: {fileID: 1993581344449621484, guid: 603b14758fe2fec4eb465578531cc0af, type: 3}
+  finalRoomPrefab: {fileID: 1993581344449621484, guid: e098a2e5d2ae8004bb570301ba409080, type: 3}
   DungeonGenerated: 0
 --- !u!4 &316658489
 Transform:
@@ -540,13 +540,14 @@ MonoBehaviour:
   maxRooms: 10
   minRooms: 10
   possibleRoomPrefabs:
-  - {fileID: 1993581344449621484, guid: 7dffedd69782c8f4fa1b49d2de0a1d73, type: 3}
-  - {fileID: 1993581344449621484, guid: 6fc1a9dc09189984ba4f5ad072c9d34a, type: 3}
-  - {fileID: 1993581344449621484, guid: f7043f75cd9b660489c5eef0abf2ec01, type: 3}
+  - {fileID: 1993581344449621484, guid: 46ffda39d5b1d754cadf546c460206e1, type: 3}
+  - {fileID: 1993581344449621484, guid: 955fe01c8eb5f47428e7bf8da3cdc81c, type: 3}
+  - {fileID: 1993581344449621484, guid: 87fc73fc586a50044b44fc38abc24399, type: 3}
   verticalHallwayPrefabs:
-  - {fileID: 1993581344449621484, guid: 0fb0c74ba1c3c3144b6b8847899f8e14, type: 3}
-  - {fileID: 1993581344449621484, guid: 80a3af66dfd5cda468b8e457dbfa546c, type: 3}
-  startingRoomPrefab: {fileID: 1993581344449621484, guid: 40fa6591521cbff4aae2102fd5b206ea, type: 3}
+  - {fileID: 1993581344449621484, guid: a8b77741aeead1c4ca709f11b735faec, type: 3}
+  - {fileID: 1993581344449621484, guid: 765e64a93e3bd2348b74b54177ce4997, type: 3}
+  - {fileID: 1993581344449621484, guid: b79133ad380ba0743ade58f6bb2beec1, type: 3}
+  startingRoomPrefab: {fileID: 1993581344449621484, guid: d69cbdebbe9990d438542f6154b2d21b, type: 3}
   bossRoomPrefab: {fileID: 1993581344449621484, guid: 603b14758fe2fec4eb465578531cc0af, type: 3}
   finalRoomPrefab: {fileID: 1993581344449621484, guid: e098a2e5d2ae8004bb570301ba409080, type: 3}
   DungeonGenerated: 0
@@ -618,7 +619,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BackGroundColor: {r: 0, g: 0.30588236, b: 0.48235294, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1571,7 +1572,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1509956658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1587,16 +1588,14 @@ MonoBehaviour:
   maxRooms: 12
   minRooms: 10
   possibleRoomPrefabs:
-  - {fileID: 1993581344449621484, guid: 87fc73fc586a50044b44fc38abc24399, type: 3}
-  - {fileID: 1993581344449621484, guid: 46ffda39d5b1d754cadf546c460206e1, type: 3}
-  - {fileID: 1993581344449621484, guid: 955fe01c8eb5f47428e7bf8da3cdc81c, type: 3}
+  - {fileID: 1993581344449621484, guid: c9966ff6154e7c241a3808fea089bc2c, type: 3}
+  - {fileID: 1993581344449621484, guid: 21a0c4fb12aa04243a8a47a7d93caebf, type: 3}
+  - {fileID: 1993581344449621484, guid: 4e60a7ee4147acf4ba0e223753625641, type: 3}
   verticalHallwayPrefabs:
-  - {fileID: 1993581344449621484, guid: 765e64a93e3bd2348b74b54177ce4997, type: 3}
-  - {fileID: 1993581344449621484, guid: a8b77741aeead1c4ca709f11b735faec, type: 3}
-  - {fileID: 1993581344449621484, guid: b79133ad380ba0743ade58f6bb2beec1, type: 3}
-  startingRoomPrefab: {fileID: 1993581344449621484, guid: d69cbdebbe9990d438542f6154b2d21b, type: 3}
-  bossRoomPrefab: {fileID: 1993581344449621484, guid: 15768f6fc6a93634e88bc38aadcc5132, type: 3}
-  finalRoomPrefab: {fileID: 1993581344449621484, guid: 4fcf50c9029ad584aab015dc98a644de, type: 3}
+  - {fileID: 1993581344449621484, guid: 918850573a148f4489933492f8224d08, type: 3}
+  startingRoomPrefab: {fileID: 1993581344449621484, guid: 3d6bb3e8184c32e43ad30e1c092d420f, type: 3}
+  bossRoomPrefab: {fileID: 1993581344449621484, guid: 603b14758fe2fec4eb465578531cc0af, type: 3}
+  finalRoomPrefab: {fileID: 1993581344449621484, guid: e098a2e5d2ae8004bb570301ba409080, type: 3}
   DungeonGenerated: 0
 --- !u!4 &1509956659
 Transform:

@@ -158,4 +158,9 @@ public class PlayerTime : MonoBehaviour
 
         }
     }
+    public void AddMaxTime(int amount){
+        maxTime += amount;
+        currentTime = maxTime;
+        text.text = currentTime.ToString();
+    }
 }

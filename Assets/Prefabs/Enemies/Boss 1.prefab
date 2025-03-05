@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 5103779246288291167}
   - component: {fileID: -1038828984163937066}
   - component: {fileID: 6316502556458690698}
+  - component: {fileID: 2171931821643372596}
   m_Layer: 8
   m_Name: Boss 1
   m_TagString: enemy
@@ -210,7 +211,7 @@ Transform:
   m_GameObject: {fileID: 3915225212442025883}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -24.79, y: 10.43, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -536,6 +537,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 1625776464343324925, guid: 7853dabb4e2dbc24586570452bd6c5df, type: 3}
   location: {fileID: 0}
+  dropAmount: 1
+  scatterDrops: 0
+  scatterRadius: 1.5
+  spawnDelay: 0.1
+--- !u!114 &2171931821643372596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915225212442025883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d94128ac108bbd4799b4f23cc56b41b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 7579476838156917122, guid: 2211dc4e8a3428b4081300b41104ef37, type: 3}
+  location: {fileID: 0}
+  dropAmount: 30
+  scatterDrops: 1
+  scatterRadius: 1.5
+  spawnDelay: 0.02
 --- !u!1 &4520431182427248596
 GameObject:
   m_ObjectHideFlags: 0

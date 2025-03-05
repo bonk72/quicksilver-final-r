@@ -496,14 +496,17 @@ MonoBehaviour:
   minSpreadAngle: 0
   maxSpreadAngle: 0
   projectileInvisibleTime: 0.02
-  minStrafingSpeed: 2.5
-  maxStrafingSpeed: 4
-  minStrafingDirectionChangeTime: 1
-  maxStrafingDirectionChangeTime: 2
-  pauseChance: 0
-  minPauseDuration: 0
-  maxPauseDuration: 0
-  stunDuration: 0.5
+  shootsInBursts: 0
+  burstProjectileCount: 3
+  burstAngleSpread: 30
+  minStrafingSpeed: 0
+  maxStrafingSpeed: 0
+  minStrafingDirectionChangeTime: 0
+  maxStrafingDirectionChangeTime: 0
+  dashOnHit: 0
+  dashOnHitSpeed: 12
+  dashOnHitDistance: 3
+  dashOnHitDuration: 0.2
 --- !u!1 &4520431182427248596
 GameObject:
   m_ObjectHideFlags: 0

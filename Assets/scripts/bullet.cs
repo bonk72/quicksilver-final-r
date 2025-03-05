@@ -14,6 +14,9 @@ public class bullet : MonoBehaviour
     public float fireSpeed;
     public float fireRate;
     public int index;
+    public int spread;
+    public int projcount;
+    public bool shotgun;
 
     public void Initialize(Vector2 dir, float spd)
     {

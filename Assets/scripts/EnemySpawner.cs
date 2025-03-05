@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -38,6 +39,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemies()
     {
+
         // Spawn one enemy at each spawn point
         foreach (Transform spawnPoint in spawnPoints)
         {

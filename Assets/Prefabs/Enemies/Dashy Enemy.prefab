@@ -295,7 +295,7 @@ MonoBehaviour:
   maxStrafingDirectionChangeTime: 1.5
   forwardMoveChance: 0.1
   forwardMoveDuration: 0.3
-  dashSpeed: 140
+  dashSpeed: 100
   dashDuration: 0.1
   minDashCooldown: 0.3
   maxDashCooldown: 0.5
@@ -370,7 +370,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &1061500325422261264
 MonoBehaviour:
