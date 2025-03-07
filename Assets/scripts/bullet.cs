@@ -5,7 +5,7 @@ public class bullet : MonoBehaviour
     private Vector2 direction;
     private float speed;
     private bool isEnemyBullet;
-    public int damage = 1; // Added damage property
+    public float damage = 1f; // Added damage property
     public bool isImpermeable;
     public float lifetime = 5f; // How long the bullet lives before being destroyed
     private float timeAlive = 0f;

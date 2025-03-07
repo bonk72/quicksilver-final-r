@@ -142,8 +142,8 @@ public class RangedEnemy : MonoBehaviour
         }
     }
     
-    // Called by EnemyHealth when damage is taken
-    public void OnDamageTaken(int damage)
+    // Called by EnemyHealth when damage is taken with float parameter
+    public void OnDamageTaken(float damage)
     {
         if (dashOnHit && !isDashingOnHit && canDashOnHit)
         {

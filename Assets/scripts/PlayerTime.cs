@@ -19,6 +19,14 @@ public class PlayerTime : MonoBehaviour
     private Rigidbody2D rb;
     private CircleCollider2D coll;
     public TMP_Text text;
+    public TMP_Text revText;
+    public static int revCount;
+    private int currentRev;
+
+
+    public GameObject reviveBar;
+
+    public bool timeTick;
 
     private IEnumerator TemporaryInvulnerability()
     {
@@ -36,10 +44,20 @@ public class PlayerTime : MonoBehaviour
     {
         coll = GetComponent<CircleCollider2D>();
         
+        currentRev = revCount;
+        if (revCount > 0){
+            reviveBar.SetActive(true);
+        }
+        revText.text = currentRev.ToString();
+        
         currentTime = maxTime;
         text.text = currentTime.ToString();
         rb = GetComponent<Rigidbody2D>();
         StartCoroutine(TimeDecrease());
+
+        timeTick = false;
+        
+
         
     }
 
@@ -50,6 +68,7 @@ public class PlayerTime : MonoBehaviour
         {
             Die();
         }
+        
 
         // Update the time bar
 
@@ -61,7 +80,7 @@ public class PlayerTime : MonoBehaviour
         while (currentTime > 0)
         {
             yield return new WaitForSeconds(1f);
-            if (!isDead && sceneName == "Main")
+            if (!isDead && timeTick)
             {
                 currentTime -= timeDecreaseRate;
                 text.text = currentTime.ToString();
@@ -122,29 +141,36 @@ public class PlayerTime : MonoBehaviour
 
     private void Die()
     {
-        isDead = true;
-        // Stop player movement
-        Movement movement = GetComponent<Movement>();
-        if (movement != null)
-        {
-            movement.enabled = false;
+        if(currentRev > 0){
+            currentRev -=1;
+            currentTime = maxTime / 2;
+            revText.text = currentRev.ToString();
         }
-        // Stop weapon
-        weapon weaponComponent = GetComponent<weapon>();
-        if (weaponComponent != null)
-        {
-            weaponComponent.enabled = false;
+        else{
+            isDead = true;
+            // Stop player movement
+            Movement movement = GetComponent<Movement>();
+            if (movement != null)
+            {
+                movement.enabled = false;
+            }
+            // Stop weapon
+            weapon weaponComponent = GetComponent<weapon>();
+            if (weaponComponent != null)
+            {
+                weaponComponent.enabled = false;
+            }
+            // Disable collider
+            //Collider2D collider = GetComponent<Collider2D>();
+            //if (collider != null)
+            //{
+            //    collider.enabled = false;
+            //}
+            // Optional: Add death animation or particle effect here
+
+            // Optional: Add game over screen or restart mechanism here
+            SceneManager.LoadScene("Starting Area");
         }
-        // Disable collider
-        //Collider2D collider = GetComponent<Collider2D>();
-        //if (collider != null)
-        //{
-        //    collider.enabled = false;
-        //}
-        // Optional: Add death animation or particle effect here
-        
-        // Optional: Add game over screen or restart mechanism here
-        SceneManager.LoadScene("Starting Area");
         //Debug.Log("Player has died!");
     }
 
@@ -162,5 +188,11 @@ public class PlayerTime : MonoBehaviour
         maxTime += amount;
         currentTime = maxTime;
         text.text = currentTime.ToString();
+    }
+    public void addRev(){
+        revCount += 1;
+        currentRev = revCount;
+        revText.text = currentRev.ToString();
+        reviveBar.SetActive(true);
     }
 }

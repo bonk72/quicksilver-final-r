@@ -15,6 +15,10 @@ public class weapon : MonoBehaviour
     private int projCount;
     private int angle;
     private bool isBurst;
+
+
+
+    private float atkMult = 1;
     
     // Boolean to disable shooting (e.g., when in shop)
     public bool canShoot = true;
@@ -29,6 +33,7 @@ public class weapon : MonoBehaviour
             projCount = bulletPrefabs[currentWeapon].GetComponent<bullet>().projcount;
         }
     }
+
     public void Fire() {
         // Only fire if canShoot is true
         if (!canShoot) return;
@@ -93,6 +98,12 @@ public class weapon : MonoBehaviour
             projCount = bulletPrefabs[currentWeapon].GetComponent<bullet>().projcount;
         }
 
+    }
+    public void incrAtkMult(float amount){
+        atkMult += amount;
+        for (int i = 0; i < bulletPrefabs.Length; i++){
+            bulletPrefabs[i].GetComponent<bullet>().damage *= atkMult;
+        }
     }
     //public void ResetFire(){
     //    nextFireTime = 0f;

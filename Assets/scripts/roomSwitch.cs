@@ -12,6 +12,9 @@ public class roomSwitch : MonoBehaviour
 
     
 
+
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,14 +28,17 @@ public class roomSwitch : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("cameramove")){
+            gameObject.GetComponent<PlayerTime>().timeTick = true;
             newRoom = true;
         }
         if (other.CompareTag("finalRoom")){
             finalRoom = true;
         }
         if(other.CompareTag("newDungeon")){
+            
             transform.position = new Vector3 (0, 0, 0);
             reset = true;
+            gameObject.GetComponent<PlayerTime>().timeTick = false;
         }
     }
 

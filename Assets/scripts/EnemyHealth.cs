@@ -13,7 +13,7 @@ public class EnemyHealth : MonoBehaviour
     public int goldToAdd;
     
     // Event that will be triggered when damage is taken
-    public event Action<int> OnDamageTaken;
+    public event Action<float> OnDamageTaken;
     
     void Start()
     {
@@ -35,7 +35,7 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
         healthbar.UpdateHealthBar(currentHealth, maxHealth, threshold);

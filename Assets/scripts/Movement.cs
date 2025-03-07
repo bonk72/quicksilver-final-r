@@ -6,7 +6,8 @@ using UnityEngine.EventSystems;
 
 public class Movement : MonoBehaviour
 {
-    public static float moveSpeed = 10f;
+    public static float maxMoveSpeed = 10f;
+    private float currentMoveSpeed;
     public Rigidbody2D rb2d;
     private Vector2 moveInput;
     public CircleCollider2D coll;
@@ -15,7 +16,6 @@ public class Movement : MonoBehaviour
     public weapon weapon;
     private Vector2 mousePosition;
 
-    private float activeMoveSpeed;
     public float dashSpeed;
 
     public float dashLength, dashCooldown = 1f;
@@ -32,18 +32,21 @@ public class Movement : MonoBehaviour
 
     // Boolean to disable rotation (e.g., when in shop)
     public bool canRotate = true;
+    
+    // Master control for all movement (dash, move, rotate)
+    private bool canMove = true;
 
     public PlayerTime time;
     void Start()
     {
         executeColl.enabled = false;
-        activeMoveSpeed = moveSpeed;
+        currentMoveSpeed = maxMoveSpeed;
         temp = dashCooldown;
     }
 
     void Update()
     {
-        if (isDashing || isBouncing) {
+        if (isDashing || isBouncing || !canMove) {
             return;
         }
 
@@ -63,13 +66,13 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isDashing || isBouncing)
+        if (isDashing || isBouncing || !canMove)
         {
             return;
         }
-        rb2d.velocity = new Vector2(moveInput.x * moveSpeed, moveInput.y * moveSpeed);
+        rb2d.velocity = new Vector2(moveInput.x * currentMoveSpeed, moveInput.y * currentMoveSpeed);
 
-        // Only rotate if canRotate is true
+        // Only rotate if canRotate is true and canMove is true
         if (canRotate)
         {
             Vector2 aimDirection = mousePosition - rb2d.position;
@@ -128,8 +131,29 @@ public class Movement : MonoBehaviour
     public void ResetDash(){
         dashR = true;
     }
-    public void increaseMaxTime(float amount){
-        moveSpeed += amount;
-
+    public void increaseMaxSpeed(float amount){
+        maxMoveSpeed += amount;
+        currentMoveSpeed += amount;
+    }
+    public void increaseCurrMoveSpeed(float amount){
+        currentMoveSpeed += amount;
+    }
+    
+    // Accessor method to toggle movement capabilities
+    public void ToggleMovement()
+    {
+        canMove = !canMove;
+    }
+    
+    // Accessor method to set movement capabilities directly
+    public void SetMovement(bool canPlayerMove)
+    {
+        canMove = canPlayerMove;
+    }
+    
+    // Accessor method to get current movement state
+    public bool GetMovement()
+    {
+        return canMove;
     }
 }
