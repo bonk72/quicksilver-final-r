@@ -117,8 +117,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUps:
   - {fileID: 3211356989995696435, guid: 140f5b6b9e8bbee4793d38515a747e2c, type: 3}
-  - {fileID: 3211356989995696435, guid: 140f5b6b9e8bbee4793d38515a747e2c, type: 3}
-  - {fileID: 3211356989995696435, guid: 140f5b6b9e8bbee4793d38515a747e2c, type: 3}
+  - {fileID: 3211356989995696435, guid: 2816b52b7ae93df45a5018332a3d7fb4, type: 3}
+  - {fileID: 3211356989995696435, guid: 251a51fb47aed554c9a8d3748a211b57, type: 3}
   spawnPoints:
   - {fileID: 6177189353690778751}
   - {fileID: 5892507501348680547}

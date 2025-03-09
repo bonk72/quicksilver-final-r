@@ -7,6 +7,7 @@ public class playerGold : MonoBehaviour
 {
     public static int Gold;
     public TMP_Text goldAmnt;
+    public int goldMult = 1;
     private bool canPurchase;
     // Start is called before the first frame update
     void Start()
@@ -20,7 +21,7 @@ public class playerGold : MonoBehaviour
         
     }
     public void gainGold(int amnt){
-        Gold += amnt;
+        Gold += amnt * goldMult;
         goldAmnt.text = Gold.ToString();
     }
     public void loseGold(int amnt){
@@ -29,5 +30,8 @@ public class playerGold : MonoBehaviour
             goldAmnt.text = Gold.ToString();
         }
 
+    }
+    public void incrGoldMult(int amnt){
+        goldMult += amnt;
     }
 }

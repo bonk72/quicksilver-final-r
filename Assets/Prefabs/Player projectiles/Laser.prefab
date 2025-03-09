@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb38a4f84f60ff45819b3265af76e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defDamage: 1
   damage: 1
   isImpermeable: 1
   lifetime: 0.5

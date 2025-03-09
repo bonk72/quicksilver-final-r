@@ -100,9 +100,18 @@ public class weapon : MonoBehaviour
 
     }
     public void incrAtkMult(float amount){
+        float previousMult = atkMult;
         atkMult += amount;
+        
+        // Calculate the relative multiplier for this increment only
+        float relativeMultiplier = atkMult / previousMult;
+        
         for (int i = 0; i < bulletPrefabs.Length; i++){
-            bulletPrefabs[i].GetComponent<bullet>().damage *= atkMult;
+            bullet bulletScript = bulletPrefabs[i].GetComponent<bullet>();
+            if (bulletScript != null) {
+                // Multiply by the relative increase, not the total multiplier
+                bulletScript.damage *= relativeMultiplier;
+            }
         }
     }
     //public void ResetFire(){

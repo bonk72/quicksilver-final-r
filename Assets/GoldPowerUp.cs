@@ -1,15 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackPwrUp : MonoBehaviour
+public class GoldPowerUp : MonoBehaviour
 {
-    public float atkIncr;
-    public float spdIncr;
-    public float dashReduce;
-
-
+    public int goldMult;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,16 +20,12 @@ public class AttackPwrUp : MonoBehaviour
     {
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        weapon weap = player.GetComponentInChildren<weapon>();
-        Movement move = player.GetComponent<Movement>();
+        playerGold gold = player.GetComponent<playerGold>();
 
-        move.increaseCurrMoveSpeed(spdIncr);
-        weap.incrAtkMult(atkIncr);
-        move.reduceDashCD(dashReduce);
+        gold.incrGoldMult(goldMult);
         GetComponentInParent<powerUpScreen>().ButtonClicked(this.gameObject);
+
         
 
     }
-    
-
 }

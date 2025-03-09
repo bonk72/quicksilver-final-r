@@ -35,6 +35,9 @@ public class Movement : MonoBehaviour
     
     // Master control for all movement (dash, move, rotate)
     private bool canMove = true;
+    
+    // Store original rigidbody constraints
+    private RigidbodyConstraints2D originalConstraints;
 
     public PlayerTime time;
     void Start()
@@ -42,6 +45,12 @@ public class Movement : MonoBehaviour
         executeColl.enabled = false;
         currentMoveSpeed = maxMoveSpeed;
         temp = dashCooldown;
+        
+        // Store the original rigidbody constraints
+        if (rb2d != null)
+        {
+            originalConstraints = rb2d.constraints;
+        }
     }
 
     void Update()
@@ -143,17 +152,45 @@ public class Movement : MonoBehaviour
     public void ToggleMovement()
     {
         canMove = !canMove;
+        UpdateRigidbodyConstraints();
     }
     
     // Accessor method to set movement capabilities directly
     public void SetMovement(bool canPlayerMove)
     {
         canMove = canPlayerMove;
+        UpdateRigidbodyConstraints();
+    }
+    
+    // Helper method to update rigidbody constraints based on canMove
+    private void UpdateRigidbodyConstraints()
+    {
+        if (rb2d != null)
+        {
+            if (!canMove)
+            {
+                // Freeze position and rotation when movement is disabled
+                rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
+                
+                // Also set velocity to zero to prevent any ongoing movement
+                rb2d.velocity = Vector2.zero;
+                rb2d.angularVelocity = 0f;
+            }
+            else
+            {
+                // Restore original constraints when movement is enabled
+                rb2d.constraints = originalConstraints;
+            }
+        }
     }
     
     // Accessor method to get current movement state
     public bool GetMovement()
     {
         return canMove;
+    }
+    public void reduceDashCD(float amount){
+
+        temp = temp - amount;
     }
 }
