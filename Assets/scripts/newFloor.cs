@@ -50,6 +50,7 @@ public class newFloor : MonoBehaviour
             
             // Find the GameManager and generate a new dungeon
             NotifyNewFloorGeneration();
+            Destroy(gameObject);
         }
     }
     

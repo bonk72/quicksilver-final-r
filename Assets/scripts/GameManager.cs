@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
         }
         
         GenerateNewFloor(index);
+        index++;
     }
     
     void Update()
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
         }
         if(generatenew){
             GenerateNewFloor(index);
+            index++;
         } 
     }
     
@@ -76,7 +78,7 @@ public class GameManager : MonoBehaviour
         // Set camera background color based on current index
         SetCameraBackgroundColor(ind);
         
-        index++;
+
 
         Debug.Log("New floor generated!");
     }

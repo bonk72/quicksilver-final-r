@@ -70,6 +70,8 @@ public class weapon : MonoBehaviour
                     bullet bulletScript = bulletObj.GetComponent<bullet>();
                     if (bulletScript != null) {
                         bulletScript.Initialize(direction, bulletSpeed);
+                        // Apply the attack multiplier to the instantiated bullet
+                        bulletScript.damage *= atkMult;
                     }
                 }
             } else {
@@ -81,6 +83,8 @@ public class weapon : MonoBehaviour
                 bullet bulletScript = bulletObj.GetComponent<bullet>();
                 if (bulletScript != null) {
                     bulletScript.Initialize(baseDirection, bulletSpeed);
+                    // Apply the attack multiplier to the instantiated bullet
+                    bulletScript.damage *= atkMult;
                 }
             }
             
@@ -103,19 +107,26 @@ public class weapon : MonoBehaviour
         float previousMult = atkMult;
         atkMult += amount;
         
-        // Calculate the relative multiplier for this increment only
-        float relativeMultiplier = atkMult / previousMult;
-        
-        for (int i = 0; i < bulletPrefabs.Length; i++){
-            bullet bulletScript = bulletPrefabs[i].GetComponent<bullet>();
-            if (bulletScript != null) {
-                // Multiply by the relative increase, not the total multiplier
-                bulletScript.damage *= relativeMultiplier;
-            }
-        }
+        // We no longer modify the prefabs directly
+        // The multiplier will be applied when bullets are instantiated
     }
     //public void ResetFire(){
     //    nextFireTime = 0f;
 //
     //}
+    
+    // Call this method when the game resets or scene changes
+    public void ResetAtkMult()
+    {
+        // Reset attack multiplier to its default value
+        atkMult = 1;
+    }
+    
+    // This method is automatically called when the script is enabled
+    // (which happens when the scene loads)
+    void OnEnable()
+    {
+        // Reset attack multiplier when the script is enabled
+        ResetAtkMult();
+    }
 }

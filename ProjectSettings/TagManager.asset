@@ -13,6 +13,7 @@ TagManager:
   - Shop
   - collectible
   - newDungeon
+  - powerupManager
   layers:
   - Default
   - TransparentFX

@@ -19,12 +19,27 @@ public class bullet : MonoBehaviour
     public int projcount;
     public bool shotgun;
 
+
+    public bool permaAlive;
+
+    void Start()
+    {
+        // Initialize damage from default damage value if not already set
+        if (damage <= 0 && defDamage > 0) {
+            damage = defDamage;
+        }
+    }
+    
     public void Initialize(Vector2 dir, float spd)
     {
-        
         direction = dir;
         speed = spd;
         timeAlive = 0f;
+        
+        // Initialize damage from default damage value
+        if (defDamage > 0) {
+            damage = defDamage;
+        }
     }
 
     void Update()
@@ -34,7 +49,7 @@ public class bullet : MonoBehaviour
 
         // Update lifetime and destroy if exceeded
         timeAlive += Time.deltaTime;
-        if (timeAlive >= lifetime)
+        if (!permaAlive && timeAlive >= lifetime)
         {
             Destroy(gameObject);
         }

@@ -195,4 +195,9 @@ public class PlayerTime : MonoBehaviour
         revText.text = currentRev.ToString();
         reviveBar.SetActive(true);
     }
+    public void addCurrentRev(int amount){
+        currentRev += amount;
+        revText.text = currentRev.ToString();
+        reviveBar.SetActive(true);
+    }
 }
