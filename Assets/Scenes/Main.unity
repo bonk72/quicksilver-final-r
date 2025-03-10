@@ -2608,6 +2608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationsPerMinute: 30
+  randomRot: 0
 --- !u!1001 &2114535127
 PrefabInstance:
   m_ObjectHideFlags: 0

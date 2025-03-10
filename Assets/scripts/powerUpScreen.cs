@@ -87,12 +87,12 @@ public class powerUpScreen : MonoBehaviour
         // If the selected pool is empty or null, fall back to other pools
         if (selectedPool == null || selectedPool.Count == 0) {
             // Try each pool in order of rarity (common -> uncommon -> rare)
-            if (rarePowerUpPool != null && rarePowerUpPool.Count > 0)
-                selectedPool = rarePowerUpPool;
+            if (commonPowerUpPool != null && commonPowerUpPool.Count > 0)
+                selectedPool = commonPowerUpPool;
             else if (uncommonPowerUpPool != null && uncommonPowerUpPool.Count > 0)
                 selectedPool = uncommonPowerUpPool;
-            else if (commonPowerUpPool != null && commonPowerUpPool.Count > 0)
-                selectedPool = commonPowerUpPool;
+            else if (rarePowerUpPool != null && rarePowerUpPool.Count > 0)
+                selectedPool = rarePowerUpPool;
             else
                 return null; // No power-ups available
         }

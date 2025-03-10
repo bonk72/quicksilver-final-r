@@ -18,6 +18,9 @@ public class rotate : MonoBehaviour
                 direction = 1f;
             }
         }
+        else{
+            direction = 1f;
+        }
     }
 
     // Update is called once per frame
