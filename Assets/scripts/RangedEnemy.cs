@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class RangedEnemy : MonoBehaviour
 {
+    [Header("Movement Settings")]
     public float moveSpeed = 5f;
     public float wallDetectionRange = 1f;
+    public LayerMask wallLayer;
+    
+    [Header("Detection Settings")]
     public float detectionRadius = 10f;  // How far enemy can see player
     public float optimalAttackRange = 5f;   // Renamed from stoppingDistance - Optimal shooting distance
     public float detectionDelay = 0.5f;   // Delay before starting to chase player
-    public LayerMask wallLayer;
+    
+    [Header("Projectile Settings")]
     public GameObject projectilePrefab;   // Projectile to shoot
     public float shootingCooldown = 2f;   // Time between shots
     public float projectileSpeed = 10f;   // Speed of the projectile
@@ -17,12 +22,12 @@ public class RangedEnemy : MonoBehaviour
     public float maxSpreadAngle = 5f;     // Maximum projectile spread angle
     public float projectileInvisibleTime = 0.05f; // Duration projectile is invisible when spawned
     
-    // Burst fire variables
+    [Header("Burst Fire Settings")]
     public bool shootsInBursts = false;   // Whether enemy shoots in bursts (like a shotgun)
     public int burstProjectileCount = 3;  // Number of projectiles in a burst
     public float burstAngleSpread = 30f;  // Total angle spread for burst projectiles
     
-    // Strafing variables
+    [Header("Strafing Settings")]
     public float minStrafingSpeed = 1.5f;      // Minimum strafing speed
     public float maxStrafingSpeed = 3f;        // Maximum strafing speed
     private float currentStrafingSpeed;        // Current strafing speed
@@ -34,7 +39,7 @@ public class RangedEnemy : MonoBehaviour
     private float strafeAngleVariation = 15f; // Variation in strafe angle (degrees)
     private float currentStrafeAngle;     // Current strafe angle
     
-    // Dash on hit variables
+    [Header("Dash On Hit Settings")]
     public bool dashOnHit = false;        // Toggle for dash on hit feature
     public float dashOnHitSpeed = 12f;    // Speed of dash when hit
     public float dashOnHitDistance = 3f;  // Distance to dash when hit
@@ -44,10 +49,9 @@ public class RangedEnemy : MonoBehaviour
     private bool canDashOnHit = true;     // Whether dash on hit is off cooldown
     private Vector2 dashDirection;        // Direction of current dash
     
-    // Stun variables
+    // Private variables
     private bool isWaitingToChase = false;
     private bool canShoot = true;
-
     private Transform player;
     private Rigidbody2D rb;
     private Vector2 moveDirection;

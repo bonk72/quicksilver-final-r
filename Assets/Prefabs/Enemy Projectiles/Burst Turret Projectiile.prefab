@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4986058670677415761}
   - component: {fileID: 4697008399379268141}
   m_Layer: 9
-  m_Name: Wizard Projectile
+  m_Name: Burst Turret Projectiile
   m_TagString: enemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: 5d62559096b51d046a5eaba8bf06a228, type: 3}
-  m_Color: {r: 0, g: 0.1899786, b: 1, a: 1}
+  m_Sprite: {fileID: 7482667652216324306, guid: 0ff8bd651a084c24b8adc5c168fa7b82, type: 3}
+  m_Color: {r: 1, g: 0.9647059, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defDamage: 0
-  damage: 10
+  damage: 5
   isPermeable: 1
   lifetime: 5
   price: 0

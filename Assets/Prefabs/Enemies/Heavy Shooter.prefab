@@ -484,12 +484,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   wallDetectionRange: 3
-  detectionRadius: 40
-  optimalAttackRange: 16
-  detectionDelay: 0.5
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
+  detectionRadius: 40
+  optimalAttackRange: 16
+  detectionDelay: 0.5
   projectilePrefab: {fileID: 1449580188017570035, guid: a74f2f691ae057c4bb0bc3555317750f, type: 3}
   shootingCooldown: 3
   projectileSpeed: 10
@@ -780,7 +780,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 1061500325422261264}
-  executeThreshold: 0.4
+  executeThreshold: 0.2
   healthbar: {fileID: 8702077756776200247}
 --- !u!1 &8203383572684021431
 GameObject:

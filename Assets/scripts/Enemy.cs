@@ -4,35 +4,40 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Movement Settings")]
     public float moveSpeed = 5f;
     public float wallDetectionRange = 1f;
+    public LayerMask wallLayer;
+    
+    [Header("Detection Settings")]
     public float detectionRadius = 10f;  // How far enemy can see player
     public float optimalAttackRange = 2f;   // Renamed from stoppingDistance - How close enemy gets to player
+    public float detectionDelay = 0.5f; // Delay before starting to chase player
     private float extendedAttackRange;   // Temporarily increased attack range when player enters
     private bool isUsingExtendedRange = false; // Flag to track if using extended range
     private float attackRangeExtensionMultiplier = 1.5f; // How much to extend the attack range by
-    public LayerMask wallLayer;
+    
+    [Header("Combat Settings")]
     public float timeDamage = 5f;  // How much time is deducted from player on collision
-    public float detectionDelay = 0.5f; // Delay before starting to chase player
 
-    // Strafing variables - different ranges from RangedEnemy
+    [Header("Strafing Settings")]
     public float minStrafingSpeed = 1.8f;      // Minimum strafing speed
     public float maxStrafingSpeed = 3.5f;      // Maximum strafing speed
-    private float currentStrafingSpeed;        // Current strafing speed
     public float minStrafingDirectionChangeTime = 1.2f; // Minimum time before changing direction
     public float maxStrafingDirectionChangeTime = 2.8f; // Maximum time before changing direction
+    public float strafeAngleVariation = 20f; // Variation in strafe angle (degrees) - different from RangedEnemy
+    private float currentStrafingSpeed;        // Current strafing speed
     private float currentStrafingDirectionChangeTime; // Current direction change time
     private float strafingTimer = 0f;
     private int strafingDirection = 1;    // 1 for right, -1 for left
-    private float strafeAngleVariation = 20f; // Variation in strafe angle (degrees) - different from RangedEnemy
     private float currentStrafeAngle;     // Current strafe angle
     
-    // Occasional forward movement during strafing (unique to Enemy)
+    [Header("Forward Movement Settings")]
     public float forwardMoveChance = 0.1f;  // Chance to move forward during strafing
     public float forwardMoveDuration = 0.3f; // Duration of forward movement
     private bool isMovingForward = false;
 
-    // Dash variables
+    [Header("Dash Settings")]
     public float dashSpeed = 15f;         // Speed of dash towards player
     public float dashDuration = 0.2f;     // Duration of dash
     public float minDashCooldown = 2f;    // Minimum time between dashes
@@ -42,12 +47,13 @@ public class Enemy : MonoBehaviour
     private bool isDashing = false;
     private bool canDash = true;
 
-    // Stun variables
+    [Header("Stun Settings")]
     public float stunDuration = 0.5f;
     private bool isStunned = false;
     private bool isWaitingToChase = false;
     private RigidbodyConstraints2D originalConstraints;
 
+    // Private variables
     private Transform player;
     private Rigidbody2D rb;
     private Vector2 moveDirection;
@@ -468,5 +474,8 @@ public class Enemy : MonoBehaviour
                 Gizmos.DrawLine(transform.position, (Vector2)transform.position + directionToPlayer * wallDetectionRange * 2);
             }
         }
+    }
+    public bool detectedStatus(){
+        return hasDetectedPlayer;
     }
 }

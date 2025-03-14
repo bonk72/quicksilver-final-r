@@ -20,6 +20,8 @@ public class EnemySpawner : MonoBehaviour
     public int minRewardSpawnCount = 3; // Number of rewards to spawn
     public int maxRewardsSpawnCount;
 
+
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Check if it's the player and enemies haven't spawned yet
@@ -27,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
         {
             SpawnEnemies();
             if (delColliders){
-                GetComponent<Collider2D>().enabled = false;                
+                GetComponent<Collider2D>().enabled = false;
             }
 
             hasSpawned = true;
@@ -51,7 +53,10 @@ public class EnemySpawner : MonoBehaviour
 
                 // Instantiate the enemy at the spawn point and store reference
                 GameObject spawnedEnemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
-                spawnedEnemies.Add(spawnedEnemy);
+                if(spawnedEnemy.CompareTag("enemy")){
+                    spawnedEnemies.Add(spawnedEnemy);
+                }
+
             }
         }
     }
@@ -66,6 +71,7 @@ public class EnemySpawner : MonoBehaviour
             // Check if all enemies are destroyed
             if (spawnedEnemies.Count == 0 && hasSpawned)
             {
+
                 allEnemiesDefeated = true;
                 StartCoroutine(SpawnRewardsSequentially()); // Start sequential spawning
             }

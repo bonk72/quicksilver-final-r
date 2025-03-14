@@ -11,6 +11,7 @@ public class rotate : MonoBehaviour
     void Start()
     {
         if(randomRot){
+            rotationsPerMinute = Random.Range(rotationsPerMinute - 3, rotationsPerMinute + 3);
             if(Random.Range(0, 2) == 1){
                 direction = -1f;
             }

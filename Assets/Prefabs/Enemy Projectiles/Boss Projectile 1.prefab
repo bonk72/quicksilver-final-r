@@ -134,8 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb38a4f84f60ff45819b3265af76e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defDamage: 0
   damage: 10
-  isImpermeable: 1
+  isPermeable: 1
   lifetime: 3
   price: 0
   fireSpeed: 0
@@ -144,6 +145,7 @@ MonoBehaviour:
   spread: 0
   projcount: 0
   shotgun: 0
+  permaAlive: 0
 --- !u!96 &4697008399379268141
 TrailRenderer:
   serializedVersion: 3

@@ -7,7 +7,7 @@ public class bullet : MonoBehaviour
     private bool isEnemyBullet;
     public float defDamage;
     public float damage; // Added damage property
-    public bool isImpermeable;
+    public bool isPermeable;
     public float lifetime = 5f; // How long the bullet lives before being destroyed
     private float timeAlive = 0f;
 
@@ -56,7 +56,7 @@ public class bullet : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(!isImpermeable && !collision.CompareTag("bullet")){
+        if(!isPermeable && !collision.CompareTag("bullet")){
             Destroy(gameObject);
         }
     }

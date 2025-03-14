@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2463793603496045863}
   - component: {fileID: 6174068602140453090}
   - component: {fileID: 4818219541247522818}
+  - component: {fileID: 53341622440202845}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: bullet
@@ -99,8 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defDamage: 0
-  damage: 10
-  isImpermeable: 1
+  damage: 5
+  isPermeable: 1
   lifetime: 5
   price: 0
   fireSpeed: 0
@@ -145,3 +146,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
+--- !u!114 &53341622440202845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6731544761878148940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c7c044be83192a48abb30512e5fb605, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
