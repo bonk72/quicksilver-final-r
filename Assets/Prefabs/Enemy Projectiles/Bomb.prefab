@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 441351539208948517}
   - component: {fileID: 609522136639631474}
   - component: {fileID: 2032665886098754650}
-  - component: {fileID: 4986058670677415761}
   - component: {fileID: 4697008399379268141}
+  - component: {fileID: 8412813445930422588}
   m_Layer: 9
-  m_Name: Burst Turret Projectiile
+  m_Name: Bomb
   m_TagString: enemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 0ff8bd651a084c24b8adc5c168fa7b82, type: 3}
-  m_Color: {r: 1, g: 0.9647059, b: 0, a: 1}
+  m_Sprite: {fileID: -2413806693520163455, guid: 5d62559096b51d046a5eaba8bf06a228, type: 3}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -122,30 +122,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &4986058670677415761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1449580188017570035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fb38a4f84f60ff45819b3265af76e0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defDamage: 0
-  damage: 5
-  isPermeable: 1
-  lifetime: 5
-  price: 0
-  fireSpeed: 0
-  fireRate: 0
-  index: 0
-  spread: 0
-  projcount: 0
-  shotgun: 0
-  permaAlive: 0
 --- !u!96 &4697008399379268141
 TrailRenderer:
   serializedVersion: 3
@@ -219,8 +195,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.9647059, b: 0, a: 0.19607843}
-      key1: {r: 1, g: 0.9647059, b: 0, a: 0}
+      key0: {r: 1, g: 0, b: 0, a: 0.19607843}
+      key1: {r: 1, g: 1, b: 1, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -259,3 +235,21 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &8412813445930422588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449580188017570035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fef490a35f6eaf4b95deb858e75c782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  lifetime: 3
+  explosionRadius: 5
+  explosionDamage: 20
+  explosionForce: 500
+  explosionEffectPrefab: {fileID: 339525147793303024, guid: e3acf306433e71540b2536206a303c05, type: 3}

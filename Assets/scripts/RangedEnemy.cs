@@ -368,14 +368,26 @@ public class RangedEnemy : MonoBehaviour
         // Instantiate projectile
         GameObject projectile = Instantiate(projectilePrefab, transform.position, projectileRotation);
         
-        // Get components and initialize bullet
+        // Get components
         bullet bulletScript = projectile.GetComponent<bullet>();
+        explosiveProjectile explosiveScript = projectile.GetComponent<explosiveProjectile>();
         SpriteRenderer projectileSprite = projectile.GetComponent<SpriteRenderer>();
         
-        // Initialize bullet with direction
+        // Initialize projectile with direction - try bullet first, then explosiveProjectile
         if (bulletScript != null)
         {
+            // Regular bullet initialization
             bulletScript.Initialize(direction, projectileSpeed);
+        }
+        else if (explosiveScript != null)
+        {
+            // Explosive projectile initialization
+            explosiveScript.Initialize(direction, projectileSpeed);
+        }
+        else
+        {
+            // No recognized projectile script found
+            Debug.LogWarning("Projectile has neither bullet nor explosiveProjectile component!");
         }
         
         // Make projectile temporarily invisible

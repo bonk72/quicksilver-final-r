@@ -313,6 +313,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 62151291}
   m_CullTransparentMesh: 1
+--- !u!1 &100975071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 100975072}
+  m_Layer: 0
+  m_Name: DungeonStages
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &100975072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100975071}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 317264325}
+  - {fileID: 316658489}
+  - {fileID: 1509956659}
+  - {fileID: 1577479371}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &124263723
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -645,6 +680,7 @@ MonoBehaviour:
   - {fileID: 1993581344449621484, guid: 4e60a7ee4147acf4ba0e223753625641, type: 3}
   verticalHallwayPrefabs:
   - {fileID: 1993581344449621484, guid: 918850573a148f4489933492f8224d08, type: 3}
+  - {fileID: 1993581344449621484, guid: c4b7bc49abd50d448aa8f4c7413d6557, type: 3}
   startingRoomPrefab: {fileID: 1993581344449621484, guid: 3d6bb3e8184c32e43ad30e1c092d420f, type: 3}
   bossRoomPrefab: {fileID: 1993581344449621484, guid: a2466935b1ebe5c4cb65315530e2a170, type: 3}
   finalRoomPrefab: {fileID: 1993581344449621484, guid: ac9ef394f7cc3494dacc6c450c887dd4, type: 3}
@@ -657,12 +693,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 316658487}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 100975072}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &317264323
 GameObject:
@@ -689,12 +725,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 317264323}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 100975072}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &317264326
 MonoBehaviour:
@@ -2077,6 +2113,7 @@ MonoBehaviour:
   - {fileID: 317264326}
   - {fileID: 316658488}
   - {fileID: 1509956658}
+  - {fileID: 1577479372}
   useKeyForTesting: 1
   testEventKey: 103
   deleteEventKey: 104
@@ -2110,7 +2147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aff48a383059dad42ab0a56b3e030cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRooms: 12
+  maxRooms: 10
   minRooms: 10
   possibleRoomPrefabs:
   - {fileID: 1993581344449621484, guid: 87fc73fc586a50044b44fc38abc24399, type: 3}
@@ -2132,12 +2169,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1509956657}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 100975072}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1547838443
 PrefabInstance:
@@ -2196,6 +2233,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c73ef21faa2d2b24591f1dc2117b8178, type: 3}
+--- !u!1 &1577479370
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1577479371}
+  - component: {fileID: 1577479372}
+  m_Layer: 0
+  m_Name: 4th Dungeon Stage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1577479371
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577479370}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 100975072}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1577479372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577479370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff48a383059dad42ab0a56b3e030cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRooms: 10
+  minRooms: 10
+  possibleRoomPrefabs:
+  - {fileID: 1993581344449621484, guid: 67d1fde4965e6244da748354524ad4c6, type: 3}
+  - {fileID: 1993581344449621484, guid: bf1b32d40b7798c4db318d0e0b8e8fb2, type: 3}
+  - {fileID: 1993581344449621484, guid: 08c6bcf5a41f85249bb954d08e278bfe, type: 3}
+  - {fileID: 1993581344449621484, guid: 2c61f1fc1a4ab0e4eb5b46a461457d20, type: 3}
+  verticalHallwayPrefabs:
+  - {fileID: 1993581344449621484, guid: 383b860a2fb6f0b48b1184c4fe013b91, type: 3}
+  startingRoomPrefab: {fileID: 1993581344449621484, guid: f3b91d0783e9c6a4389f273216deb7a5, type: 3}
+  bossRoomPrefab: {fileID: 1993581344449621484, guid: b643ed40d9c91c04085a613072fe4b98, type: 3}
+  finalRoomPrefab: {fileID: 1993581344449621484, guid: c25aa3e0db6533249963489d45997a7d, type: 3}
+  DungeonGenerated: 0
 --- !u!1 &1715868327
 GameObject:
   m_ObjectHideFlags: 0
@@ -2675,10 +2769,8 @@ SceneRoots:
   - {fileID: 1488608166}
   - {fileID: 1421069377}
   - {fileID: 1910951873}
-  - {fileID: 317264325}
-  - {fileID: 316658489}
-  - {fileID: 1509956659}
   - {fileID: 1507960929}
   - {fileID: 126363576}
   - {fileID: 1205845358}
   - {fileID: 712802198}
+  - {fileID: 100975072}

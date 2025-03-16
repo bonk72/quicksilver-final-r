@@ -540,11 +540,10 @@ MonoBehaviour:
   maxRooms: 10
   minRooms: 10
   possibleRoomPrefabs:
-  - {fileID: 1993581344449621484, guid: 08c6bcf5a41f85249bb954d08e278bfe, type: 3}
-  - {fileID: 1993581344449621484, guid: 383b860a2fb6f0b48b1184c4fe013b91, type: 3}
-  - {fileID: 1993581344449621484, guid: 2c61f1fc1a4ab0e4eb5b46a461457d20, type: 3}
-  - {fileID: 1993581344449621484, guid: bf1b32d40b7798c4db318d0e0b8e8fb2, type: 3}
-  - {fileID: 1993581344449621484, guid: 67d1fde4965e6244da748354524ad4c6, type: 3}
+  - {fileID: 1993581344449621484, guid: 66dd94bf9a96d3243a46772abe2b35cf, type: 3}
+  - {fileID: 1993581344449621484, guid: 274a6f3d2ed55924ebea8a53f97c3650, type: 3}
+  - {fileID: 1993581344449621484, guid: 94fa4160c1612a746a2ac98f4d7847f0, type: 3}
+  - {fileID: 1993581344449621484, guid: 0d59f1e593937d24f93c77e227638712, type: 3}
   verticalHallwayPrefabs: []
   startingRoomPrefab: {fileID: 1993581344449621484, guid: f3b91d0783e9c6a4389f273216deb7a5, type: 3}
   bossRoomPrefab: {fileID: 1993581344449621484, guid: b643ed40d9c91c04085a613072fe4b98, type: 3}
