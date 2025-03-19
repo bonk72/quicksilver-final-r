@@ -10,6 +10,7 @@ public class PowerUpManager : MonoBehaviour
 
 
     public GameObject fireball;
+    public GameObject turret;
     
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,9 @@ public class PowerUpManager : MonoBehaviour
     }
     public void fireballActivate(){
         fireball.SetActive(true);
+    }
+    public void turretActivate(){
+
     }
 
 }

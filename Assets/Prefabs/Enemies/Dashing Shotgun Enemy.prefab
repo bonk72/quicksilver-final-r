@@ -142,7 +142,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.004, y: 0.707}
+  m_AnchoredPosition: {x: 0, y: 0.707}
   m_SizeDelta: {x: 26.5104, y: 26.5104}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8026076749856694623
@@ -516,12 +516,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   wallDetectionRange: 3
-  detectionRadius: 40
-  optimalAttackRange: 20
-  detectionDelay: 0.5
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
+  detectionRadius: 40
+  optimalAttackRange: 20
+  detectionDelay: 0.5
   projectilePrefab: {fileID: 1449580188017570035, guid: 4978859e57d63ce439c554528dd75b2e, type: 3}
   shootingCooldown: 2
   projectileSpeed: 15

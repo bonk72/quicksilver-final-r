@@ -458,15 +458,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   wallDetectionRange: 0
-  detectionRadius: 40
-  optimalAttackRange: 40
-  detectionDelay: 0.5
   wallLayer:
     serializedVersion: 2
     m_Bits: 0
+  detectionRadius: 40
+  optimalAttackRange: 40
+  detectionDelay: 0.5
   projectilePrefab: {fileID: 1449580188017570035, guid: 6b6a52164ffdbd14aab558b589b9c3d2, type: 3}
   shootingCooldown: 2
-  projectileSpeed: 60
+  projectileSpeed: 30
   minSpreadAngle: 0
   maxSpreadAngle: 0
   projectileInvisibleTime: 0.02
@@ -481,6 +481,7 @@ MonoBehaviour:
   dashOnHitSpeed: 12
   dashOnHitDistance: 3
   dashOnHitDuration: 0.2
+  dashOnHitCooldown: 1.5
 --- !u!114 &4525505788621230204
 MonoBehaviour:
   m_ObjectHideFlags: 0

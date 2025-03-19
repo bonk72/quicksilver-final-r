@@ -209,7 +209,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 437340273582994687}
@@ -257,7 +257,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -363805142, guid: 597392379ddebf44fb195773c2dbdfb4, type: 3}
   m_Color: {r: 1, g: 0.8467263, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -282,17 +282,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 13
   wallDetectionRange: 3
-  detectionRadius: 40
-  optimalAttackRange: 5
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
-  timeDamage: 5
+  detectionRadius: 40
+  optimalAttackRange: 5
   detectionDelay: 0.5
+  timeDamage: 5
   minStrafingSpeed: 4
   maxStrafingSpeed: 7
   minStrafingDirectionChangeTime: 0.5
   maxStrafingDirectionChangeTime: 1.5
+  strafeAngleVariation: 20
   forwardMoveChance: 0.1
   forwardMoveDuration: 0.3
   dashSpeed: 80

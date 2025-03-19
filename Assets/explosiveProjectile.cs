@@ -9,12 +9,16 @@ public class explosiveProjectile : MonoBehaviour
     public float speed = 5f;
     public float lifetime = 3f; // How long the projectile lives before exploding
     private float timeAlive = 0f;
+    public bool collideWithWalls = true; // Toggle whether projectile collides with walls
     
     [Header("Explosion Settings")]
     public float explosionRadius = 3f; // Radius of the explosion
     public float explosionDamage = 15f; // Damage dealt by the explosion
     public float explosionForce = 500f; // Force applied to rigidbodies
     public GameObject explosionEffectPrefab; // Optional visual effect for explosion
+    
+    // Reference to EnemyHealth component if present
+    private EnemyHealth healthComponent;
     
     // Start is called before the first frame update
     void Start()
@@ -24,6 +28,9 @@ public class explosiveProjectile : MonoBehaviour
         {
             direction = transform.right;
         }
+        
+        // Check if this object also has an EnemyHealth component
+        healthComponent = GetComponent<EnemyHealth>();
     }
 
     // Update is called once per frame
@@ -51,10 +58,28 @@ public class explosiveProjectile : MonoBehaviour
     // Called when the projectile collides with something
     void OnTriggerEnter2D(Collider2D collision)
     {
+        // Special case: If this object has EnemyHealth component and is hit by a bullet
+        // Let the EnemyHealth component handle the bullet collision
+        if (healthComponent != null && collision.CompareTag("bullet"))
+        {
+            // Don't explode - EnemyHealth will handle the damage
+            return;
+        }
+        
         // Don't explode when hitting other projectiles
         if (!collision.CompareTag("bullet") && !collision.CompareTag("enemyProjectile"))
         {
-            // Explode on impact without dealing direct hit damage
+            // Check if it's a wall collision
+            bool isWall = collision.gameObject.layer == LayerMask.NameToLayer("normalWall");
+            
+            // If it's a wall and collideWithWalls is false, ignore the collision
+            if (isWall && !collideWithWalls)
+            {
+                // Do nothing, pass through the wall
+                return;
+            }
+            
+            // Otherwise, explode on impact without dealing direct hit damage
             Explode();
         }
     }

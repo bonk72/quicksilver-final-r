@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 0ff8bd651a084c24b8adc5c168fa7b82, type: 3}
-  m_Color: {r: 1, g: 0.9647059, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: ef83a61647db0c94aab0a6d8466c4404, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -219,8 +219,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.9647059, b: 0, a: 0.19607843}
-      key1: {r: 1, g: 0.9647059, b: 0, a: 0}
+      key0: {r: 1, g: 0.79205453, b: 0, a: 0.19607843}
+      key1: {r: 1, g: 0.7975486, b: 0, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
