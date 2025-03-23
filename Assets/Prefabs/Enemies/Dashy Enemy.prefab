@@ -257,7 +257,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -826904512, guid: 556092839a7e5ae44a7328451fc1dd78, type: 3}
   m_Color: {r: 0.24957943, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -282,17 +282,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   wallDetectionRange: 3
-  detectionRadius: 40
-  optimalAttackRange: 9
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
-  timeDamage: 8
+  detectionRadius: 40
+  optimalAttackRange: 9
   detectionDelay: 0.5
+  timeDamage: 8
   minStrafingSpeed: 4
   maxStrafingSpeed: 7
   minStrafingDirectionChangeTime: 0.5
   maxStrafingDirectionChangeTime: 1.5
+  strafeAngleVariation: 20
   forwardMoveChance: 0.1
   forwardMoveDuration: 0.3
   dashSpeed: 100

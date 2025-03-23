@@ -257,8 +257,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.78079414, a: 1}
+  m_Sprite: {fileID: 1054750887, guid: 84b6fc8f450d35246bd1bee205aab8a5, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -484,12 +484,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   wallDetectionRange: 3
-  detectionRadius: 40
-  optimalAttackRange: 12
-  detectionDelay: 0.5
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
+  detectionRadius: 40
+  optimalAttackRange: 12
+  detectionDelay: 0.5
   projectilePrefab: {fileID: 1449580188017570035, guid: c85736f445a208d4cafebe8c760ab0f1, type: 3}
   shootingCooldown: 1
   projectileSpeed: 35
@@ -507,6 +507,7 @@ MonoBehaviour:
   dashOnHitSpeed: 12
   dashOnHitDistance: 3
   dashOnHitDuration: 0.2
+  dashOnHitCooldown: 1.5
 --- !u!1 &4520431182427248596
 GameObject:
   m_ObjectHideFlags: 0
