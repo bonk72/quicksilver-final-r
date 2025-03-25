@@ -136,7 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defDamage: 15
   damage: 15
-  isImpermeable: 0
+  isPermeable: 0
   lifetime: 0.2
   price: 0
   fireSpeed: 70
@@ -145,6 +145,7 @@ MonoBehaviour:
   spread: 0
   projcount: 0
   shotgun: 0
+  permaAlive: 0
 --- !u!96 &4697008399379268141
 TrailRenderer:
   serializedVersion: 3
@@ -218,7 +219,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0, a: 0.19607843}
+      key0: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 0.19607843}
       key1: {r: 1, g: 1, b: 1, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}

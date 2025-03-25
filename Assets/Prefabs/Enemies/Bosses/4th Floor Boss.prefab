@@ -541,7 +541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 12
-  wallDetectionRange: 3
+  wallDetectionRange: 1
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -553,7 +553,7 @@ MonoBehaviour:
   maxStrafingSpeed: 9
   minStrafingDirectionChangeTime: 2
   maxStrafingDirectionChangeTime: 3
-  strafeAngleVariation: 20
+  strafeAngleVariation: 0
   forwardMoveChance: 0
   forwardMoveDuration: 0
   dashSpeed: 80

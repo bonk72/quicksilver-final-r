@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: 5d62559096b51d046a5eaba8bf06a228, type: 3}
-  m_Color: {r: 1, g: 0.44906098, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: b9c4c4f5d0b69f64da788e11afae573c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defDamage: 5
   damage: 5
-  isImpermeable: 0
+  isPermeable: 0
   lifetime: 0.2
   price: 50
   fireSpeed: 70
@@ -145,6 +145,7 @@ MonoBehaviour:
   spread: 0
   projcount: 0
   shotgun: 0
+  permaAlive: 0
 --- !u!96 &4697008399379268141
 TrailRenderer:
   serializedVersion: 3

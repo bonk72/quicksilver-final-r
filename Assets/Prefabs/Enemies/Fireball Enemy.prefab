@@ -242,6 +242,7 @@ GameObject:
   - component: {fileID: 1221117252929396958}
   - component: {fileID: 1061500325422261264}
   - component: {fileID: 8541724225371492620}
+  - component: {fileID: 5806657681649675977}
   m_Layer: 8
   m_Name: Fireball Enemy
   m_TagString: enemy
@@ -259,7 +260,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 437340273582994687}
@@ -340,17 +341,17 @@ MonoBehaviour:
   optimalAttackRange: 9
   detectionDelay: 0.5
   timeDamage: 4
-  minStrafingSpeed: 4
+  minStrafingSpeed: 5
   maxStrafingSpeed: 7
-  minStrafingDirectionChangeTime: 0.5
-  maxStrafingDirectionChangeTime: 1.5
-  strafeAngleVariation: 20
+  minStrafingDirectionChangeTime: 1
+  maxStrafingDirectionChangeTime: 2
+  strafeAngleVariation: 0
   forwardMoveChance: 0
   forwardMoveDuration: 0
-  dashSpeed: 100
+  dashSpeed: 60
   dashDuration: 0.1
-  minDashCooldown: 0.6
-  maxDashCooldown: 1
+  minDashCooldown: 1
+  maxDashCooldown: 1.5
   stunDuration: 0.3
 --- !u!61 &8985416275253545274
 BoxCollider2D:
@@ -436,7 +437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e945dcc02b5e5c1418c8a74eecad6520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 200
   currentHealth: 0
   healthbar: {fileID: 8702077756776200247}
   timeToAdd: 2
@@ -554,6 +555,27 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!95 &5806657681649675977
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915225212442025883}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b58371b587546c142a47373e5b114a4b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4520431182427248596
 GameObject:
   m_ObjectHideFlags: 0

@@ -223,6 +223,7 @@ GameObject:
   - component: {fileID: 1061500325422261264}
   - component: {fileID: 2977531969146811867}
   - component: {fileID: 3988708808875425149}
+  - component: {fileID: 2458154598504847305}
   m_Layer: 8
   m_Name: Dashing Shotgun Enemy
   m_TagString: enemy
@@ -240,7 +241,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 437340273582994687}
@@ -384,7 +385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e945dcc02b5e5c1418c8a74eecad6520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 80
+  maxHealth: 110
   currentHealth: 0
   healthbar: {fileID: 8702077756776200247}
   timeToAdd: 2
@@ -523,7 +524,7 @@ MonoBehaviour:
   optimalAttackRange: 20
   detectionDelay: 0.5
   projectilePrefab: {fileID: 1449580188017570035, guid: 4978859e57d63ce439c554528dd75b2e, type: 3}
-  shootingCooldown: 2
+  shootingCooldown: 1.5
   projectileSpeed: 15
   minSpreadAngle: 0
   maxSpreadAngle: 0
@@ -531,15 +532,36 @@ MonoBehaviour:
   shootsInBursts: 1
   burstProjectileCount: 3
   burstAngleSpread: 5
-  minStrafingSpeed: 2
-  maxStrafingSpeed: 4
+  minStrafingSpeed: 4
+  maxStrafingSpeed: 6
   minStrafingDirectionChangeTime: 1
   maxStrafingDirectionChangeTime: 2
   dashOnHit: 1
   dashOnHitSpeed: 80
-  dashOnHitDistance: 10
+  dashOnHitDistance: 7
   dashOnHitDuration: 0.1
   dashOnHitCooldown: 2
+--- !u!95 &2458154598504847305
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915225212442025883}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: baebc1994a4c962479b6c1473aafec1b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4520431182427248596
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,7 +834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 1061500325422261264}
-  executeThreshold: 0.4
+  executeThreshold: 0.2
   healthbar: {fileID: 8702077756776200247}
 --- !u!1 &8203383572684021431
 GameObject:

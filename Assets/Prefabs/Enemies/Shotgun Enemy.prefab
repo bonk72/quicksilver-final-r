@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 1061500325422261264}
   - component: {fileID: 2977531969146811867}
   - component: {fileID: 3988708808875425149}
+  - component: {fileID: 2691094894469875032}
   m_Layer: 8
   m_Name: Shotgun Enemy
   m_TagString: enemy
@@ -209,7 +210,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 437340273582994687}
@@ -258,7 +259,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -1778584959, guid: a4d51b1c82fc1c5409f5c8ffef3005fa, type: 3}
-  m_Color: {r: 0.33962283, g: 0, b: 0.8018868, a: 1}
+  m_Color: {r: 0.8123555, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -352,7 +353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e945dcc02b5e5c1418c8a74eecad6520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 80
+  maxHealth: 100
   currentHealth: 0
   healthbar: {fileID: 8702077756776200247}
   timeToAdd: 2
@@ -483,7 +484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 8
-  wallDetectionRange: 3
+  wallDetectionRange: 1
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -492,22 +493,43 @@ MonoBehaviour:
   detectionDelay: 0.5
   projectilePrefab: {fileID: 1449580188017570035, guid: 4978859e57d63ce439c554528dd75b2e, type: 3}
   shootingCooldown: 2
-  projectileSpeed: 15
+  projectileSpeed: 20
   minSpreadAngle: 0
   maxSpreadAngle: 0
   projectileInvisibleTime: 0.02
   shootsInBursts: 1
-  burstProjectileCount: 8
-  burstAngleSpread: 40
-  minStrafingSpeed: 1.5
-  maxStrafingSpeed: 2
+  burstProjectileCount: 6
+  burstAngleSpread: 30
+  minStrafingSpeed: 4
+  maxStrafingSpeed: 6
   minStrafingDirectionChangeTime: 2
   maxStrafingDirectionChangeTime: 4
   dashOnHit: 0
-  dashOnHitSpeed: 12
-  dashOnHitDistance: 3
-  dashOnHitDuration: 0.2
-  dashOnHitCooldown: 1.5
+  dashOnHitSpeed: 0
+  dashOnHitDistance: 0
+  dashOnHitDuration: 0
+  dashOnHitCooldown: 0
+--- !u!95 &2691094894469875032
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915225212442025883}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 630fb010e5bf1ff4481c1197d1897edb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4520431182427248596
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,7 +802,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 1061500325422261264}
-  executeThreshold: 0.4
+  executeThreshold: 0.2
   healthbar: {fileID: 8702077756776200247}
 --- !u!1 &8203383572684021431
 GameObject:

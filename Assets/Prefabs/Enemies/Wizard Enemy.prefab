@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 3988708808875425149}
   - component: {fileID: 4525505788621230204}
   - component: {fileID: 4226646672282077527}
+  - component: {fileID: 6564082087086574896}
   m_Layer: 8
   m_Name: Wizard Enemy
   m_TagString: enemy
@@ -210,7 +211,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 437340273582994687}
@@ -471,17 +472,17 @@ MonoBehaviour:
   maxSpreadAngle: 0
   projectileInvisibleTime: 0.02
   shootsInBursts: 0
-  burstProjectileCount: 3
-  burstAngleSpread: 30
+  burstProjectileCount: 0
+  burstAngleSpread: 0
   minStrafingSpeed: 0
   maxStrafingSpeed: 0
   minStrafingDirectionChangeTime: 0
   maxStrafingDirectionChangeTime: 0
   dashOnHit: 0
-  dashOnHitSpeed: 12
-  dashOnHitDistance: 3
-  dashOnHitDuration: 0.2
-  dashOnHitCooldown: 1.5
+  dashOnHitSpeed: 0
+  dashOnHitDistance: 0
+  dashOnHitDuration: 0
+  dashOnHitCooldown: 0
 --- !u!114 &4525505788621230204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,6 +527,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!95 &6564082087086574896
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915225212442025883}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2608e085afb813e47908665046fc0566, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4520431182427248596
 GameObject:
   m_ObjectHideFlags: 0
