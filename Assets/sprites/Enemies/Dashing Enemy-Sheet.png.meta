@@ -111,8 +111,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e677d5f17e6cf5643bb66ac56751238a
-      internalID: -826904512
+      spriteID: 86c3b561f7c4c2942acd7720444e06e8
+      internalID: -1809282287
       vertices: []
       indices: 
       edges: []
@@ -132,8 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 03eefca4c6cda414b899c59598c7ac75
-      internalID: -938229582
+      spriteID: ee0cc5b8b1880bf4db4c1657c3cd30ee
+      internalID: 733258424
       vertices: []
       indices: 
       edges: []
@@ -153,8 +153,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 43196b5263f2cfb42903779895d267c2
-      internalID: 1365307841
+      spriteID: 78e0fb8c1b5b5fd4a94c39ba5ce73711
+      internalID: 770921693
       vertices: []
       indices: 
       edges: []
@@ -170,9 +170,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Dashing Enemy-Sheet_0: -826904512
-      Dashing Enemy-Sheet_1: -938229582
-      Dashing Enemy-Sheet_2: 1365307841
+      Dashing Enemy-Sheet_0: -1809282287
+      Dashing Enemy-Sheet_1: 733258424
+      Dashing Enemy-Sheet_2: 770921693
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

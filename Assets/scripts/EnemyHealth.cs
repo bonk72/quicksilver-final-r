@@ -11,6 +11,7 @@ public class EnemyHealth : MonoBehaviour
     private float threshold;
     public float timeToAdd;
     public int goldToAdd;
+    public bool invulnerable;
     
     // Event that will be triggered when damage is taken
     public event Action<float> OnDamageTaken;
@@ -20,7 +21,7 @@ public class EnemyHealth : MonoBehaviour
         threshold = GetComponentInChildren<execute>().executeThreshold;
         currentHealth = maxHealth;
         healthbar = GetComponentInChildren<floatinghealthbar>();
-        healthbar.UpdateHealthBar(currentHealth, maxHealth, threshold);
+        healthbar.UpdateHealthBar(currentHealth, maxHealth, threshold, invulnerable);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -37,8 +38,16 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        // If invulnerable, don't take damage
+        if (invulnerable)
+        {
+            // Still update the healthbar to show the invulnerable state
+            healthbar.UpdateHealthBar(currentHealth, maxHealth, threshold, invulnerable);
+            return;
+        }
+
         currentHealth -= damage;
-        healthbar.UpdateHealthBar(currentHealth, maxHealth, threshold);
+        healthbar.UpdateHealthBar(currentHealth, maxHealth, threshold, invulnerable);
 
         // Trigger the OnDamageTaken event
         OnDamageTaken?.Invoke(damage);
@@ -64,6 +73,12 @@ public class EnemyHealth : MonoBehaviour
     }
     
     public void execute(){
+        // If invulnerable, don't execute
+        if (invulnerable)
+        {
+            return;
+        }
+        
         // Check if this GameObject has a dropOnDeath component
         dropOnDeath dropComponent = GetComponent<dropOnDeath>();
         if (dropComponent != null)

@@ -258,7 +258,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -826904512, guid: 556092839a7e5ae44a7328451fc1dd78, type: 3}
+  m_Sprite: {fileID: -1809282287, guid: 556092839a7e5ae44a7328451fc1dd78, type: 3}
   m_Color: {r: 0.24957943, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  wallDetectionRange: 3
+  wallDetectionRange: 1
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -297,8 +297,8 @@ MonoBehaviour:
   strafeAngleVariation: 0
   forwardMoveChance: 0
   forwardMoveDuration: 0
-  dashSpeed: 100
-  dashDuration: 0.1
+  dashSpeed: 80
+  dashDuration: 0.2
   minDashCooldown: 0.3
   maxDashCooldown: 0.5
   stunDuration: 0.3
@@ -391,6 +391,7 @@ MonoBehaviour:
   healthbar: {fileID: 8702077756776200247}
   timeToAdd: 2
   goldToAdd: 0
+  invulnerable: 0
 --- !u!96 &8541724225371492620
 TrailRenderer:
   serializedVersion: 3

@@ -134,11 +134,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb38a4f84f60ff45819b3265af76e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defDamage: 5
-  damage: 5
+  defDamage: 8
+  damage: 8
   isPermeable: 0
   lifetime: 0.2
-  price: 50
+  price: 100
   fireSpeed: 70
   fireRate: 0.1
   index: 1

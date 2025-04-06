@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defDamage: 0
-  damage: 4
+  damage: 3
   isPermeable: 0
   lifetime: 1
   price: 0

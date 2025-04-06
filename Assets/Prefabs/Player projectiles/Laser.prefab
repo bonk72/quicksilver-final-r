@@ -138,7 +138,7 @@ MonoBehaviour:
   damage: 1
   isPermeable: 1
   lifetime: 0.5
-  price: 5000
+  price: 1000
   fireSpeed: 120
   fireRate: 0.007
   index: 3

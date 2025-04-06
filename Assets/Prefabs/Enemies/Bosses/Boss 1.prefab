@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 6316502556458690698}
   - component: {fileID: 2171931821643372596}
   - component: {fileID: 2675132080506591259}
+  - component: {fileID: 3160835694190466759}
   m_Layer: 8
   m_Name: Boss 1
   m_TagString: enemy
@@ -260,8 +261,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: 5d62559096b51d046a5eaba8bf06a228, type: 3}
-  m_Color: {r: 0, g: 0.09729433, b: 1, a: 1}
+  m_Sprite: {fileID: -445867078, guid: 08364e1116938404797a0188bb126322, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -315,6 +316,7 @@ MonoBehaviour:
   healthbar: {fileID: 8702077756776200247}
   timeToAdd: 30
   goldToAdd: 0
+  invulnerable: 0
 --- !u!96 &8541724225371492620
 TrailRenderer:
   serializedVersion: 3
@@ -554,6 +556,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!95 &3160835694190466759
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915225212442025883}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6dc4c19de0924fe439377de30bc8f91f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4520431182427248596
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,8 +688,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000087738, y: -4.1}
-  m_SizeDelta: {x: 161.44, y: 44.29}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 161.59, y: 44.29}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &903872580912468024
 MonoBehaviour:
@@ -734,7 +757,7 @@ MonoBehaviour:
   Slider: {fileID: 903872580912468024}
   cameraa: {fileID: 8026076749856694623}
   target: {fileID: 8233480619156063912}
-  offset: {x: 0, y: 0.7, z: 0}
+  offset: {x: 0, y: 3.5, z: 0}
 --- !u!1 &7421218287683213121
 GameObject:
   m_ObjectHideFlags: 0

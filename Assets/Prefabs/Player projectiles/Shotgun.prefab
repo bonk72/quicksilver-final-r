@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -2413806693520163455, guid: 5d62559096b51d046a5eaba8bf06a228, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.9345741, a: 1}
+  m_Sprite: {fileID: 21300000, guid: da4c643bf5e466343ab6b3bcd874a687, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -134,17 +134,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb38a4f84f60ff45819b3265af76e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defDamage: 3
-  damage: 3
-  isImpermeable: 0
-  lifetime: 0.2
-  price: 3000
-  fireSpeed: 150
-  fireRate: 1
+  defDamage: 15
+  damage: 15
+  isPermeable: 0
+  lifetime: 2
+  price: 500
+  fireSpeed: 50
+  fireRate: 0.7
   index: 2
-  spread: 10
-  projcount: 10
+  spread: 15
+  projcount: 5
   shotgun: 1
+  permaAlive: 0
 --- !u!96 &4697008399379268141
 TrailRenderer:
   serializedVersion: 3
@@ -218,8 +219,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0.93333334, a: 0.19607843}
-      key1: {r: 1, g: 0, b: 0.93333334, a: 0}
+      key0: {r: 0.5411765, g: 0.4156863, b: 0.1137255, a: 0.19607843}
+      key1: {r: 0.5411765, g: 0.4156863, b: 0.1137255, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -235,8 +236,8 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
-      atime2: 0
+      atime1: 1157
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
@@ -245,7 +246,7 @@ TrailRenderer:
       m_Mode: 0
       m_ColorSpace: 0
       m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
+      m_NumAlphaKeys: 3
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
