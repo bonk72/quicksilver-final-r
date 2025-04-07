@@ -289,7 +289,7 @@ MonoBehaviour:
   detectionRadius: 40
   optimalAttackRange: 9
   detectionDelay: 0.5
-  timeDamage: 8
+  timeDamage: 4
   minStrafingSpeed: 6
   maxStrafingSpeed: 8
   minStrafingDirectionChangeTime: 0.5

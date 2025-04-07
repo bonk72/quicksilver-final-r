@@ -358,6 +358,7 @@ MonoBehaviour:
   healthbar: {fileID: 8702077756776200247}
   timeToAdd: 2
   goldToAdd: 0
+  invulnerable: 0
 --- !u!96 &2977531969146811867
 TrailRenderer:
   serializedVersion: 3
@@ -493,7 +494,7 @@ MonoBehaviour:
   detectionDelay: 0.5
   projectilePrefab: {fileID: 1449580188017570035, guid: c85736f445a208d4cafebe8c760ab0f1, type: 3}
   shootingCooldown: 1
-  projectileSpeed: 25
+  projectileSpeed: 15
   minSpreadAngle: 0
   maxSpreadAngle: 0
   projectileInvisibleTime: 0.02

@@ -289,7 +289,7 @@ MonoBehaviour:
   detectionRadius: 40
   optimalAttackRange: 6
   detectionDelay: 0.5
-  timeDamage: 10
+  timeDamage: 4
   minStrafingSpeed: 5
   maxStrafingSpeed: 7
   minStrafingDirectionChangeTime: 2
@@ -391,6 +391,7 @@ MonoBehaviour:
   healthbar: {fileID: 8702077756776200247}
   timeToAdd: 2
   goldToAdd: 0
+  invulnerable: 0
 --- !u!96 &2977531969146811867
 TrailRenderer:
   serializedVersion: 3
