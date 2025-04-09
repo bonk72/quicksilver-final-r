@@ -75,10 +75,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
@@ -116,15 +116,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   commonPowerUps:
-  - {fileID: 3211356989995696435, guid: 140f5b6b9e8bbee4793d38515a747e2c, type: 3}
+  - {fileID: 3211356989995696435, guid: a6f566d71fdb5434e9e65a3b88b803ba, type: 3}
   - {fileID: 3211356989995696435, guid: 2816b52b7ae93df45a5018332a3d7fb4, type: 3}
   - {fileID: 3211356989995696435, guid: c3d80fb255a8622488a15f9492544254, type: 3}
   - {fileID: 3211356989995696435, guid: 552510e6874991a478d161da147e302f, type: 3}
   - {fileID: 3211356989995696435, guid: 7b99d9949996a554c87d754116687fc0, type: 3}
+  - {fileID: 3211356989995696435, guid: 140f5b6b9e8bbee4793d38515a747e2c, type: 3}
   uncommonPowerUps:
   - {fileID: 3211356989995696435, guid: a007fea2a0199564d822ca6224570ccb, type: 3}
   - {fileID: 3211356989995696435, guid: 251a51fb47aed554c9a8d3748a211b57, type: 3}
   - {fileID: 3211356989995696435, guid: 86f30c037ac7b8947baefc01bd1c08ce, type: 3}
+  - {fileID: 3211356989995696435, guid: 2a2dd4ce08043460a8f2feb5f33addd6, type: 3}
+  - {fileID: 3211356989995696435, guid: 065f5c9118a664006b8d26039f418cf0, type: 3}
   rarePowerUps:
   - {fileID: 3211356989995696435, guid: ce400aad36ee29141a233deba75b6608, type: 3}
   - {fileID: 3211356989995696435, guid: 128b78c40dc3e894bbc6dd8ec1fa5860, type: 3}

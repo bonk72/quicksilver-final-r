@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6448431113444182345}
   - component: {fileID: 5567320274417115165}
   m_Layer: 0
-  m_Name: Attack Power Up
+  m_Name: Attack Power Up 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

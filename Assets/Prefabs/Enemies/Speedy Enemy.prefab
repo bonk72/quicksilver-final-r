@@ -389,9 +389,13 @@ MonoBehaviour:
   maxHealth: 80
   currentHealth: 0
   healthbar: {fileID: 8702077756776200247}
-  timeToAdd: 2
+  timeToAdd: 4
   goldToAdd: 0
   invulnerable: 0
+  particleEffect: {fileID: 339525147793303024, guid: d893b7d74f89b4383ad66d88f4f0e0a4, type: 3}
+  damageParticleEffect: {fileID: 339525147793303024, guid: 8b8a62f77cf2340d2a9a43d0dcbfdfe3, type: 3}
+  deathParticleColor: {r: 1, g: 0.99247044, b: 0, a: 1}
+  deathParticleScale: 3
 --- !u!96 &8541724225371492620
 TrailRenderer:
   serializedVersion: 3
@@ -798,7 +802,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 1061500325422261264}
-  executeThreshold: 0.4
+  executeThreshold: 0.3
   healthbar: {fileID: 8702077756776200247}
 --- !u!1 &8203383572684021431
 GameObject:

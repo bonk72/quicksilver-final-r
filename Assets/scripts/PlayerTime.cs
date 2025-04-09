@@ -8,7 +8,7 @@ using System;
 public class PlayerTime : MonoBehaviour
 {
     [Header("Time Settings")]
-    public static float maxTime = 100f; // Starting time in seconds
+    public static float maxTime = 150f; // Starting time in seconds
     public float currentTime;
     public float timeDecreaseRate = 1f; // How much time decreases per second
 
@@ -26,6 +26,7 @@ public class PlayerTime : MonoBehaviour
     [Header("Revival System")]
     public static int revCount;
     private int currentRev;
+    public GameObject reviveParticleEffect; // Particle effect to play when revived
 
     [Header("Low Time Effect Settings")]
     public float lowTimeThreshold = 30f; // Time threshold for activating effects
@@ -421,6 +422,11 @@ public class PlayerTime : MonoBehaviour
             currentRev -=1;
             currentTime = maxTime / 2;
             revText.text = currentRev.ToString();
+            
+            // Play revive particle effect if assigned
+            if (reviveParticleEffect != null) {
+                Instantiate(reviveParticleEffect, transform.position, Quaternion.identity);
+            }
         }
         else{
             isDead = true;

@@ -210,7 +210,7 @@ Transform:
   m_GameObject: {fileID: 3915225212442025883}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.02, y: 0, z: 0}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -330,8 +330,13 @@ MonoBehaviour:
   maxHealth: 80
   currentHealth: 0
   healthbar: {fileID: 8702077756776200247}
-  timeToAdd: 2
+  timeToAdd: 4
   goldToAdd: 0
+  invulnerable: 0
+  particleEffect: {fileID: 339525147793303024, guid: d893b7d74f89b4383ad66d88f4f0e0a4, type: 3}
+  damageParticleEffect: {fileID: 339525147793303024, guid: 8b8a62f77cf2340d2a9a43d0dcbfdfe3, type: 3}
+  deathParticleColor: {r: 0, g: 0.9672723, b: 1, a: 1}
+  deathParticleScale: 3
 --- !u!96 &2977531969146811867
 TrailRenderer:
   serializedVersion: 3

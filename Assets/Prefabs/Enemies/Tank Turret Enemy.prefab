@@ -359,6 +359,11 @@ MonoBehaviour:
   healthbar: {fileID: 8702077756776200247}
   timeToAdd: 5
   goldToAdd: 0
+  invulnerable: 0
+  particleEffect: {fileID: 339525147793303024, guid: d893b7d74f89b4383ad66d88f4f0e0a4, type: 3}
+  damageParticleEffect: {fileID: 339525147793303024, guid: 8b8a62f77cf2340d2a9a43d0dcbfdfe3, type: 3}
+  deathParticleColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
+  deathParticleScale: 3
 --- !u!96 &2977531969146811867
 TrailRenderer:
   serializedVersion: 3

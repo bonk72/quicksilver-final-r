@@ -317,6 +317,10 @@ MonoBehaviour:
   timeToAdd: 30
   goldToAdd: 0
   invulnerable: 0
+  particleEffect: {fileID: 339525147793303024, guid: d893b7d74f89b4383ad66d88f4f0e0a4, type: 3}
+  damageParticleEffect: {fileID: 339525147793303024, guid: 8b8a62f77cf2340d2a9a43d0dcbfdfe3, type: 3}
+  deathParticleColor: {r: 0.024614334, g: 0, b: 1, a: 1}
+  deathParticleScale: 3
 --- !u!96 &8541724225371492620
 TrailRenderer:
   serializedVersion: 3
@@ -390,8 +394,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.84705883, b: 0, a: 0.49803922}
-      key1: {r: 1, g: 0.84705883, b: 0, a: 0}
+      key0: {r: 0, g: 0.03573942, b: 1, a: 0.49803922}
+      key1: {r: 0, g: 0.03529412, b: 1, a: 0}
       key2: {r: 1, g: 1, b: 1, a: 0}
       key3: {r: 1, g: 1, b: 1, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -481,7 +485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerPoint: {fileID: 0}
-  dashRadius: 5
+  dashRadius: 3
   dashInterval: 2
   dashSpeed: 200
   dashDistance: 20
